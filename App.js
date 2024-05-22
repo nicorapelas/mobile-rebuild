@@ -1,20 +1,83 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { useFonts } from '@use-expo/font'
+import LoaderFullScreen from './src/components/common/LoaderFullScreen'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import { Provider as AuthProvider } from './src/context/AuthContext'
+import { Provider as UniversalProvider } from './src/context/UniversalContext'
+import { Provider as AttributeProvider } from './src/context/AttributeContext'
+import { Provider as ContactInfoProvider } from './src/context/ContactInfoContext'
+import { Provider as EmployHistoryProvider } from './src/context/EmployHistoryContext'
+import { Provider as ExperienceProvider } from './src/context/ExperienceContext'
+import { Provider as FirstImpressionProvider } from './src/context/FirstImpressionContext'
+import { Provider as InterestProvider } from './src/context/InterestContext'
+import { Provider as LanguageProvider } from './src/context/LanguageContext'
+import { Provider as PersonalInfoProvider } from './src/context/PersonalInfoContext'
+import { Provider as PersonalSummaryProvider } from './src/context/PersonalSummaryContext'
+import { Provider as ReferenceProvider } from './src/context/ReferenceContext'
+import { Provider as SecondEduProvider } from './src/context/SecondEduContext'
+import { Provider as SkillProvider } from './src/context/SkillContext'
+import { Provider as TertEduProvider } from './src/context/TertEduContext'
+import { Provider as PhotoProvider } from './src/context/PhotoContext'
+import { Provider as CertificateProvider } from './src/context/CertificateContext'
+import { Provider as ShareCVProvider } from './src/context/ShareCVContext'
+import { Provider as BurgerMenuProvider } from './src/context/BurgerMenuContext'
+import { Provider as AffiliateProvider } from './src/context/AffiliateContext'
+import { Provider as ConfigProvider } from './src/context/ConfigContext'
+import AppScreens from './src/components/common/AppScreens'
+
+const customFonts = {
+  oswaldBold: require('./assets/fonts/oswald/Oswald-Bold.ttf'),
+  sourceSansProBold: require('./assets/fonts/sourceSansPro/SourceSansPro-Bold.ttf'),
+  sourceSansProLight: require('./assets/fonts/sourceSansPro/SourceSansPro-Light.ttf'),
+  sourceSansProExtraLight: require('./assets/fonts/sourceSansPro/SourceSansPro-ExtraLight.ttf'),
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  const [isLoaded] = useFonts(customFonts)
+  if (!isLoaded) return <LoaderFullScreen />
+  return (
+    <AuthProvider>
+      <ConfigProvider>
+        <UniversalProvider>
+          <BurgerMenuProvider>
+            <AffiliateProvider>
+              <ShareCVProvider>
+                <AttributeProvider>
+                  <ContactInfoProvider>
+                    <EmployHistoryProvider>
+                      <ExperienceProvider>
+                        <InterestProvider>
+                          <FirstImpressionProvider>
+                            <LanguageProvider>
+                              <PersonalInfoProvider>
+                                <PersonalSummaryProvider>
+                                  <ReferenceProvider>
+                                    <SecondEduProvider>
+                                      <SkillProvider>
+                                        <TertEduProvider>
+                                          <PhotoProvider>
+                                            <CertificateProvider>
+                                              <AppScreens />
+                                            </CertificateProvider>
+                                          </PhotoProvider>
+                                        </TertEduProvider>
+                                      </SkillProvider>
+                                    </SecondEduProvider>
+                                  </ReferenceProvider>
+                                </PersonalSummaryProvider>
+                              </PersonalInfoProvider>
+                            </LanguageProvider>
+                          </FirstImpressionProvider>
+                        </InterestProvider>
+                      </ExperienceProvider>
+                    </EmployHistoryProvider>
+                  </ContactInfoProvider>
+                </AttributeProvider>
+              </ShareCVProvider>
+            </AffiliateProvider>
+          </BurgerMenuProvider>
+        </UniversalProvider>
+      </ConfigProvider>
+    </AuthProvider>
+  )
+}
