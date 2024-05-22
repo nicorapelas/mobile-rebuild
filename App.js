@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFonts } from '@use-expo/font'
-import LoaderFullScreen from './src/components/common/LoaderFullScreen'
+import LoaderFullScreen from './common/LoaderFullScreen'
 
 import { Provider as AuthProvider } from './src/context/AuthContext'
 import { Provider as UniversalProvider } from './src/context/UniversalContext'
@@ -23,7 +23,7 @@ import { Provider as ShareCVProvider } from './src/context/ShareCVContext'
 import { Provider as BurgerMenuProvider } from './src/context/BurgerMenuContext'
 import { Provider as AffiliateProvider } from './src/context/AffiliateContext'
 import { Provider as ConfigProvider } from './src/context/ConfigContext'
-import AppScreens from './src/components/common/AppScreens'
+import AppScreens from './common/AppScreens'
 
 const customFonts = {
   oswaldBold: require('./assets/fonts/oswald/Oswald-Bold.ttf'),
