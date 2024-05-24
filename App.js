@@ -3,6 +3,7 @@ import { useFonts } from '@use-expo/font'
 import LoaderFullScreen from './common/LoaderFullScreen'
 
 import { Provider as AuthProvider } from './src/context/AuthContext'
+import { Provider as NavProvider } from './src/context/NavContext'
 import { Provider as UniversalProvider } from './src/context/UniversalContext'
 import { Provider as AttributeProvider } from './src/context/AttributeContext'
 import { Provider as ContactInfoProvider } from './src/context/ContactInfoContext'
@@ -37,47 +38,49 @@ export default function App() {
   if (!isLoaded) return <LoaderFullScreen />
   return (
     <AuthProvider>
-      <ConfigProvider>
-        <UniversalProvider>
-          <BurgerMenuProvider>
-            <AffiliateProvider>
-              <ShareCVProvider>
-                <AttributeProvider>
-                  <ContactInfoProvider>
-                    <EmployHistoryProvider>
-                      <ExperienceProvider>
-                        <InterestProvider>
-                          <FirstImpressionProvider>
-                            <LanguageProvider>
-                              <PersonalInfoProvider>
-                                <PersonalSummaryProvider>
-                                  <ReferenceProvider>
-                                    <SecondEduProvider>
-                                      <SkillProvider>
-                                        <TertEduProvider>
-                                          <PhotoProvider>
-                                            <CertificateProvider>
-                                              <AppScreens />
-                                            </CertificateProvider>
-                                          </PhotoProvider>
-                                        </TertEduProvider>
-                                      </SkillProvider>
-                                    </SecondEduProvider>
-                                  </ReferenceProvider>
-                                </PersonalSummaryProvider>
-                              </PersonalInfoProvider>
-                            </LanguageProvider>
-                          </FirstImpressionProvider>
-                        </InterestProvider>
-                      </ExperienceProvider>
-                    </EmployHistoryProvider>
-                  </ContactInfoProvider>
-                </AttributeProvider>
-              </ShareCVProvider>
-            </AffiliateProvider>
-          </BurgerMenuProvider>
-        </UniversalProvider>
-      </ConfigProvider>
+      <NavProvider>
+        <ConfigProvider>
+          <UniversalProvider>
+            <BurgerMenuProvider>
+              <AffiliateProvider>
+                <ShareCVProvider>
+                  <AttributeProvider>
+                    <ContactInfoProvider>
+                      <EmployHistoryProvider>
+                        <ExperienceProvider>
+                          <InterestProvider>
+                            <FirstImpressionProvider>
+                              <LanguageProvider>
+                                <PersonalInfoProvider>
+                                  <PersonalSummaryProvider>
+                                    <ReferenceProvider>
+                                      <SecondEduProvider>
+                                        <SkillProvider>
+                                          <TertEduProvider>
+                                            <PhotoProvider>
+                                              <CertificateProvider>
+                                                <AppScreens />
+                                              </CertificateProvider>
+                                            </PhotoProvider>
+                                          </TertEduProvider>
+                                        </SkillProvider>
+                                      </SecondEduProvider>
+                                    </ReferenceProvider>
+                                  </PersonalSummaryProvider>
+                                </PersonalInfoProvider>
+                              </LanguageProvider>
+                            </FirstImpressionProvider>
+                          </InterestProvider>
+                        </ExperienceProvider>
+                      </EmployHistoryProvider>
+                    </ContactInfoProvider>
+                  </AttributeProvider>
+                </ShareCVProvider>
+              </AffiliateProvider>
+            </BurgerMenuProvider>
+          </UniversalProvider>
+        </ConfigProvider>
+      </NavProvider>
     </AuthProvider>
   )
 }
