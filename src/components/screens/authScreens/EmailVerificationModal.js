@@ -8,27 +8,33 @@ import {
 } from 'react-native'
 import { Overlay } from 'react-native-elements'
 
-import { Context as AuthContext } from '../../context/AuthContext'
-import { Context as NavContext } from '../../context/NavContext'
+import { Context as AuthContext } from '../../../context/AuthContext'
+import LoaderModal from '../../common/LoaderModal'
 
-const ModalLink = ({ message, routeName, buttonText }) => {
-  const { clearErrorMessage, clearApiMessage } = useContext(AuthContext)
-
-  const { setScreenSelected } = useContext(NavContext)
-
+const EmailVerificationModal = ({
+  message = '',
+  routeName = '',
+  email = '',
+  buttonOneText = 'OK',
+  buttonTwoText = 'Resend',
+}) => {
   const visible = !!message
 
-  // Log message and visible to debug
-  console.log('Message:', message)
-  console.log('Visible:', visible)
+  const {
+    state: { loading },
+    resendVerificationEmail,
+    clearApiMessage,
+    clearErrorMessage,
+  } = useContext(AuthContext)
 
   return (
     <Overlay
       isVisible={visible}
       windowBackgroundColor="rgba(0, 0, 0, 0.75)"
-      overlayStyle={styles.overlay}
+      overlayStyle={{ backgroundColor: 'rgba(0, 0, 0, 1)' }}
     >
       <View style={styles.messageBed}>
+        <LoaderModal loading={loading} />
         <Text
           style={
             Platform.OS === 'ios'
@@ -40,12 +46,14 @@ const ModalLink = ({ message, routeName, buttonText }) => {
         </Text>
         <TouchableOpacity
           onPress={() => {
-            clearErrorMessage()
             clearApiMessage()
-            setScreenSelected('loginEmail')
+            clearErrorMessage()
           }}
         >
-          <Text style={styles.button}>{buttonText}</Text>
+          <Text style={styles.button}>{buttonOneText}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => resendVerificationEmail({ email })}>
+          <Text style={styles.resendLink}>{buttonTwoText}</Text>
         </TouchableOpacity>
       </View>
     </Overlay>
@@ -53,28 +61,22 @@ const ModalLink = ({ message, routeName, buttonText }) => {
 }
 
 const styles = StyleSheet.create({
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 1)',
-    width: 'auto',
-    height: 'auto',
-  },
   messageBed: {
-    width: '90%',
+    width: '80%',
     borderRadius: 7,
-    alignItems: 'center',
   },
   messageTextIos: {
     color: '#F9B321',
     fontWeight: '100',
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
-    paddingVertical: 20,
+    paddingVertical: 15,
     paddingHorizontal: 20,
   },
   messageTextAndroid: {
     color: '#F9B321',
     fontFamily: 'sourceSansProLight',
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -88,8 +90,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 'auto',
     backgroundColor: '#59BB46',
-    marginTop: 20,
+  },
+  resendLink: {
+    color: '#fff',
+    fontSize: 16,
+    marginTop: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 4,
+    alignSelf: 'center',
+    width: 'auto',
+    backgroundColor: '#288acd',
   },
 })
 
-export default ModalLink
+export default EmailVerificationModal

@@ -5,12 +5,10 @@ import { Context as NavContext } from '../../context/NavContext'
 import Spacer from '../common/Spacer'
 
 const NavLink = ({ text, routeName }) => {
-  const {
-    state: { screenSelected },
-  } = useContext(NavContext)
+  const { setScreenSelected } = useContext(NavContext)
 
   const handlePress = () => {
-    screenSelected({ routeName })
+    setScreenSelected(routeName)
   }
 
   return (
@@ -24,9 +22,13 @@ const NavLink = ({ text, routeName }) => {
 
 const styles = StyleSheet.create({
   link: {
+    color: '#278acd',
+    width: '90%',
+    paddingHorizontal: 5,
+    fontSize: 16,
+    fontWeight: '500',
+    alignSelf: 'center',
     textAlign: 'center',
-    color: 'blue',
-    fontSize: 18,
   },
 })
 

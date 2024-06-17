@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   View,
   Text,
@@ -15,90 +15,88 @@ import { useKeyboard } from '@react-native-community/hooks'
 
 import AuthScreensBackArrowLink from '../../links/AuthScreensBackArrowLink'
 import NavLink from '../../links/NavLink'
-import LoaderFullScreen from '../../common/LoaderFullScreen'
-import { Context as AuthContext } from '../../../context/AuthContext'
 import ModalLink from '../../links/ModalLink'
+import EmailVerificationModal from './EmailVerificationModal'
+import LoaderFullScreen from '../../common/LoaderFullScreen'
 import logo from '../../../../assets/images/logo-w400.png'
+import { Context as AuthContext } from '../../../context/AuthContext'
 
-const RegisterEmailScreen = () => {
+const LoginEmailScreen = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPasswors] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
   const {
-    state: { loading, apiMessage, errorMessage, introAffiliateCode },
-    register,
+    state: { loading, errorMessage, apiMessage },
+    login,
     clearApiMessage,
     clearErrorMessage,
   } = useContext(AuthContext)
 
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-
   const keyboard = useKeyboard()
 
-  const renderInstruction = () => {
-    if (apiMessage || errorMessage) return null
+  const renderWarnMessage = () => {
+    if (!errorMessage || apiMessage) return null
+    const { warn } = errorMessage
+    if (!warn) return null
+    return <ModalLink buttonText="OK" message={warn} routeName="loginEmail" />
+  }
+
+  const renderNotVerifiedMessage = () => {
+    if (!errorMessage || apiMessage) return null
+    const { notVerified } = errorMessage
+    if (!notVerified) return null
     return (
-      <>
-        {password.length < 6 ? (
-          <Text style={styles.passwordMessage}>
-            Password must be 6 or more characters
-          </Text>
-        ) : null}
-        {password !== password2 || password.length < 1 ? (
-          <Text style={styles.passwordMessage}>Passwords must match</Text>
-        ) : null}
-      </>
+      <EmailVerificationModal
+        buttonOneText="OK"
+        message={notVerified}
+        routeName="LoginEmail"
+        buttonTwoText="Re-send verification email"
+        email={email}
+      />
     )
   }
 
   const renderErrorMessage = () => {
-    if (!errorMessage) return null
-    const { email, password, password2 } = errorMessage
+    if (!errorMessage || apiMessage) return null
+    const { email, password } = errorMessage
+    const { notVerified } = errorMessage
+    if (notVerified) return null
     return (
       <View style={styles.errorMessageBed}>
         {!email ? null : <Text style={styles.errorText}>{email}</Text>}
         {!password ? null : <Text style={styles.errorText}>{password}</Text>}
-        {!password2 ? null : <Text style={styles.errorText}>{password2}</Text>}
       </View>
     )
   }
 
-  const renderSuccessMessage = () => {
+  const renderResendSuccessMessage = () => {
     if (!apiMessage) return null
     const { success } = apiMessage
+    if (!success) return null
     return (
-      <ModalLink buttonText="OK" message={success} routeName="LoginEmail" />
+      <ModalLink buttonText="OK" message={success} routeName="loginEmail" />
     )
   }
 
   const renderForm = () => {
     return (
       <View style={styles.container}>
-        {renderSuccessMessage()}
+        {renderWarnMessage()}
+        {renderNotVerifiedMessage()}
+        {renderResendSuccessMessage()}
         <Image style={styles.logo} source={logo} resizeMode="contain" />
         <Text
           style={
-            Platform.OS === 'ios' ? styles.headingIos : styles.headingAndroid
+            Platform.Os === 'ios' ? styles.headingIos : styles.headingAndroid
           }
         >
-          Sign up with your email
+          Login with email
         </Text>
         <View style={styles.formInputs}>
           <TextInput
             style={styles.input}
-            textAlign="center"
-            placeholder="Full Name"
-            value={fullName}
-            onChangeText={setFullName}
-            autoCapitalize="words"
-            autoCorrect={false}
-            onFocus={clearErrorMessage}
-          />
-          <TextInput
-            style={styles.input}
             keyboardType="email-address"
-            textAlign="center"
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
@@ -106,15 +104,12 @@ const RegisterEmailScreen = () => {
             autoCorrect={false}
             onFocus={clearErrorMessage}
           />
-          {renderInstruction()}
-          {renderErrorMessage()}
           <View style={styles.passwordInputBed}>
             <TextInput
               style={styles.passwordInput}
-              textAlign="center"
               placeholder="Password"
               value={password}
-              onChangeText={setPassword}
+              onChangeText={setPasswors}
               autoCapitalize="none"
               autoCorrect={false}
               onFocus={clearErrorMessage}
@@ -130,35 +125,24 @@ const RegisterEmailScreen = () => {
               />
             </TouchableOpacity>
           </View>
-          <TextInput
-            style={styles.input}
-            placeholder="Confirm password"
-            value={password2}
-            onChangeText={setPassword2}
-            autoCapitalize="none"
-            autoCorrect={false}
-            onFocus={clearErrorMessage}
-            secureTextEntry={!showPassword}
-          />
         </View>
+        {renderErrorMessage()}
         <TouchableOpacity
           style={styles.button}
-          onPress={() =>
-            register({
-              fullName,
-              email,
-              password,
-              password2,
-              introAffiliateCode,
-            })
-          }
+          onPress={() => login({ email, password })}
         >
-          <Text style={styles.buttonText}>Sign Up</Text>
+          <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
         <View style={styles.navLink}>
           <NavLink
-            routeName="loginEmail"
-            text="Already have an account? Login here."
+            routeName="registerEmail"
+            text="Don't have an account? Register here."
+          />
+        </View>
+        <View style={styles.navLink}>
+          <NavLink
+            routeName="passwordForgot"
+            text="Forgot your password? Reset password here."
           />
         </View>
       </View>
@@ -209,16 +193,39 @@ const styles = StyleSheet.create({
   formInputs: {
     alignItems: 'center',
   },
-  passwordMessage: {
-    color: '#F9B321',
-  },
   input: {
-    backgroundColor: '#ffff',
+    backgroundColor: '#ffffff',
     height: 50,
     width: '80%',
     textAlign: 'center',
     borderRadius: 7,
     margin: 5,
+  },
+  passwordInputBed: {
+    flexDirection: 'row',
+    width: '80%',
+  },
+  passwordInput: {
+    backgroundColor: '#ffff',
+    height: 50,
+    textAlign: 'center',
+    borderTopLeftRadius: 7,
+    borderBottomLeftRadius: 7,
+    marginVertical: 5,
+    flex: 3,
+  },
+  eyeButtonBed: {
+    backgroundColor: '#555555',
+    flex: 1,
+    justifyContent: 'center',
+    marginVertical: 5,
+    borderTopRightRadius: 7,
+    borderBottomRightRadius: 7,
+  },
+  eyeButtonIcon: {
+    color: '#ffff',
+    fontSize: 27,
+    alignSelf: 'center',
   },
   logo: {
     width: 200,
@@ -270,41 +277,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
-  link: {
-    textAlign: 'center',
-    color: 'blue',
-  },
-  passwordInputBed: {
-    flexDirection: 'row',
-    width: '80%',
-  },
-  passwordInput: {
-    backgroundColor: '#ffff',
-    height: 50,
-    textAlign: 'center',
-    borderTopLeftRadius: 7,
-    borderBottomLeftRadius: 7,
-    marginVertical: 5,
-    flex: 3,
-  },
-  eyeButtonBed: {
-    backgroundColor: '#555555',
-    flex: 1,
-    justifyContent: 'center',
-    marginVertical: 5,
-    borderTopRightRadius: 7,
-    borderBottomRightRadius: 7,
-  },
-  eyeButtonIcon: {
-    color: '#ffff',
-    fontSize: 27,
-    alignSelf: 'center',
-  },
   navLink: {
-    paddingTop: 30,
-    flexWrap: 'wrap',
+    paddingTop: 20,
     alignSelf: 'center',
+    flexWrap: 'wrap',
   },
 })
 
-export default RegisterEmailScreen
+export default LoginEmailScreen

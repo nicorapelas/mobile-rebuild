@@ -58,14 +58,12 @@ const fetchUser = (dispatch) => async () => {
   }
 }
 
-// const tryLocalSignin = (dispatch) => async () => {
-//   const token = await AsyncStorage.getItem('token')
-//   if (!token || token === null) navigate('loginFlow')
-//   if (token) {
-//     dispatch({ type: 'SIGN_IN', payload: token })
-//     navigate('mainFlow')
-//   }
-// }
+const tryLocalSignin = (dispatch) => async () => {
+  const token = await AsyncStorage.getItem('token')
+  if (token) {
+    dispatch({ type: 'SIGN_IN', payload: token })
+  }
+}
 
 const register =
   (dispatch) =>
@@ -79,6 +77,7 @@ const register =
         password2,
         affiliatceIntroCode: introAffiliateCode,
       })
+      console.log(`@register response.data:`, response.data)
       if (response.data.error)
         dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       if (response.data.success)
@@ -101,6 +100,7 @@ const resendVerificationEmail =
         '/auth/user/resend-verification-email',
         { email }
       )
+      console.log(`@resendVerificationEmail response.data:`, response.data)
       dispatch({ type: 'ADD_API_MESSAGE', payload: response.data })
       dispatch({ type: 'STOP_LOADING' })
       return
@@ -122,6 +122,7 @@ const login =
         email,
         password,
       })
+      console.log(`@login response.data:`, response.data)
       if (response.data.error) {
         dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       } else {
@@ -152,6 +153,7 @@ const forgotPassword =
     dispatch({ type: 'LOADING' })
     try {
       const response = await ngrokApi.post('/auth/user/forgot', { email })
+      console.log(`@forgotPassword response.data:`, response.data)
       dispatch({ type: 'STOP_LOADING' })
       if (response.data.error) {
         dispatch({ type: 'ADD_ERROR', payload: response.data.error })
@@ -189,6 +191,7 @@ const clearErrorMessage = (dispatch) => () => {
 const createDeviceInfo = (dispatch) => async (data) => {
   try {
     const response = await ngrokApi.post('/auth/device', data)
+    console.log(`@createDeviceInfo, response.data:`, response.data)
     dispatch({ type: 'CREATE_USERS_DEVICE', payload: response.data })
     return
   } catch (error) {
@@ -216,6 +219,7 @@ const createAffiliate = (dispatch) => async (email) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch('/auth/user/create-affiliate', email)
+    console.log(`@createAffiliate response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
     }
@@ -237,6 +241,7 @@ const fetchAffiliateInfo = (dispatch) => async (email) => {
       '/auth/user/fetch-affiliate-info',
       email
     )
+    console.log(`@fetchAffiliateInfo response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
@@ -257,6 +262,7 @@ const fetchAllAffiliates = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/auth/user/fetch-affiliates')
+    console.log(`@fetchAllAffiliates response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
     }
@@ -285,6 +291,7 @@ const deleteAccount = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete('/auth/user/delete-account')
+    console.log(`@deleteAccount response.data:`, response.data)
     dispatch({ type: 'ADD_API_MESSAGE', payload: response.data })
     return
   } catch (error) {
@@ -297,6 +304,7 @@ const fetchUsersInfoContent = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/users-info')
+    console.log(`@fetchUsersInfoContent response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
@@ -318,7 +326,7 @@ export const { Provider, Context } = createDataContext(
     signout,
     clearApiMessage,
     clearErrorMessage,
-    // tryLocalSignin,
+    tryLocalSignin,
     forgotPassword,
     fetchUser,
     acceptTermsAndConditions,

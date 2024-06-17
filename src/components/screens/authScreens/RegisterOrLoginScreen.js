@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import {
   View,
   ScrollView,
@@ -9,7 +9,6 @@ import {
   Image,
   Platform,
 } from 'react-native'
-// import { NavigationEvents } from 'react-navigation'
 import { AntDesign } from '@expo/vector-icons'
 
 import { Context as AuthContext } from '../../../context/AuthContext'
@@ -21,6 +20,7 @@ import ModalLink from '../../links/ModalLink'
 const RegisterOrLoginScreen = ({ navigation }) => {
   const [code, setCode] = useState(null)
   const [intro, setIntro] = useState(null)
+  const [delayed, setDelayed] = useState(false)
 
   const {
     state: { loading, apiMessage },
@@ -29,6 +29,14 @@ const RegisterOrLoginScreen = ({ navigation }) => {
   } = useContext(AuthContext)
 
   const { setScreenSelected } = useContext(NavContext)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDelayed(true)
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   const renderApiMessage = () => {
     if (!apiMessage) return null
@@ -86,13 +94,9 @@ const RegisterOrLoginScreen = ({ navigation }) => {
   }
 
   const renderContent = () => {
-    if (loading) return <LoaderFullScreen />
+    if (loading || !delayed) return <LoaderFullScreen />
     return (
       <View style={Platform.OS === 'ios' ? styles.bedIos : styles.bedAndroid}>
-        {/* <NavigationEvents
-          onWillBlur={clearApiMessage}
-          onWillFocus={clearApiMessage}
-        /> */}
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
           style={styles.container}
