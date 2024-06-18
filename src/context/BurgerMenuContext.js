@@ -20,6 +20,8 @@ const BurgerMenuReducer = (state, action) => {
       return { ...state, managmentMenuVisible: action.payload }
     case 'GET_LATEST_APP_VERSION':
       return { ...state, latestAppVersion: action.payload }
+    case 'SET_INFO_TO_SHOW':
+      return { ...state, InfoToShow: action.payload }
     default:
       return state
   }
@@ -66,6 +68,11 @@ const setUsersInfoContentVisible = (dispatch) => async (value) => {
   dispatch({ type: 'SET_USERS_INFO_CONTENT_VISIBLE', payload: value })
 }
 
+const setInfoToShow = (dispatch) => async (data) => {
+  console.log(`action data:`, data)
+  dispatch({ type: 'SET_INFO_TO_SHOW', payload: data })
+}
+
 export const { Context, Provider } = createDataContext(
   BurgerMenuReducer,
   {
@@ -77,6 +84,7 @@ export const { Context, Provider } = createDataContext(
     setDeleteAccountMessageVisible,
     getLatestAppVersion,
     setUsersInfoContentVisible,
+    setInfoToShow,
   },
   // Initial state
   {
@@ -88,5 +96,6 @@ export const { Context, Provider } = createDataContext(
     affiliateInfoVisible: false,
     managmentMenuVisible: false,
     latestAppVersion: null,
+    InfoToShow: '',
   }
 )

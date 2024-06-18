@@ -12,11 +12,10 @@ import { Context as AuthContext } from '../../../context/AuthContext'
 import LoaderModal from '../../common/LoaderModal'
 
 const EmailVerificationModal = ({
-  message = '',
-  routeName = '',
-  email = '',
-  buttonOneText = 'OK',
-  buttonTwoText = 'Resend',
+  message,
+  email,
+  buttonOneText,
+  buttonTwoText,
 }) => {
   const visible = !!message
 

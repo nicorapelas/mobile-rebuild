@@ -2,57 +2,26 @@ import React, { useContext } from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
-import TermsAndConditionsText from './TermsAndConditionsText'
 
 const TermsAndConditionsBurgerButton = () => {
-  const {
-    state: {
-      termAndConditionsVisible,
-      signOutMessageVisible,
-      deleteAccountMessageVisible,
-      affiliateInfoVisible,
-      managmentMenuVisible,
-    },
-    setTermsAndConditionVisible,
-  } = useContext(BurgerMenuContext)
+  const { setInfoToShow } = useContext(BurgerMenuContext)
+
+  const handlePress = () => {
+    setInfoToShow('terms')
+  }
 
   const button = () => {
     return (
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => setTermsAndConditionVisible(true)}
-      >
+      <TouchableOpacity onPress={handlePress}>
         <Text style={styles.buttonText}>Terms & Conditions</Text>
       </TouchableOpacity>
     )
   }
 
-  const renderContent = () => {
-    if (
-      signOutMessageVisible ||
-      affiliateInfoVisible ||
-      managmentMenuVisible ||
-      deleteAccountMessageVisible
-    )
-      return null
-    if (termAndConditionsVisible) return <TermsAndConditionsText />
-    return button()
-  }
-
-  return renderContent()
+  return button()
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#278ACD',
-    borderColor: '#ffff',
-    alignSelf: 'center',
-    width: '80%',
-    borderWidth: 2,
-    borderRadius: 7,
-    marginVertical: 3,
-    padding: 7,
-  },
   buttonText: {
     color: '#ffff',
     fontSize: 16,

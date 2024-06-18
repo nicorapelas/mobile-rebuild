@@ -5,25 +5,24 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
 
 const TermsAndConditions = () => {
-  const { setTermsAndConditionVisible } = useContext(BurgerMenuContext)
+  const { setInfoToShow } = useContext(BurgerMenuContext)
+
+  const handlePress = () => {
+    setInfoToShow('')
+  }
 
   const renderContent = () => {
     return (
       <ScrollView style={styles.container}>
-        <TouchableOpacity
-          style={styles.topCloseButton}
-          onPress={() => setTermsAndConditionVisible(false)}
-        >
-          <Ionicons
-            style={styles.backButtonIcon}
-            name="ios-close-circle-outline"
-          />
+        <TouchableOpacity style={styles.topCloseButton} onPress={handlePress}>
+          <AntDesign name="closecircle" style={styles.backButtonIcon} />
         </TouchableOpacity>
         <Text style={styles.heading}>CV CLOUD</Text>
         <Text style={styles.heading}>
@@ -1478,14 +1477,8 @@ const TermsAndConditions = () => {
         >
           E-mail address: nicorapelas@gmail.com
         </Text>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => setTermsAndConditionVisible(false)}
-        >
-          <Ionicons
-            style={styles.backButtonIcon}
-            name="ios-close-circle-outline"
-          />
+        <TouchableOpacity style={styles.backButton} onPress={handlePress}>
+          <AntDesign name="closecircle" style={styles.backButtonIcon} />
           <Text style={styles.backButtonText}>close</Text>
         </TouchableOpacity>
       </ScrollView>

@@ -1,18 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
+import InfoFullscreenRender from '../../common/InfoFullscreenRender'
 import Header from '../../common/Header'
 import NavBar from '../../common/NavBar'
+import Menu from '../../common/menu/Menu'
+import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
 
 const Main = () => {
+  const {
+    state: { InfoToShow },
+  } = useContext(BurgerMenuContext)
+
   const renderContent = () => {
+    console.log(`InfoToShow:`, InfoToShow)
+    if (InfoToShow !== '') return <InfoFullscreenRender />
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Header />
         </View>
         <View style={styles.mainViewContainer}>
-          <Text>Main view</Text>
+          {/* MainView content is nested in Menu */}
+          <Menu />
         </View>
         <View style={styles.navBarContainer}>
           <NavBar />

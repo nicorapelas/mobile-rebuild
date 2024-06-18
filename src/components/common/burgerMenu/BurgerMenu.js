@@ -1,5 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from 'react-native'
 import Constants from 'expo-constants'
 import { Overlay } from 'react-native-elements'
 import { Entypo, Ionicons } from '@expo/vector-icons'
@@ -30,73 +36,25 @@ const BurgerMenu = () => {
     getLatestAppVersion,
   } = useContext(BurgerMenuContext)
 
-  const appVersion = Constants.manifest.version
+  const appVersion = Constants.manifest?.version || '1.0.0'
 
   useEffect(() => {
     getLatestAppVersion()
   }, [])
 
+  const handlePress = () => {
+    setBurgerMenuVisible(!burgerMenuVisible)
+  }
+
   const burgerMenuButton = () => {
     return (
-      <TouchableOpacity
-        style={styles.burgerMenuIconBed}
-        onPress={() => setBurgerMenuVisible(true)}
-      >
+      <TouchableOpacity style={styles.burgerMenuIconBed} onPress={handlePress}>
         <Entypo name="menu" style={styles.burgerMenuIcon} />
       </TouchableOpacity>
     )
   }
 
-  const burgerMenuModal = () => {
-    return (
-      <Overlay
-        isVisible={burgerMenuVisible}
-        overlayStyle={styles.modal}
-        onBackdropPress={() => {
-          setTermsAndConditionVisible(false)
-          setSignOutMessageVisible(false)
-          setBurgerMenuVisible(false)
-          setAffiliateInfoVisible(false)
-          setManagmentMenuVisible(false)
-        }}
-        width="95%"
-        height="auto"
-      >
-        <View style={styles.burgerMenuBed}>
-          {termAndConditionsVisible ||
-          signOutMessageVisible ||
-          deleteAccountMessageVisible ||
-          managmentMenuVisible ||
-          affiliateInfoVisible ? null : (
-            <TouchableOpacity onPress={() => setBurgerMenuVisible(false)}>
-              <Ionicons
-                name="close-circle-sharp"
-                style={styles.burgerMenuCloseButton}
-              />
-            </TouchableOpacity>
-          )}
-          <TermsAndConditionsBurgerButton />
-          <Affiliate />
-          <Managment />
-          <SignOut />
-          <DeleteAccount />
-          <Text style={styles.versionText}>www.cvcloud.app</Text>
-          <Text style={styles.versionText}>v{appVersion}</Text>
-        </View>
-      </Overlay>
-    )
-  }
-
-  const renderContent = () => {
-    return (
-      <>
-        {burgerMenuButton()}
-        {burgerMenuModal()}
-      </>
-    )
-  }
-
-  return renderContent()
+  return burgerMenuButton()
 }
 
 const styles = StyleSheet.create({

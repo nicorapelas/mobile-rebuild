@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
 
 import AuthScreensBackArrowLink from '../../links/AuthScreensBackArrowLink'
@@ -18,13 +18,13 @@ import NavLink from '../../links/NavLink'
 import LoaderFullScreen from '../../common/LoaderFullScreen'
 import { Context as AuthContext } from '../../../context/AuthContext'
 import ModalLink from '../../links/ModalLink'
+import validateEmailInput from '../../../validation/email'
 import logo from '../../../../assets/images/logo-w400.png'
 
 const RegisterEmailScreen = () => {
   const {
-    state: { loading, apiMessage, errorMessage, introAffiliateCode },
+    state: { loading, apiMessage, introAffiliateCode },
     register,
-    clearApiMessage,
     clearErrorMessage,
   } = useContext(AuthContext)
 
@@ -33,35 +33,49 @@ const RegisterEmailScreen = () => {
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [showSubmitButton, setShowSubmitButton] = useState(false)
+
+  useEffect(() => {
+    const { isValid } = validateEmailInput(email)
+    let check = 0
+    if (fullName.length > 4) check = check + 1
+    if (isValid) check = check + 1
+    if (password.length > 5) check = check + 1
+    if (password === password2) check = check + 1
+    if (check === 4) setShowSubmitButton(true)
+  }, [fullName, email, password, password2])
 
   const keyboard = useKeyboard()
 
-  const renderInstruction = () => {
-    if (apiMessage || errorMessage) return null
-    return (
-      <>
-        {password.length < 6 ? (
-          <Text style={styles.passwordMessage}>
-            Password must be 6 or more characters
-          </Text>
-        ) : null}
-        {password !== password2 || password.length < 1 ? (
-          <Text style={styles.passwordMessage}>Passwords must match</Text>
-        ) : null}
-      </>
-    )
+  const validateEmail = () => {
+    const { errors, isValid } = validateEmailInput(email)
+    if (!isValid) {
+      return <Text style={styles.validateText}>{errors.email}</Text>
+    }
+    return <AntDesign style={styles.checkedIcon} name="checkcircle" />
   }
 
-  const renderErrorMessage = () => {
-    if (!errorMessage) return null
-    const { email, password, password2 } = errorMessage
-    return (
-      <View style={styles.errorMessageBed}>
-        {!email ? null : <Text style={styles.errorText}>{email}</Text>}
-        {!password ? null : <Text style={styles.errorText}>{password}</Text>}
-        {!password2 ? null : <Text style={styles.errorText}>{password2}</Text>}
-      </View>
-    )
+  const validatePassword = () => {
+    if (password.length < 6) {
+      return (
+        <Text style={styles.validateText}>
+          Password must be 6 or more characters
+        </Text>
+      )
+    }
+    if (password !== password2 || password.length < 1) {
+      return <Text style={styles.validateText}>Passwords must match</Text>
+    }
+    return <AntDesign style={styles.checkedIcon} name="checkcircle" />
+  }
+
+  const validateName = () => {
+    if (fullName.length < 6) {
+      return <Text style={styles.validateText}>'Full Name' is required</Text>
+    }
+    if (fullName.length > 5) {
+      return <AntDesign style={styles.checkedIcon} name="checkcircle" />
+    }
   }
 
   const renderSuccessMessage = () => {
@@ -95,6 +109,7 @@ const RegisterEmailScreen = () => {
             autoCorrect={false}
             onFocus={clearErrorMessage}
           />
+          <View style={styles.validateContainer}>{validateName()}</View>
           <TextInput
             style={styles.input}
             keyboardType="email-address"
@@ -106,8 +121,7 @@ const RegisterEmailScreen = () => {
             autoCorrect={false}
             onFocus={clearErrorMessage}
           />
-          {renderInstruction()}
-          {renderErrorMessage()}
+          <View style={styles.validateContainer}>{validateEmail()}</View>
           <View style={styles.passwordInputBed}>
             <TextInput
               style={styles.passwordInput}
@@ -141,20 +155,23 @@ const RegisterEmailScreen = () => {
             secureTextEntry={!showPassword}
           />
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            register({
-              fullName,
-              email,
-              password,
-              password2,
-              introAffiliateCode,
-            })
-          }
-        >
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
+        <View style={styles.validateContainer}>{validatePassword()}</View>
+        {!showSubmitButton ? null : (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              register({
+                fullName,
+                email,
+                password,
+                password2,
+                introAffiliateCode,
+              })
+            }
+          >
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+        )}
         <View style={styles.navLink}>
           <NavLink
             routeName="loginEmail"
@@ -209,8 +226,17 @@ const styles = StyleSheet.create({
   formInputs: {
     alignItems: 'center',
   },
-  passwordMessage: {
+  validateContainer: {
+    marginBottom: 10,
+  },
+  validateText: {
     color: '#F9B321',
+    textAlign: 'center',
+  },
+  checkedIcon: {
+    color: '#25bf02',
+    fontSize: 17,
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#ffff',
@@ -248,31 +274,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  buttonIcon: {
-    color: '#ffff',
-    paddingRight: 10,
-    marginTop: 13,
-  },
   buttonText: {
     color: '#ffff',
     paddingVertical: 10,
-  },
-  errorMessageBed: {
-    backgroundColor: 'red',
-    borderRadius: 7,
-    width: '80%',
-    alignSelf: 'center',
-    paddingVertical: 15,
-    marginVertical: 5,
-  },
-  errorText: {
-    color: '#ffff',
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  link: {
-    textAlign: 'center',
-    color: 'blue',
   },
   passwordInputBed: {
     flexDirection: 'row',

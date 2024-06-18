@@ -122,7 +122,6 @@ const login =
         email,
         password,
       })
-      console.log(`@login response.data:`, response.data)
       if (response.data.error) {
         dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       } else {
@@ -130,7 +129,6 @@ const login =
         dispatch({ type: 'SIGN_IN', payload: response.data.token })
         dispatch({ type: 'STOP_LOADING' })
         console.log(`user signed in`)
-        // navigate('mainFlow')
       }
     } catch (err) {
       dispatch({
@@ -144,7 +142,6 @@ const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem('token')
   dispatch({ type: 'SIGN_OUT' })
   console.log(`user signed out`)
-  // navigate('loginFlow')
 }
 
 const forgotPassword =

@@ -2,12 +2,17 @@ import React, { useContext } from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 import { Context as NavContext } from '../../context/NavContext'
+import { Context as AuthContext } from '../../context/AuthContext'
 import Spacer from '../common/Spacer'
 
 const NavLink = ({ text, routeName }) => {
   const { setScreenSelected } = useContext(NavContext)
 
+  const { clearApiMessage, clearErrorMessage } = useContext(AuthContext)
+
   const handlePress = () => {
+    clearApiMessage()
+    clearErrorMessage()
     setScreenSelected(routeName)
   }
 
