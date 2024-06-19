@@ -79,12 +79,14 @@ const LoginEmailScreen = () => {
     )
   }
 
-  const renderForm = () => {
+  const formHeader = () => {
+    if (keyboard.keyboardShown) {
+      return (
+        <Image style={styles.logoSmall} source={logo} resizeMode="contain" />
+      )
+    }
     return (
-      <View style={styles.container}>
-        {renderWarnMessage()}
-        {renderNotVerifiedMessage()}
-        {renderResendSuccessMessage()}
+      <>
         <Image style={styles.logo} source={logo} resizeMode="contain" />
         <Text
           style={
@@ -93,6 +95,17 @@ const LoginEmailScreen = () => {
         >
           Login with email
         </Text>
+      </>
+    )
+  }
+
+  const renderForm = () => {
+    return (
+      <View style={styles.container}>
+        {renderWarnMessage()}
+        {renderNotVerifiedMessage()}
+        {renderResendSuccessMessage()}
+        {formHeader()}
         <View style={styles.formInputs}>
           <TextInput
             style={styles.input}
@@ -230,6 +243,11 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     alignSelf: 'center',
+  },
+  logoSmall: {
+    width: 100,
+    height: 34,
+    marginLeft: '10%',
   },
   headingIos: {
     color: '#F9B321',

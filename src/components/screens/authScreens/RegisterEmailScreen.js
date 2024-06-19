@@ -23,7 +23,7 @@ import logo from '../../../../assets/images/logo-w400.png'
 
 const RegisterEmailScreen = () => {
   const {
-    state: { loading, apiMessage, introAffiliateCode },
+    state: { loading, errorMessage, apiMessage, introAffiliateCode },
     register,
     clearErrorMessage,
   } = useContext(AuthContext)
@@ -78,18 +78,34 @@ const RegisterEmailScreen = () => {
     }
   }
 
+  const renderErrorMessage = () => {
+    if (!errorMessage) return null
+    const { email, password, password2 } = errorMessage
+    return (
+      <View style={styles.errorMessageBed}>
+        {!email ? null : <Text style={styles.errorText}>{email}</Text>}
+        {!password ? null : <Text style={styles.errorText}>{password}</Text>}
+        {!password2 ? null : <Text style={styles.errorText}>{password2}</Text>}
+      </View>
+    )
+  }
+
   const renderSuccessMessage = () => {
     if (!apiMessage) return null
     const { success } = apiMessage
     return (
-      <ModalLink buttonText="OK" message={success} routeName="LoginEmail" />
+      <ModalLink buttonText="OK" message={success} routeName="loginEmail" />
     )
   }
 
-  const renderForm = () => {
+  const formHeader = () => {
+    if (keyboard.keyboardShown) {
+      return (
+        <Image style={styles.logoSmall} source={logo} resizeMode="contain" />
+      )
+    }
     return (
-      <View style={styles.container}>
-        {renderSuccessMessage()}
+      <>
         <Image style={styles.logo} source={logo} resizeMode="contain" />
         <Text
           style={
@@ -98,6 +114,15 @@ const RegisterEmailScreen = () => {
         >
           Sign up with your email
         </Text>
+      </>
+    )
+  }
+
+  const renderForm = () => {
+    return (
+      <View style={styles.container}>
+        {renderSuccessMessage()}
+        {formHeader()}
         <View style={styles.formInputs}>
           <TextInput
             style={styles.input}
@@ -121,6 +146,7 @@ const RegisterEmailScreen = () => {
             autoCorrect={false}
             onFocus={clearErrorMessage}
           />
+          {renderErrorMessage()}
           <View style={styles.validateContainer}>{validateEmail()}</View>
           <View style={styles.passwordInputBed}>
             <TextInput
@@ -250,6 +276,11 @@ const styles = StyleSheet.create({
     width: 200,
     alignSelf: 'center',
   },
+  logoSmall: {
+    width: 100,
+    height: 34,
+    marginLeft: '10%',
+  },
   headingIos: {
     color: '#F9B321',
     textAlign: 'center',
@@ -263,6 +294,19 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: 10,
     fontFamily: 'sourceSansProLight',
+  },
+  errorMessageBed: {
+    backgroundColor: 'red',
+    borderRadius: 7,
+    width: '80%',
+    alignSelf: 'center',
+    paddingVertical: 15,
+    marginVertical: 5,
+  },
+  errorText: {
+    color: '#ffff',
+    textAlign: 'center',
+    fontSize: 18,
   },
   button: {
     backgroundColor: '#278acd',

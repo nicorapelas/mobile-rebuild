@@ -5,6 +5,7 @@ import MainViewRender from '../../screens/mainScreens/mainView/MainViewRender'
 import TermsAndConditionsBurgerButton from '../burgerMenu/TermsAndConditionsBurgerButton'
 import SignOut from '../burgerMenu/SignOut'
 import DeleteAccount from '../burgerMenu/DeleteAccount'
+import AppVersion from '../burgerMenu/AppVersion'
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
 
 const { width } = Dimensions.get('window')
@@ -34,6 +35,7 @@ const Menu = () => {
         <TermsAndConditionsBurgerButton />
         <SignOut />
         <DeleteAccount />
+        <AppVersion />
       </Animated.View>
     </View>
   )

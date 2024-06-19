@@ -36,7 +36,9 @@ const BurgerMenu = () => {
     getLatestAppVersion,
   } = useContext(BurgerMenuContext)
 
-  const appVersion = Constants.manifest?.version || '1.0.0'
+  const appVersion = Constants.expoConfig ? Constants.expoConfig.version : 'N/A'
+
+  console.log(`appVersion:`, appVersion)
 
   useEffect(() => {
     getLatestAppVersion()
@@ -69,49 +71,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     paddingRight: 7,
     paddingBottom: 2,
-  },
-  burgerMenuNoteIconBed: {
-    height: 30,
-    alignSelf: 'flex-end',
-    flexDirection: 'row',
-  },
-  menuNoteDot: {
-    borderColor: 'red',
-    borderWidth: 5,
-    borderRadius: 25,
-    alignSelf: 'center',
-    marginRight: -12,
-    zIndex: 1,
-  },
-  burgerMenuCloseButton: {
-    color: '#F9B321',
-    fontSize: 30,
-    alignSelf: 'flex-end',
-  },
-  burgerMenuOption: {
-    backgroundColor: '#278ACD',
-    borderColor: '#ffff',
-    alignSelf: 'center',
-    width: '80%',
-    borderWidth: 2,
-    borderRadius: 7,
-    marginVertical: 3,
-    padding: 7,
-  },
-  burgerMenuOptionText: {
-    color: '#ffff',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  modal: {
-    backgroundColor: 'transparent',
-    elevation: 0,
-    shadowOpacity: 0,
-  },
-  versionText: {
-    color: '#ffff',
-    textAlign: 'center',
-    marginVertical: 2,
   },
 })
 
