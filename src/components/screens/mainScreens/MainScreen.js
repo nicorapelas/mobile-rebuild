@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import InfoFullscreenRender from '../../common/InfoFullscreenRender'
 import Header from '../../common/Header'
-import NavBar from '../../common/NavBar'
+import NavBar from '../../common/navbar/NavBar'
 import Menu from '../../common/menu/Menu'
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
 
@@ -13,7 +13,6 @@ const Main = () => {
   } = useContext(BurgerMenuContext)
 
   const renderContent = () => {
-    console.log(`InfoToShow:`, InfoToShow)
     if (InfoToShow !== '') return <InfoFullscreenRender />
     return (
       <View style={styles.container}>

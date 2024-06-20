@@ -18,10 +18,6 @@ const ModalLink = ({ message, routeName, buttonText }) => {
 
   const visible = !!message
 
-  // Log message and visible to debug
-  console.log('Message:', message)
-  console.log('Visible:', visible)
-
   return (
     <Overlay
       isVisible={visible}

@@ -20,7 +20,7 @@ const AppVersion = () => {
 const styles = StyleSheet.create({
   text: {
     color: '#ffff',
-    fontSize: 10,
+    fontSize: 12,
     textAlign: 'center',
     marginTop: 5,
   },

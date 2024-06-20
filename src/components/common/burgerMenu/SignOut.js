@@ -23,10 +23,15 @@ const SignOut = () => {
 
 const styles = StyleSheet.create({
   buttonText: {
+    backgroundColor: '#278ACD',
     color: '#ffff',
     fontSize: 16,
     textAlign: 'center',
-    marginTop: 15,
+    borderColor: '#ffff',
+    borderWidth: 2,
+    borderRadius: 7,
+    paddingVertical: 5,
+    marginBottom: 5,
   },
 })
 

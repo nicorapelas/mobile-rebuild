@@ -24,6 +24,7 @@ import { Provider as ShareCVProvider } from './src/context/ShareCVContext'
 import { Provider as BurgerMenuProvider } from './src/context/BurgerMenuContext'
 import { Provider as AffiliateProvider } from './src/context/AffiliateContext'
 import { Provider as ConfigProvider } from './src/context/ConfigContext'
+import { Provider as AdvertisementReducer } from './src/context/AdvertisementContext'
 import AppScreens from './AppScreens'
 
 const customFonts = {
@@ -59,7 +60,9 @@ export default function App() {
                                           <TertEduProvider>
                                             <PhotoProvider>
                                               <CertificateProvider>
-                                                <AppScreens />
+                                                <AdvertisementReducer>
+                                                  <AppScreens />
+                                                </AdvertisementReducer>
                                               </CertificateProvider>
                                             </PhotoProvider>
                                           </TertEduProvider>

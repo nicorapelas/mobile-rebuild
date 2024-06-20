@@ -20,6 +20,7 @@ const AppScreens = () => {
   const {
     state: { token },
     tryLocalSignin,
+    fetchUser,
   } = useContext(AuthContext)
 
   const [currentScreen, setCurrentScreen] = useState(screenSelected)
@@ -30,6 +31,12 @@ const AppScreens = () => {
   useEffect(() => {
     tryLocalSignin()
   }, [])
+
+  useEffect(() => {
+    if (token) {
+      fetchUser()
+    }
+  }, [token])
 
   useEffect(() => {
     if (screenSelected !== currentScreen) {

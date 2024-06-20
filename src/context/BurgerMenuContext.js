@@ -69,7 +69,6 @@ const setUsersInfoContentVisible = (dispatch) => async (value) => {
 }
 
 const setInfoToShow = (dispatch) => async (data) => {
-  console.log(`action data:`, data)
   dispatch({ type: 'SET_INFO_TO_SHOW', payload: data })
 }
 

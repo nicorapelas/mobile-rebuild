@@ -23,9 +23,15 @@ const TermsAndConditionsBurgerButton = () => {
 
 const styles = StyleSheet.create({
   buttonText: {
+    backgroundColor: '#278ACD',
     color: '#ffff',
     fontSize: 16,
     textAlign: 'center',
+    borderColor: '#ffff',
+    borderWidth: 2,
+    borderRadius: 7,
+    paddingVertical: 5,
+    marginBottom: 5,
   },
 })
 

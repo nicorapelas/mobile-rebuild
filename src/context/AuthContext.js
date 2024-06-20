@@ -77,7 +77,6 @@ const register =
         password2,
         affiliatceIntroCode: introAffiliateCode,
       })
-      console.log(`@register response.data:`, response.data)
       if (response.data.error)
         dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       if (response.data.success)
@@ -100,7 +99,6 @@ const resendVerificationEmail =
         '/auth/user/resend-verification-email',
         { email }
       )
-      console.log(`@resendVerificationEmail response.data:`, response.data)
       dispatch({ type: 'ADD_API_MESSAGE', payload: response.data })
       dispatch({ type: 'STOP_LOADING' })
       return
@@ -128,7 +126,6 @@ const login =
         await AsyncStorage.setItem('token', response.data.token)
         dispatch({ type: 'SIGN_IN', payload: response.data.token })
         dispatch({ type: 'STOP_LOADING' })
-        console.log(`user signed in`)
       }
     } catch (err) {
       dispatch({
@@ -141,7 +138,6 @@ const login =
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem('token')
   dispatch({ type: 'SIGN_OUT' })
-  console.log(`user signed out`)
 }
 
 const forgotPassword =
@@ -150,7 +146,6 @@ const forgotPassword =
     dispatch({ type: 'LOADING' })
     try {
       const response = await ngrokApi.post('/auth/user/forgot', { email })
-      console.log(`@forgotPassword response.data:`, response.data)
       dispatch({ type: 'STOP_LOADING' })
       if (response.data.error) {
         dispatch({ type: 'ADD_ERROR', payload: response.data.error })
@@ -188,7 +183,6 @@ const clearErrorMessage = (dispatch) => () => {
 const createDeviceInfo = (dispatch) => async (data) => {
   try {
     const response = await ngrokApi.post('/auth/device', data)
-    console.log(`@createDeviceInfo, response.data:`, response.data)
     dispatch({ type: 'CREATE_USERS_DEVICE', payload: response.data })
     return
   } catch (error) {
@@ -216,7 +210,6 @@ const createAffiliate = (dispatch) => async (email) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch('/auth/user/create-affiliate', email)
-    console.log(`@createAffiliate response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
     }
@@ -238,7 +231,6 @@ const fetchAffiliateInfo = (dispatch) => async (email) => {
       '/auth/user/fetch-affiliate-info',
       email
     )
-    console.log(`@fetchAffiliateInfo response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
@@ -259,7 +251,6 @@ const fetchAllAffiliates = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/auth/user/fetch-affiliates')
-    console.log(`@fetchAllAffiliates response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
     }
@@ -288,7 +279,6 @@ const deleteAccount = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete('/auth/user/delete-account')
-    console.log(`@deleteAccount response.data:`, response.data)
     dispatch({ type: 'ADD_API_MESSAGE', payload: response.data })
     return
   } catch (error) {
@@ -301,7 +291,6 @@ const fetchUsersInfoContent = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/users-info')
-    console.log(`@fetchUsersInfoContent response.data:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
