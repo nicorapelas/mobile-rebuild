@@ -7,7 +7,6 @@ import SignOut from '../burgerMenu/SignOut'
 import DeleteAccount from '../burgerMenu/DeleteAccount'
 import AppVersion from '../burgerMenu/AppVersion'
 import Managment from '../burgerMenu/managment/Managment'
-import BannerAddRender from '../../../advertisements/bannerAdds/BannerAddRender'
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
 
 const { width } = Dimensions.get('window')
@@ -31,7 +30,6 @@ const Menu = () => {
     <View style={styles.container}>
       {/* Main View Content */}
       <MainViewRender />
-      <BannerAddRender />
       <Animated.View
         style={[styles.menu, { transform: [{ translateX: slideAnim }] }]}
       >

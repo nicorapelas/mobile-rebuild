@@ -4,25 +4,23 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Context as NavContext } from '../../../context/NavContext'
 import { normalize } from '../../../utils/fontUtils'
 
-const DashboardNav = () => {
+const ViewCV = () => {
   const {
     state: { navTabSelected },
     setNavTabSelected,
   } = useContext(NavContext)
 
   const handlePress = () => {
-    setNavTabSelected('dashboard')
+    setNavTabSelected('viewCV')
   }
 
   const renderContent = () => {
     return (
       <TouchableOpacity style={styles.container} onPress={handlePress}>
         <Text
-          style={
-            navTabSelected === 'dashboard' ? styles.textActive : styles.text
-          }
+          style={navTabSelected === 'viewCV' ? styles.textActive : styles.text}
         >
-          Dashboard
+          View CV
         </Text>
       </TouchableOpacity>
     )
@@ -47,4 +45,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default DashboardNav
+export default ViewCV

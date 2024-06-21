@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-const BannerAdd1 = () => {
+const BannerAdStrip1 = () => {
   const renderContent = () => {
     return (
       <View style={styles.container}>
         <View style={styles.banner}>
-          <Text>Banner add 1</Text>
+          <Text>Banner ad strip 1</Text>
         </View>
       </View>
     )
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default BannerAdd1
+export default BannerAdStrip1

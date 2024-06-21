@@ -18,7 +18,7 @@ import NavLink from '../../links/NavLink'
 import LoaderFullScreen from '../../common/LoaderFullScreen'
 import { Context as AuthContext } from '../../../context/AuthContext'
 import ModalLink from '../../links/ModalLink'
-import validateEmailInput from '../../../validation/email'
+import validateEmailInput from '../../../utils/validation/email'
 import logo from '../../../../assets/images/logo-w400.png'
 
 const RegisterEmailScreen = () => {

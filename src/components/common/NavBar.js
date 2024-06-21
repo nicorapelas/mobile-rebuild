@@ -1,17 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-import DashboardNav from './DashboardNav'
-import ViewCV from './ViewCV'
-import ShareCV from './ShareCV'
-
 const NavBar = () => {
   const renderContent = () => {
     return (
       <View style={styles.container}>
-        <DashboardNav />
-        <ViewCV />
-        <ShareCV />
+        <Text>NavBar</Text>
       </View>
     )
   }
@@ -21,11 +15,8 @@ const NavBar = () => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'yellow',
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderTopWidth: 1,
-    borderTopColor: '#5e5e5e',
   },
 })
 
