@@ -161,10 +161,10 @@ const forgotPassword =
 const acceptTermsAndConditions = (dispatch) => async (value, callback) => {
   dispatch({ type: 'LOADING' })
   try {
-    await ngrokApi.post('/auth/user/term-conditions', {
+    const response = await ngrokApi.post('/auth/user/term-conditions', {
       accepted: value,
     })
-    callback()
+    dispatch({ type: 'FETCH_USER', payload: response.data })
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })

@@ -9,6 +9,7 @@ import {
 import { CheckBox } from 'react-native-elements'
 
 import { Context as AuthContext } from '../../../context/AuthContext'
+import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
 
 const TermsAndConditions = () => {
   const [privacyChecked, setPrivacyChecked] = useState(false)
@@ -16,9 +17,11 @@ const TermsAndConditions = () => {
 
   const { fetchUser, acceptTermsAndConditions } = useContext(AuthContext)
 
+  const { setInfoToShow } = useContext(BurgerMenuContext)
+
   const renderContent = () => {
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <Text style={styles.heading}>CV CLOUD</Text>
         <Text style={styles.heading}>
           MOBILE APPLICATION / WEBSITE TERMS OF USE
@@ -1476,42 +1479,50 @@ const TermsAndConditions = () => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              buildCV()
-              acceptTermsAndConditions(privacyChecked, () => fetchUser())
+              acceptTermsAndConditions(privacyChecked)
+              setInfoToShow('')
             }}
           >
             <Text style={styles.buttonText}>continue</Text>
           </TouchableOpacity>
         )}
-        <CheckBox
-          onPress={() => setPrivacyChecked(!privacyChecked)}
-          title="I accept CV Cloud Privacy Policy"
-          iconRight
-          checked={privacyChecked}
-          textStyle={styles.checkText}
-          containerStyle={styles.checkBed}
-        />
-        <CheckBox
-          onPress={() => setTermsChecked(!termsChecked)}
-          title="I accept CV Cloud Terms of Use"
-          iconRight
-          checked={termsChecked}
-          textStyle={styles.checkText}
-          containerStyle={styles.checkBed}
-        />
+        {privacyChecked ? null : (
+          <CheckBox
+            onPress={() => setPrivacyChecked(!privacyChecked)}
+            title="I accept CV Cloud Privacy Policy"
+            iconRight
+            checked={privacyChecked}
+            textStyle={styles.checkText}
+            containerStyle={styles.checkBed}
+          />
+        )}
+        {termsChecked ? null : (
+          <CheckBox
+            onPress={() => setTermsChecked(!termsChecked)}
+            title="I accept CV Cloud Terms of Use"
+            iconRight
+            checked={termsChecked}
+            textStyle={styles.checkText}
+            containerStyle={styles.checkBed}
+          />
+        )}
       </ScrollView>
     )
   }
   return renderContent()
 }
 
+// privacyChecked termsChecked
+
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: '10%',
+  },
   heading: {
     color: '#F9B321',
     fontSize: 14,
     alignSelf: 'center',
     textAlign: 'center',
-    marginTop: 10,
   },
   messageTextIos: {
     color: '#F9B321',

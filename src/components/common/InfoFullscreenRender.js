@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 
+import TermsAndConditions from './termsAndConditions/TermsAndConditions'
 import TermsAndConditionsText from './burgerMenu/TermsAndConditionsText'
 import SignOutConfirm from './burgerMenu/SignOutConfirm'
 import DeleteAccountConfirm from './burgerMenu/DeleteAcountConfirm'
@@ -21,6 +22,8 @@ const InfoFullscreenRender = () => {
 
   const contentSelector = () => {
     switch (InfoToShow) {
+      case 'initTerms':
+        return <TermsAndConditions />
       case 'terms':
         return <TermsAndConditionsText />
       case 'signOut':

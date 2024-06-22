@@ -6,6 +6,7 @@ import Header from '../../common/Header'
 import NavBar from '../../common/navbar/NavBar'
 import Menu from '../../common/menu/Menu'
 import BannerAdFullRender from '../../../advertisements/bannerAdsFull/BannerAdFullRender'
+import LoaderFullScreen from '../../common/LoaderFullScreen'
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
 import { Context as AuthContext } from '../../../context/AuthContext'
 import { Context as AdvertisementContext } from '../../../context/AdvertisementContext'
@@ -13,16 +14,36 @@ import { Context as AdvertisementContext } from '../../../context/AdvertisementC
 const Main = () => {
   const {
     state: { user },
+    signout,
   } = useContext(AuthContext)
 
   const {
     state: { InfoToShow },
+    setInfoToShow,
   } = useContext(BurgerMenuContext)
 
   const {
     state: { bannerAdFullShow },
     setBannerAdFullShow,
   } = useContext(AdvertisementContext)
+
+  useEffect(() => {
+    if (!user) {
+      const timer = setTimeout(() => {
+        signout()
+      }, 10000)
+      return () => clearTimeout(timer)
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (user) {
+      const { termsAndConditionsAccepted } = user
+      if (!termsAndConditionsAccepted) {
+        setInfoToShow('initTerms')
+      }
+    }
+  }, [user])
 
   useEffect(() => {
     if (bannerAdFullShow) {
@@ -33,9 +54,8 @@ const Main = () => {
     }
   }, [bannerAdFullShow])
 
-  console.log(`user:`, user)
-
   const renderContent = () => {
+    if (!user) return <LoaderFullScreen />
     if (bannerAdFullShow) return <BannerAdFullRender />
     if (InfoToShow !== '') return <InfoFullscreenRender />
     return (
