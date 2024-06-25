@@ -27,7 +27,7 @@ const MainViewRender = () => {
 
   return (
     <View style={styles.container}>
-      <View>{renderContent()}</View>
+      <View style={styles.contentContainer}>{renderContent()}</View>
       <View style={styles.bannerContainer}>
         <BannerAdRender />
       </View>
@@ -40,6 +40,10 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     justifyContent: 'space-between',
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
 })
 

@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect, useRef, useMemo } from 'react'
-import { View, StyleSheet, Animated, Dimensions } from 'react-native'
+import { View, StyleSheet, Animated, Dimensions, Platform } from 'react-native'
 
 import { Context as NavContext } from './src/context/NavContext'
 import { Context as AuthContext } from './src/context/AuthContext'
+import { Context as UniversalContext } from './src/context/UniversalContext'
 
 import RegisterOrLoginScreen from './src/components/screens/authScreens/RegisterOrLoginScreen'
 import RegisterEmailScreen from './src/components/screens/authScreens/RegisterEmailScreen'
@@ -22,6 +23,8 @@ const AppScreens = () => {
     tryLocalSignin,
     fetchUser,
   } = useContext(AuthContext)
+
+  const { setUserPlatformOS } = useContext(UniversalContext)
 
   const [currentScreen, setCurrentScreen] = useState(screenSelected)
   const [nextScreen, setNextScreen] = useState(null)

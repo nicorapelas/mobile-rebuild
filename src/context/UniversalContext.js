@@ -72,6 +72,8 @@ const UniversalReducer = (state, action) => {
       return { ...state, showPhotoSample: action.payload }
     case 'SET_START_DATE_TO_COMPARE':
       return { ...state, startDateToCompare: action.payload }
+    case 'SET_USER_PLATFORM_OS':
+      return { ...state, userPlanformOS: action.payload }
     default:
       return state
   }
@@ -239,6 +241,10 @@ const setStartDateToCompare = (dispatch) => (value) => {
   dispatch({ type: 'SET_START_DATE_TO_COMPARE', payload: value })
 }
 
+const setUserPlatformOS = (dispatch) => (value) => {
+  dispatch({ type: 'SET_USER_PLATFORM_OS', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   UniversalReducer,
   {
@@ -270,6 +276,7 @@ export const { Context, Provider } = createDataContext(
     setStartDateToCompare,
     setOptionPickerShow,
     setOptionPickerProps,
+    setUserPlatformOS,
   },
   // Initial state
   {
@@ -296,5 +303,6 @@ export const { Context, Provider } = createDataContext(
     startDateToCompare: null,
     optionPickerShow: false,
     optionPickerProps: null,
+    userPlanformOS: 'android',
   }
 )

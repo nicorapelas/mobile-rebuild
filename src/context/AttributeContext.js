@@ -53,6 +53,7 @@ const fetchAttributeStatus = (dispatch) => async () => {
 }
 
 const fetchAttributes = (dispatch) => async () => {
+  console.log(`at action`)
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/attribute')
