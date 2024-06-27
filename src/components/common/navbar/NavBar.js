@@ -1,12 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { useKeyboard } from '@react-native-community/hooks'
 
 import DashboardNav from './DashboardNav'
 import ViewCV from './ViewCV'
 import ShareCV from './ShareCV'
 
 const NavBar = () => {
+  const keyboard = useKeyboard()
+
   const renderContent = () => {
+    if (keyboard.keyboardShown) return null
     return (
       <View style={styles.container}>
         <DashboardNav />

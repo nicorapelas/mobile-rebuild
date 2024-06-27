@@ -1,20 +1,19 @@
 import React, { useContext } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Overlay } from 'react-native-elements'
 
 import { Context as AuthContext } from '../../context/AuthContext'
 import { Context as NavContext } from '../../context/NavContext'
+import { Context as UniversalContext } from '../../context/UniversalContext'
 
 const ModalLink = ({ message, routeName, buttonText }) => {
   const { clearErrorMessage, clearApiMessage } = useContext(AuthContext)
 
   const { setScreenSelected } = useContext(NavContext)
+
+  const {
+    state: { userPlanformOS },
+  } = useContext(UniversalContext)
 
   const visible = !!message
 
@@ -27,7 +26,7 @@ const ModalLink = ({ message, routeName, buttonText }) => {
       <View style={styles.messageBed}>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }

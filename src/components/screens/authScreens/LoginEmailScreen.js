@@ -8,7 +8,6 @@ import {
   Image,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
@@ -20,6 +19,7 @@ import EmailVerificationModal from './EmailVerificationModal'
 import LoaderFullScreen from '../../common/LoaderFullScreen'
 import logo from '../../../../assets/images/logo-w400.png'
 import { Context as AuthContext } from '../../../context/AuthContext'
+import { Context as UniversalContext } from '../../../context/UniversalContext'
 
 const LoginEmailScreen = () => {
   const [email, setEmail] = useState('')
@@ -32,6 +32,10 @@ const LoginEmailScreen = () => {
     clearApiMessage,
     clearErrorMessage,
   } = useContext(AuthContext)
+
+  const {
+    state: { userPlanformOS },
+  } = useContext(UniversalContext)
 
   const keyboard = useKeyboard()
 
@@ -90,7 +94,7 @@ const LoginEmailScreen = () => {
         <Image style={styles.logo} source={logo} resizeMode="contain" />
         <Text
           style={
-            Platform.Os === 'ios' ? styles.headingIos : styles.headingAndroid
+            userPlanformOS === 'ios' ? styles.headingIos : styles.headingAndroid
           }
         >
           Login with email
@@ -167,11 +171,11 @@ const LoginEmailScreen = () => {
     return (
       <KeyboardAvoidingView
         style={
-          Platform.OS === 'ios' && keyboard.keyboardShown === false
+          userPlanformOS === 'ios' && keyboard.keyboardShown === false
             ? styles.bedIos
             : styles.bedAndroid
         }
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={userPlanformOS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}

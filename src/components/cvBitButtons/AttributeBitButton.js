@@ -25,10 +25,6 @@ const AttributeBitButton = () => {
     fetchAttributes()
   }, [])
 
-  useEffect(() => {
-    console.log(` at button`, attributes)
-  }, [attributes])
-
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />
   }

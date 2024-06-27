@@ -1,14 +1,9 @@
 import React, { useContext } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Overlay } from 'react-native-elements'
 
 import { Context as AuthContext } from '../../../context/AuthContext'
+import { Context as UniversalContext } from '../../../context/UniversalContext'
 import LoaderModal from '../../common/LoaderModal'
 
 const EmailVerificationModal = ({
@@ -26,6 +21,10 @@ const EmailVerificationModal = ({
     clearErrorMessage,
   } = useContext(AuthContext)
 
+  const {
+    state: { userPlanformOS },
+  } = useContext(UniversalContext)
+
   return (
     <Overlay
       isVisible={visible}
@@ -36,7 +35,7 @@ const EmailVerificationModal = ({
         <LoaderModal loading={loading} />
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }

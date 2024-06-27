@@ -10,9 +10,14 @@ import {
 import { AntDesign } from '@expo/vector-icons'
 
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
+import { Context as UniversalContext } from '../../../context/UniversalContext'
 
 const TermsAndConditions = () => {
   const { setInfoToShow } = useContext(BurgerMenuContext)
+
+  const {
+    state: { userPlanformOS },
+  } = useContext(UniversalContext)
 
   const handlePress = () => {
     setInfoToShow('')
@@ -30,7 +35,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -41,7 +46,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -51,7 +56,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -60,7 +65,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -74,7 +79,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -84,7 +89,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -97,7 +102,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -107,7 +112,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -116,7 +121,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -127,7 +132,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -138,7 +143,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -147,7 +152,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -157,7 +162,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -168,7 +173,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -178,7 +183,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -188,7 +193,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -198,7 +203,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -209,7 +214,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -220,7 +225,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -229,7 +234,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -244,7 +249,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -253,7 +258,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -265,7 +270,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -281,7 +286,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -292,7 +297,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -301,7 +306,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -310,7 +315,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -320,7 +325,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -329,7 +334,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -347,7 +352,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -356,7 +361,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -367,7 +372,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -378,7 +383,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -392,7 +397,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -406,7 +411,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -416,7 +421,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -428,7 +433,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -445,7 +450,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -456,7 +461,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -465,7 +470,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -483,7 +488,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -492,7 +497,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -502,7 +507,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -514,7 +519,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -525,7 +530,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -540,7 +545,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -549,7 +554,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -559,7 +564,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -569,7 +574,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -581,7 +586,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -592,7 +597,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -601,7 +606,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -610,7 +615,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -619,7 +624,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -629,7 +634,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -638,7 +643,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -653,7 +658,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -662,7 +667,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -671,7 +676,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -683,7 +688,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -694,7 +699,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -704,7 +709,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -714,7 +719,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -730,7 +735,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -742,7 +747,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -752,7 +757,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -761,7 +766,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -770,7 +775,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -779,7 +784,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -788,7 +793,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -797,7 +802,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -807,7 +812,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -817,7 +822,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -826,7 +831,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -836,7 +841,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -845,7 +850,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -854,7 +859,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -865,7 +870,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -874,7 +879,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -883,7 +888,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -892,7 +897,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -901,7 +906,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -910,7 +915,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -921,7 +926,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -930,7 +935,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -941,7 +946,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -950,7 +955,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -960,7 +965,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -971,7 +976,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -980,7 +985,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -989,7 +994,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -999,7 +1004,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1009,7 +1014,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1019,7 +1024,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1028,7 +1033,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1037,7 +1042,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1049,7 +1054,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1058,7 +1063,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1068,7 +1073,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1077,7 +1082,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1086,7 +1091,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1097,7 +1102,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1107,7 +1112,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1120,7 +1125,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1139,7 +1144,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1148,7 +1153,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1161,7 +1166,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1171,7 +1176,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1182,7 +1187,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1191,7 +1196,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1203,7 +1208,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1212,7 +1217,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1228,7 +1233,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1237,7 +1242,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1250,7 +1255,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1266,7 +1271,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1276,7 +1281,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1286,7 +1291,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1295,7 +1300,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1309,7 +1314,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1318,7 +1323,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1329,7 +1334,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1338,7 +1343,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1352,7 +1357,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1366,7 +1371,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1379,7 +1384,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1391,7 +1396,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1400,7 +1405,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1411,7 +1416,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1422,7 +1427,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1431,7 +1436,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1441,7 +1446,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1450,7 +1455,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1461,7 +1466,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }
@@ -1470,7 +1475,7 @@ const TermsAndConditions = () => {
         </Text>
         <Text
           style={
-            Platform.OS === 'ios'
+            userPlanformOS === 'ios'
               ? styles.messageTextIos
               : styles.messageTextAndroid
           }

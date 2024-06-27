@@ -367,7 +367,7 @@ const FormHintModal = ({ bit }) => {
               />
             )}
           </View>
-          <View style={styles.hintListBed}>{renderHint()}</View>
+          {renderHint()}
           {showPhotoSample ? null : (
             <TouchableOpacity
               style={styles.backButton}
@@ -465,10 +465,10 @@ const FormHintModal = ({ bit }) => {
   }
 
   return (
-    <>
+    <View>
       {hintShowButton()}
       {renderModal()}
-    </>
+    </View>
   )
 }
 
@@ -478,6 +478,9 @@ const styles = StyleSheet.create({
     width: '80%',
     padding: 15,
     borderRadius: 10,
+    borderWidth: 7,
+    borderColor: '#7ac6fa',
+    margin: -30,
   },
   headingBed: {
     flexDirection: 'row',

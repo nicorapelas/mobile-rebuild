@@ -7,7 +7,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Platform,
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native'
@@ -28,8 +27,6 @@ const AttributeCreateForm = ({ bit }) => {
   const [attribute, setAttribute] = useState(null)
   const [attributeArray, setAttributeArray] = useState([])
 
-  console.log(`bit:`, bit)
-
   const {
     state: { loading, error, attributes },
     createAttribute,
@@ -37,7 +34,7 @@ const AttributeCreateForm = ({ bit }) => {
   } = useContext(AttributeContext)
 
   const {
-    state: { tipSelected },
+    state: { tipSelected, userPlanformOS },
     tipSelectReset,
     buildCV,
     toggleHideNavLinks,
@@ -134,6 +131,11 @@ const AttributeCreateForm = ({ bit }) => {
     })
   }
 
+  const handleSave = () => {
+    createAttribute(attributeArray)
+    setCVBitScreenSelected('attribute')
+  }
+
   const renderDoneSaveButton = () => {
     if (!attributeArray || attributeArray.length < 1) return null
     if (keyboard.keyboardShown) {
@@ -151,30 +153,12 @@ const AttributeCreateForm = ({ bit }) => {
               <AntDesign name="caretdown" style={styles.addButtonIcon} />
               <Text
                 style={
-                  Platform.OS === 'ios'
+                  userPlanformOS === 'ios'
                     ? styles.addButtonTextIos
                     : styles.addButtonText
                 }
               >
                 done
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.addButtonContainer}
-              onPress={() => {
-                addAttribute()
-                setAttribute(null)
-              }}
-            >
-              <AntDesign name="plus" style={styles.addButtonIcon} />
-              <Text
-                style={
-                  Platform.OS === 'ios'
-                    ? styles.addButtonTextIos
-                    : styles.addButtonText
-                }
-              >
-                add
               </Text>
             </TouchableOpacity>
           </View>
@@ -185,19 +169,12 @@ const AttributeCreateForm = ({ bit }) => {
       <>
         <TouchableOpacity
           style={styles.addButtonContainer}
-          onPress={() => {
-            toggleHideNavLinks(true)
-            createAttribute(attributeArray, () => {
-              setCVBitScreenSelected('Attribute')
-              toggleHideNavLinks(false)
-            })
-            buildCV()
-          }}
+          onPress={handleSave}
         >
           <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
           <Text
             style={
-              Platform.OS === 'ios'
+              userPlanformOS === 'ios'
                 ? styles.addButtonTextIos
                 : styles.addButtonText
             }
@@ -251,11 +228,11 @@ const AttributeCreateForm = ({ bit }) => {
   return (
     <KeyboardAvoidingView
       style={
-        Platform.OS === 'ios' && keyboard.keyboardShown === false
+        userPlanformOS === 'ios' && keyboard.keyboardShown === false
           ? styles.bedIos
           : styles.bedAndroid
       }
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={userPlanformOS === 'ios' ? 'padding' : 'height'}
     >
       {errorHeading()}
       <ScrollView
@@ -263,25 +240,6 @@ const AttributeCreateForm = ({ bit }) => {
         keyboardShouldPersistTaps="always"
       >
         {renderAttributeArray()}
-        <Text>Hello world</Text>
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
-        <Text>Hello world</Text>
-
         {renderForm()}
       </ScrollView>
     </KeyboardAvoidingView>

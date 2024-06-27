@@ -8,7 +8,6 @@ import {
   Image,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
@@ -17,6 +16,7 @@ import AuthScreensBackArrowLink from '../../links/AuthScreensBackArrowLink'
 import NavLink from '../../links/NavLink'
 import LoaderFullScreen from '../../common/LoaderFullScreen'
 import { Context as AuthContext } from '../../../context/AuthContext'
+import { Context as UniversalContext } from '../../../context/UniversalContext'
 import ModalLink from '../../links/ModalLink'
 import validateEmailInput from '../../../utils/validation/email'
 import logo from '../../../../assets/images/logo-w400.png'
@@ -27,6 +27,10 @@ const RegisterEmailScreen = () => {
     register,
     clearErrorMessage,
   } = useContext(AuthContext)
+
+  const {
+    state: { userPlanformOS },
+  } = useContext(UniversalContext)
 
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -109,7 +113,7 @@ const RegisterEmailScreen = () => {
         <Image style={styles.logo} source={logo} resizeMode="contain" />
         <Text
           style={
-            Platform.OS === 'ios' ? styles.headingIos : styles.headingAndroid
+            userPlanformOS === 'ios' ? styles.headingIos : styles.headingAndroid
           }
         >
           Sign up with your email
@@ -213,11 +217,11 @@ const RegisterEmailScreen = () => {
     return (
       <KeyboardAvoidingView
         style={
-          Platform.OS === 'ios' && keyboard.keyboardShown === false
+          userPlanformOS === 'ios' && keyboard.keyboardShown === false
             ? styles.bedIos
             : styles.bedAndroid
         }
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={userPlanformOS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}

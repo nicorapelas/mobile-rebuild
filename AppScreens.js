@@ -33,6 +33,7 @@ const AppScreens = () => {
 
   useEffect(() => {
     tryLocalSignin()
+    setUserPlatformOS(Platform.OS)
   }, [])
 
   useEffect(() => {

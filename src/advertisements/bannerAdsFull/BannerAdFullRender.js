@@ -9,10 +9,6 @@ const BannerAdFullRender = () => {
     state: { bannerAdFullSelected },
   } = useContext(AdvertisementContext)
 
-  useEffect(() => {
-    console.log(`bannerAdFullSelected:`, bannerAdFullSelected)
-  }, [bannerAdFullSelected])
-
   const renderContent = () => {
     switch (bannerAdFullSelected) {
       case 'bannerAdFull1':

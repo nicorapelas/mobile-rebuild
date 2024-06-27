@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { useKeyboard } from '@react-native-community/hooks'
 
 import DashboardScreen from './dashboard/DashboardScreen'
 import ViewCVScreen from './viewCV/ViewCVScreen'
@@ -11,6 +12,8 @@ const MainViewRender = () => {
   const {
     state: { navTabSelected },
   } = useContext(NavContext)
+
+  const keyboard = useKeyboard()
 
   const renderContent = () => {
     switch (navTabSelected) {

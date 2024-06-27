@@ -1,13 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Platform,
-} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Overlay } from 'react-native-elements'
-import { Ionicons, FontAwesome } from '@expo/vector-icons'
+import { AntDesign, FontAwesome } from '@expo/vector-icons'
+
 import { Context as AttributeContext } from '../../../context/AttributeContext'
 import { Context as CertificateContext } from '../../../context/CertificateContext'
 import { Context as ContactInfoContext } from '../../../context/ContactInfoContext'
@@ -26,9 +21,9 @@ import { Context as TertEduContext } from '../../../context/TertEduContext'
 import { Context as UniversalContext } from '../../../context/UniversalContext'
 import { Context as NavContext } from '../../../context/NavContext'
 
-const DeleteModal = ({ navigation, id, documentSelected, bit, publicId }) => {
+const DeleteModal = ({ id, documentSelected, bit, publicId }) => {
   const [incomingBit, setIncomingBit] = useState('')
-  const { fetchAttributes, deleteAttribute } = useContext(AttributeContext)
+  const { deleteAttribute } = useContext(AttributeContext)
   const { deleteCertificate, fetchCertificates } =
     useContext(CertificateContext)
   const { deleteContactInfo, fetchContactInfo } = useContext(ContactInfoContext)
@@ -56,7 +51,7 @@ const DeleteModal = ({ navigation, id, documentSelected, bit, publicId }) => {
   const { fetchTertEdus, deleteTertEdu } = useContext(TertEduContext)
 
   const {
-    state: { deleteModalShow },
+    state: { deleteModalShow, userPlanformOS },
     hideDeleteModal,
     toggleHideNavLinks,
   } = useContext(UniversalContext)
@@ -84,11 +79,7 @@ const DeleteModal = ({ navigation, id, documentSelected, bit, publicId }) => {
 
   const selectAction = () => {
     if (incomingBit === 'attribute') {
-      toggleHideNavLinks(true)
-      deleteAttribute(id, () => {
-        fetchAttributes()
-        toggleHideNavLinks(false)
-      })
+      deleteAttribute(id)
     }
     if (incomingBit === 'certificate') {
       toggleHideNavLinks(true)
@@ -201,7 +192,7 @@ const DeleteModal = ({ navigation, id, documentSelected, bit, publicId }) => {
           <FontAwesome style={styles.icon} name="trash-o" />
           <Text
             style={
-              Platform.OS === 'ios'
+              userPlanformOS === 'ios'
                 ? styles.messageTextIos
                 : styles.messageTextAndroid
             }
@@ -231,7 +222,7 @@ const DeleteModal = ({ navigation, id, documentSelected, bit, publicId }) => {
               hideDeleteModal()
             }}
           >
-            <Ionicons style={styles.backButtonIcon} name="ios-arrow-back" />
+            <AntDesign name="closecircle" style={styles.backButtonIcon} />
             <Text style={styles.backButtonText}>cancel</Text>
           </TouchableOpacity>
         </View>
@@ -248,6 +239,9 @@ const styles = StyleSheet.create({
     width: '80%',
     padding: 15,
     borderRadius: 10,
+    borderWidth: 7,
+    borderColor: '#f56c6c',
+    margin: -30,
   },
   icon: {
     color: '#F9B321',

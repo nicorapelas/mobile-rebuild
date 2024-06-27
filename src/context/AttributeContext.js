@@ -18,11 +18,11 @@ const AttributeReducer = (state, action) => {
     case 'FETCH_ALL':
       return { ...state, attributes: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, attribute: action.payload, loading: false }
+      return { ...state, attributes: action.payload, loading: false }
     case 'EDIT':
       return { ...state, [action.payload._id]: action.payload, loading: false }
     case 'DELETE':
-      return _.omit(state, action.payload)
+      return { ...state, attributes: action.payload, loading: false }
     default:
       return state
   }
@@ -53,7 +53,6 @@ const fetchAttributeStatus = (dispatch) => async () => {
 }
 
 const fetchAttributes = (dispatch) => async () => {
-  console.log(`at action`)
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/attribute')
@@ -65,7 +64,7 @@ const fetchAttributes = (dispatch) => async () => {
   }
 }
 
-const createAttribute = (dispatch) => async (formValues, callback) => {
+const createAttribute = (dispatch) => async (formValues) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/attribute', formValues)
@@ -74,7 +73,6 @@ const createAttribute = (dispatch) => async (formValues, callback) => {
       return
     }
     dispatch({ type: 'CREATE', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
@@ -101,8 +99,8 @@ const deleteAttribute = (dispatch) => async (id, callback) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete(`/api/attribute/${id}`)
+    console.log(response.data)
     dispatch({ type: 'DELETE', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })

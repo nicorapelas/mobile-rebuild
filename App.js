@@ -1,8 +1,18 @@
 import React from 'react'
 import { LogBox } from 'react-native'
 import { useFonts } from '@use-expo/font'
-import LoaderFullScreen from './src/components/common/LoaderFullScreen'
+import {
+  FontAwesome,
+  AntDesign,
+  MaterialIcons,
+  MaterialCommunityIcons,
+  Ionicons,
+  Entypo,
+  Feather,
+  Octicons,
+} from '@expo/vector-icons'
 
+import LoaderFullScreen from './src/components/common/LoaderFullScreen'
 import { Provider as AuthProvider } from './src/context/AuthContext'
 import { Provider as NavProvider } from './src/context/NavContext'
 import { Provider as UniversalProvider } from './src/context/UniversalContext'
@@ -37,6 +47,14 @@ const customFonts = {
   sourceSansProBold: require('./assets/fonts/sourceSansPro/SourceSansPro-Bold.ttf'),
   sourceSansProLight: require('./assets/fonts/sourceSansPro/SourceSansPro-Light.ttf'),
   sourceSansProExtraLight: require('./assets/fonts/sourceSansPro/SourceSansPro-ExtraLight.ttf'),
+  ...FontAwesome.font,
+  ...AntDesign.font,
+  ...MaterialIcons.font,
+  ...MaterialCommunityIcons.font,
+  ...Ionicons.font,
+  ...Entypo.font,
+  ...Feather.font,
+  ...Octicons.font,
 }
 
 export default function App() {

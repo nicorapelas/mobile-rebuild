@@ -13,6 +13,7 @@ import { AntDesign } from '@expo/vector-icons'
 
 import { Context as AuthContext } from '../../../context/AuthContext'
 import { Context as NavContext } from '../../../context/NavContext'
+import { Context as UniversalContext } from '../../../context/UniversalContext'
 import logo from '../../../../assets/images/logo-w400.png'
 import LoaderFullScreen from '../../common/LoaderFullScreen'
 import ModalLink from '../../links/ModalLink'
@@ -24,11 +25,14 @@ const RegisterOrLoginScreen = ({ navigation }) => {
 
   const {
     state: { loading, apiMessage },
-    clearApiMessage,
     setIntroAffiliateCode,
   } = useContext(AuthContext)
 
   const { setScreenSelected } = useContext(NavContext)
+
+  const {
+    state: { userPlanformOS },
+  } = useContext(UniversalContext)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -96,7 +100,9 @@ const RegisterOrLoginScreen = ({ navigation }) => {
   const renderContent = () => {
     if (loading || !delayed) return <LoaderFullScreen />
     return (
-      <View style={Platform.OS === 'ios' ? styles.bedIos : styles.bedAndroid}>
+      <View
+        style={userPlanformOS === 'ios' ? styles.bedIos : styles.bedAndroid}
+      >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
           style={styles.container}
@@ -106,7 +112,9 @@ const RegisterOrLoginScreen = ({ navigation }) => {
           <Image style={styles.logo} source={logo} resizeMode="contain" />
           <Text
             style={
-              Platform.OS === 'ios' ? styles.headingIos : styles.headingAndroid
+              userPlanformOS === 'ios'
+                ? styles.headingIos
+                : styles.headingAndroid
             }
           >
             Welcome!
@@ -123,7 +131,7 @@ const RegisterOrLoginScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <Text
                   style={
-                    Platform.OS === 'ios'
+                    userPlanformOS === 'ios'
                       ? styles.orTextIos
                       : styles.orTextAndroid
                   }

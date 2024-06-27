@@ -14,6 +14,7 @@ import DoneButton from '../../../../links/DoneButton'
 import DeleteModal from '../../../../common/modals/DeleteModal'
 import { Context as AttributeContext } from '../../../../../context/AttributeContext'
 import { Context as UniversalContext } from '../../../../../context/UniversalContext'
+import { Context as NavContext } from '../../../../../context/NavContext'
 
 const AttributeScreen = () => {
   const [documentId, setDocumentId] = useState('')
@@ -24,10 +25,7 @@ const AttributeScreen = () => {
     state: { loading, attributes },
   } = useContext(AttributeContext)
 
-  useEffect(() => {
-    console.log(`loading:`, loading)
-    console.log('attribute:', attributes.length)
-  }, [loading, attributes])
+  const { setCVBitScreenSelected } = useContext(NavContext)
 
   const renderList = () => {
     return (
@@ -56,12 +54,13 @@ const AttributeScreen = () => {
                 <View style={styles.buttonBed}>
                   <TouchableOpacity
                     style={styles.editButtonBed}
-                    onPress={() =>
-                      navigation.navigate('AttributeEdit', {
-                        id: item._id,
-                        attribute: item.attribute,
-                      })
-                    }
+                    onPress={() => setCVBitScreenSelected('attributeEdit')}
+                    // onPress={() =>
+                    //   navigation.navigate('AttributeEdit', {
+                    //     id: item._id,
+                    //     attribute: item.attribute,
+                    //   })
+                    // }
                   >
                     <MaterialCommunityIcons
                       style={styles.actionButton}

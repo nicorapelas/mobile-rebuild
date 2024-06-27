@@ -1,24 +1,23 @@
 import React, { useContext } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { AntDesign, FontAwesome, MaterialIcons } from '@expo/vector-icons'
 
 import { Context as NavContext } from '../../context/NavContext'
+import { Context as UniversalContext } from '../../context/UniversalContext'
 
 const BitNoData = ({ cvBit, routeName, buttonText }) => {
   const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const {
+    state: { userPlanformOS },
+  } = useContext(UniversalContext)
 
   return (
     <View style={styles.bed}>
       <FontAwesome style={styles.folderIcon} name="folder-open" />
       <Text
         style={
-          Platform.OS === 'ios'
+          userPlanformOS === 'ios'
             ? styles.messageTextIos
             : styles.messageTextAndroid
         }

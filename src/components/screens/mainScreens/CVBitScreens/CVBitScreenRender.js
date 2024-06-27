@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 
 import AttributeScreen from './attribute/AttributeScreen'
 import AttributeCreateScreen from './attribute/AttributeCreateScreen'
+import AttributeEditScreen from './attribute/AttributeEditScreen'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const CVBitScreenRender = () => {
@@ -9,14 +10,14 @@ const CVBitScreenRender = () => {
     state: { CVBitScreenSelected },
   } = useContext(NavContext)
 
-  console.log(CVBitScreenSelected)
-
   const renderCVBitScreen = () => {
     switch (CVBitScreenSelected) {
       case 'attribute':
         return <AttributeScreen />
       case 'attributeCreate':
         return <AttributeCreateScreen />
+      case 'attributeEdit':
+        return <AttributeEditScreen />
       default:
         break
     }
