@@ -19,6 +19,8 @@ const AttributeReducer = (state, action) => {
       return { ...state, attributes: action.payload, loading: false }
     case 'CREATE':
       return { ...state, attributes: action.payload, loading: false }
+    case 'SET_ATTRIBUTE_TO_EDIT':
+      return { ...state, attributeToEdit: action.payload }
     case 'EDIT':
       return { ...state, [action.payload._id]: action.payload, loading: false }
     case 'DELETE':
@@ -81,6 +83,10 @@ const createAttribute = (dispatch) => async (formValues) => {
   }
 }
 
+const setAttributeToEdit = (dispatch) => (data) => {
+  dispatch({ type: 'SET_ATTRIBUTE_TO_EDIT', payload: data })
+}
+
 const editAttribute = (dispatch) => async (id, formValues, callback) => {
   dispatch({ type: 'LOADING' })
   try {
@@ -122,6 +128,7 @@ export const { Context, Provider } = createDataContext(
     fetchAttributeSample,
     createAttribute,
     editAttribute,
+    setAttributeToEdit,
     deleteAttribute,
     clearAttributeErrors,
   },
@@ -129,6 +136,7 @@ export const { Context, Provider } = createDataContext(
   {
     attribute: null,
     attributes: null,
+    attributeToEdit: null,
     attributeSample: null,
     attributeStatus: null,
     loading: null,

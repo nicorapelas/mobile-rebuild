@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { Octicons, MaterialCommunityIcons } from '@expo/vector-icons'
+
 import LoaderFullScreen from '../../../../common/LoaderFullScreen'
 import BitNoData from '../../../../common/BitNoData'
 import AddContentButtonLink from '../../../../links/AddContentButtonLink'
@@ -23,9 +24,15 @@ const AttributeScreen = () => {
   const { showDeleteModal } = useContext(UniversalContext)
   const {
     state: { loading, attributes },
+    setAttributeToEdit,
   } = useContext(AttributeContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const handlePressEdit = (data) => {
+    setAttributeToEdit(data)
+    setCVBitScreenSelected('attributeEdit')
+  }
 
   const renderList = () => {
     return (
@@ -54,13 +61,12 @@ const AttributeScreen = () => {
                 <View style={styles.buttonBed}>
                   <TouchableOpacity
                     style={styles.editButtonBed}
-                    onPress={() => setCVBitScreenSelected('attributeEdit')}
-                    // onPress={() =>
-                    //   navigation.navigate('AttributeEdit', {
-                    //     id: item._id,
-                    //     attribute: item.attribute,
-                    //   })
-                    // }
+                    onPress={() =>
+                      handlePressEdit({
+                        id: item._id,
+                        attribute: item.attribute,
+                      })
+                    }
                   >
                     <MaterialCommunityIcons
                       style={styles.actionButton}

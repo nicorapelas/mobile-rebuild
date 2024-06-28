@@ -14,7 +14,8 @@ const AttributeEditScreen = () => {
   const renderContent = () => {
     if (loading || loading === null) return <LoaderFullScreen />
     return (
-      <AttributeEditForm bit="attribute" id={id} incomingValue={attribute} />
+      <AttributeEditForm bit="attribute" />
+      // <AttributeEditForm bit="attribute" id={id} incomingValue={attribute} />
     )
   }
 

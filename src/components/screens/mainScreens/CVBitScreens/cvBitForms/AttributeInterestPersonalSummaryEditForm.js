@@ -1,8 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import {
+  View,
+  ScrollView,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from 'react-native'
 import { Text } from 'react-native-elements'
-import { ScrollView, TextInput } from 'react-native-gesture-handler'
-import KeyboardSpacer from 'react-native-keyboard-spacer'
 import { MaterialIcons } from '@expo/vector-icons'
 
 import LoaderFullScreen from '../../../../common/LoaderFullScreen'
@@ -24,7 +29,7 @@ const AttributeInterestPersonalSummaryEditForm = ({
   const [personalSummary, setPersonalSummary] = useState('')
 
   const {
-    state: { loading: attributeLoading },
+    state: { loading: attributeLoading, attributeToEdit },
     editAttribute,
   } = useContext(AttributeContext)
 
@@ -37,6 +42,10 @@ const AttributeInterestPersonalSummaryEditForm = ({
     state: { loading: PersonalSummaryLoading },
     editPersonalSummary,
   } = useContext(PersonalSummaryContext)
+
+  useEffect(() => {
+    console.log(`attributeToEdit:`, attributeToEdit)
+  }, [attributeToEdit])
 
   const {
     state: { tipSelected },
@@ -240,7 +249,6 @@ const AttributeInterestPersonalSummaryEditForm = ({
           keyboardShouldPersistTaps="always"
         >
           {renderForm()}
-          {Platform.OS === 'ios' ? <KeyboardSpacer /> : null}
         </ScrollView>
       </View>
     </>
