@@ -43,10 +43,6 @@ const AttributeInterestPersonalSummaryEditForm = ({
     editPersonalSummary,
   } = useContext(PersonalSummaryContext)
 
-  useEffect(() => {
-    console.log(`attributeToEdit:`, attributeToEdit)
-  }, [attributeToEdit])
-
   const {
     state: { tipSelected },
     tipSelectReset,
@@ -55,11 +51,19 @@ const AttributeInterestPersonalSummaryEditForm = ({
   } = useContext(UniversalContext)
 
   useEffect(() => {
-    setIncomingBit(bit)
-    setAttribute(incomingValue)
-    setInterest(incomingValue)
-    setPersonalSummary(incomingValue)
-  }, [])
+    if (bit) setIncomingBit(bit)
+  }, [bit])
+
+  useEffect(() => {
+    if (attributeToEdit) setAttribute(attributeToEdit)
+  }, [attributeToEdit])
+
+  // useEffect(() => {
+  //   setIncomingBit(bit)
+  //   setAttribute(incomingValue)
+  //   setInterest(incomingValue)
+  //   setPersonalSummary(incomingValue)
+  // }, [])
 
   const selectFormFields = () => {
     if (incomingBit === 'attribute') {

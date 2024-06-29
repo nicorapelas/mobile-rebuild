@@ -22,7 +22,7 @@ const AttributeReducer = (state, action) => {
     case 'SET_ATTRIBUTE_TO_EDIT':
       return { ...state, attributeToEdit: action.payload }
     case 'EDIT':
-      return { ...state, [action.payload._id]: action.payload, loading: false }
+      return { ...state, attributes: action.payload, loading: false }
     case 'DELETE':
       return { ...state, attributes: action.payload, loading: false }
     default:
@@ -87,16 +87,15 @@ const setAttributeToEdit = (dispatch) => (data) => {
   dispatch({ type: 'SET_ATTRIBUTE_TO_EDIT', payload: data })
 }
 
-const editAttribute = (dispatch) => async (id, formValues, callback) => {
+const editAttribute = (dispatch) => async (data) => {
+  const { id, attribute } = data
   dispatch({ type: 'LOADING' })
   try {
-    const response = await ngrokApi.patch(`/api/attribute/${id}`, formValues)
+    const response = await ngrokApi.patch(`/api/attribute/${id}`, attribute)
     dispatch({ type: 'EDIT', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }
