@@ -11,18 +11,18 @@ import {
   ScrollView,
   Keyboard,
 } from 'react-native'
-import Checkbox from 'expo-checkbox'
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 
-import FormHintModal from '../../../../common/modals/FormHintModal'
-import LoaderFullScreen from '../../../../common/LoaderFullScreen'
-import OptionsModal from '../../../../common/modals/OptionsModal'
-import { Context as PersonalInfoContext } from '../../../../../context/PersonalInfoContext'
-import { Context as UniversalContext } from '../../../../../context/UniversalContext'
-import { Context as NavContext } from '../../../../../context/NavContext'
+import FormHintModal from '../../../../../common/modals/FormHintModal'
+import LoaderFullScreen from '../../../../../common/LoaderFullScreen'
+import OptionsModal from '../../../../../common/modals/OptionsModal'
+import DriversLicenseInput from './DriversLicenseInput'
+import { Context as PersonalInfoContext } from '../../../../../../context/PersonalInfoContext'
+import { Context as UniversalContext } from '../../../../../../context/UniversalContext'
+import { Context as NavContext } from '../../../../../../context/NavContext'
 
 const PersonalInfoCreateForm = ({
   incomingDateOfBirth,
@@ -53,21 +53,6 @@ const PersonalInfoCreateForm = ({
   const [ppNumber, setPpNumber] = useState(
     incomingPpNumber ? incomingPpNumber : null
   )
-  const [driversLicense, setDirversLicense] = useState(
-    incomingDriversLicense ? incomingDriversLicense : true
-  )
-  const [licenseCode, setLicenseCode] = useState(
-    incomingLicenseCode ? incomingLicenseCode : null
-  )
-
-  const [A, setA] = useState(incomingLicenseCode === 'A' ? true : false)
-  const [A1, setA1] = useState(incomingLicenseCode === 'A1' ? true : false)
-  const [B, setB] = useState(incomingLicenseCode === 'B' ? true : false)
-  const [C1, setC1] = useState(incomingLicenseCode === 'C1' ? true : false)
-  const [C, setC] = useState(incomingLicenseCode === 'C' ? true : false)
-  const [EB, setEB] = useState(incomingLicenseCode === 'EB' ? true : false)
-  const [EC1, setEC1] = useState(incomingLicenseCode === 'EC1' ? true : false)
-  const [EC, setEC] = useState(incomingLicenseCode === 'EC' ? true : false)
 
   const [fullNameInputShow, setFullNameInputShow] = useState(true)
   const [idInputShow, setIdInputShow] = useState(false)
@@ -86,7 +71,7 @@ const PersonalInfoCreateForm = ({
   } = useContext(UniversalContext)
 
   const {
-    state: { loading, error },
+    state: { loading, error, driversLicense, licenseCode },
     createPersonalInfo,
     addError,
     clearErrors,
@@ -130,20 +115,17 @@ const PersonalInfoCreateForm = ({
 
   const toggleSaCitizen = () => setSaCitizen((previousState) => !previousState)
 
-  const toggleDiversLicense = () =>
-    setDirversLicense((previousState) => !previousState)
-
   const onChangeDatePickerIos = (event, selectedDate) => {
     const currentDate = selectedDate || dateOfBirth
     setDateOfBirth(currentDate)
-    clearErrors(null)
+    clearErrors()
   }
 
   const onChangeDatePickerAndroid = (event, selectedDate) => {
     const currentDate = selectedDate || dateOfBirth
     setDatePickerOpen(false)
     setDateOfBirth(currentDate)
-    clearErrors(null)
+    clearErrors()
   }
 
   const cancelButton = () => {
@@ -385,7 +367,8 @@ const PersonalInfoCreateForm = ({
             placeholder="full name"
             value={fullName}
             onChangeText={setFullName}
-            onFocus={() => clearErrors(null)}
+            onFocus={clearErrors}
+            onChange={clearErrors}
             autoCorrect={false}
             autoCapitalize="words"
           />
@@ -508,126 +491,9 @@ const PersonalInfoCreateForm = ({
     )
   }
 
-  const renderDriversLicenseFields = () => {
-    if (!licenseInputShow) return null
-    return (
-      <>
-        <>
-          <View style={styles.switchFieldBed}>
-            <Text style={styles.switchFieldText}>drivers license?</Text>
-            <Switch
-              trackColor={{ false: '#ffff', true: '#81b0ff' }}
-              thumbColor={driversLicense ? '#f5dd4b' : '#f4f3f4'}
-              onValueChange={toggleDiversLicense}
-              value={driversLicense}
-            />
-            <Text style={styles.switchFieldText}>
-              {driversLicense ? 'yes' : 'no'}
-            </Text>
-          </View>
-          {driversLicense === true ? null : (
-            <View style={styles.nextBackButtonsBed}>
-              <TouchableOpacity
-                style={styles.addButtonContainer}
-                onPress={() => {
-                  setLicenseInputShow(false)
-                  setIdInputShow(true)
-                }}
-              >
-                <Ionicons
-                  name="arrow-back-circle-sharp"
-                  style={styles.addButtonIcon}
-                />
-                <Text style={styles.addButtonText}>back</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.addButtonContainer}
-                onPress={() => {
-                  setLicenseInputShow(false)
-                  setSaveButtonShow(true)
-                }}
-              >
-                <Text style={styles.addButtonText}>next</Text>
-                <Ionicons
-                  name="arrow-forward-circle-sharp"
-                  style={styles.nextButtonIcon}
-                />
-              </TouchableOpacity>
-            </View>
-          )}
-        </>
-        {driversLicense ? (
-          <>
-            <Text style={styles.licenseCodeIntruction}>
-              select license code
-            </Text>
-            <View style={styles.licenseCodecheckContainer}>
-              <View style={styles.licenseCodecheck}>
-                <Text style={styles.licenseCodeCheckText}>A</Text>
-                <Checkbox
-                  color="#278ACD"
-                  disabled={false}
-                  value={licenseCode}
-                  onValueChange={(newValue) => setLicenseCode(newValue)}
-                />
-              </View>
-              <View style={styles.licenseCodecheck}>
-                <Text style={styles.licenseCodeCheckText}>A1</Text>
-                <Checkbox
-                  color="#278ACD"
-                  disabled={false}
-                  value={licenseCode}
-                  onValueChange={(newValue) => setLicenseCode(newValue)}
-                />
-              </View>
-              <View style={styles.licenseCodecheck}>
-                <Text style={styles.licenseCodeCheckText}>B</Text>
-                <Checkbox
-                  color="#278ACD"
-                  disabled={false}
-                  value={licenseCode}
-                  onValueChange={(newValue) => setLicenseCode(newValue)}
-                />
-              </View>
-            </View>
-            <View style={styles.licenseCodecheckContainer}></View>
-            <View style={styles.licenseCodecheckContainer}></View>
-            <View style={styles.nextBackButtonsBed}>
-              <TouchableOpacity
-                style={styles.addButtonContainer}
-                onPress={() => {
-                  setLicenseInputShow(false)
-                  setIdInputShow(true)
-                }}
-              >
-                <Ionicons
-                  name="arrow-back-circle-sharp"
-                  style={styles.addButtonIcon}
-                />
-                <Text style={styles.addButtonText}>back</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.addButtonContainer}
-                onPress={() => {
-                  setLicenseInputShow(false)
-                  setSaveButtonShow(true)
-                }}
-              >
-                <Text style={styles.addButtonText}>next</Text>
-                <Ionicons
-                  name="arrow-forward-circle-sharp"
-                  style={styles.nextButtonIcon}
-                />
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : null}
-      </>
-    )
-  }
-
-  const handlePressSave = () => {
-    createPersonalInfo(formValuesToSubmit)
+  const handlePressSave = (data) => {
+    createPersonalInfo(data)
+    setCVBitScreenSelected('personalInformation')
   }
 
   const saveButton = () => {
@@ -664,7 +530,7 @@ const PersonalInfoCreateForm = ({
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.addButtonContainer}
-          onPress={handlePressSave}
+          onPress={() => handlePressSave(formValuesToSubmit)}
         >
           <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
           <Text style={styles.addButtonText}>save</Text>
@@ -739,7 +605,39 @@ const PersonalInfoCreateForm = ({
         {renderDatePicker()}
         {renderGenderPicker()}
         {renderSaCitizenFields()}
-        {renderDriversLicenseFields()}
+        {!licenseInputShow ? null : (
+          <>
+            <DriversLicenseInput />
+            <View style={styles.nextBackButtonsBed}>
+              <TouchableOpacity
+                style={styles.addButtonContainer}
+                onPress={() => {
+                  setLicenseInputShow(false)
+                  setIdInputShow(true)
+                }}
+              >
+                <Ionicons
+                  name="arrow-back-circle-sharp"
+                  style={styles.addButtonIcon}
+                />
+                <Text style={styles.addButtonText}>back</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.addButtonContainer}
+                onPress={() => {
+                  setLicenseInputShow(false)
+                  setSaveButtonShow(true)
+                }}
+              >
+                <Text style={styles.addButtonText}>next</Text>
+                <Ionicons
+                  name="arrow-forward-circle-sharp"
+                  style={styles.nextButtonIcon}
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
         {saveButton()}
         {datePickerOpen || saveButtonShow || optionPickerShow ? null : (
           <FormHintModal bit="personalInfo" />
@@ -916,32 +814,6 @@ const styles = StyleSheet.create({
     color: '#ff0033',
     alignSelf: 'center',
     paddingBottom: 10,
-  },
-  licenseCodeIntruction: {
-    color: '#ffff',
-    alignSelf: 'center',
-    paddingTop: 7,
-    paddingBottom: 5,
-  },
-  licenseCodecheckContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  licenseCodecheck: {
-    backgroundColor: '#232936',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '20%',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#ffff',
-    paddingVertical: 10,
-    marginHorizontal: 5,
-  },
-  licenseCodeCheckText: {
-    color: '#ffff',
-    fontSize: 17,
-    paddingRight: 7,
   },
   cancelButtonIcon: {
     color: '#ffff',
