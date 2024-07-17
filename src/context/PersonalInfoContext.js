@@ -27,6 +27,8 @@ const PersonalInfoContext = (state, action) => {
       return { ...state, viewHeadingSample: action.payload }
     case 'CREATE':
       return { ...state, personalInfo: action.payload, loading: false }
+    case 'SET_PERSONAL_INFO_TO_EDIT':
+      return { ...state, personalInfoToEdit: action.payload }
     case 'EDIT':
       return { ...state, [action.payload._id]: action.payload, loading: false }
     case 'DELETE':
@@ -106,7 +108,6 @@ const createPersonalInfo = (dispatch) => async (formValues) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/personal-info', formValues)
-    console.log(`response:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
@@ -117,6 +118,11 @@ const createPersonalInfo = (dispatch) => async (formValues) => {
     await ngrokApi.post('/error', { error: error })
     return
   }
+}
+
+const setPersonalInfoToEdit = (dispatch) => (data) => {
+  dispatch({ type: 'SET_PERSONAL_INFO_TO_EDIT', payload: data })
+  return
 }
 
 const editPersonalInfo = (dispatch) => async (id, formValues, callback) => {
@@ -179,6 +185,7 @@ export const { Context, Provider } = createDataContext(
     fetchViewHeading,
     fetchViewHeadingSample,
     createPersonalInfo,
+    setPersonalInfoToEdit,
     editPersonalInfo,
     deletePersonalInfo,
     addError,
@@ -197,5 +204,6 @@ export const { Context, Provider } = createDataContext(
     error: null,
     driversLicense: null,
     licenseCode: null,
+    personalInfoToEdit: null,
   }
 )

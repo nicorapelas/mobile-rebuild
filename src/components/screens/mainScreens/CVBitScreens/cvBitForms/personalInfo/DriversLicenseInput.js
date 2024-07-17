@@ -24,12 +24,13 @@ const DriversLicenceInput = () => {
   const [EC, setEC] = useState(false)
 
   const {
-    state: { driversLicense, licenseCode },
+    state: { driversLicenseCodesShow, licenseCode },
     setLicenseCode,
-    setDirversLicense,
+    setDirversLicenseCodesShow,
   } = useContext(PersonalInfoContext)
 
-  const toggleDiversLicense = () => setDirversLicense(!driversLicense)
+  const toggleDiversLicense = () =>
+    setDirversLicenseCodesShow(!driversLicenseCodesShow)
 
   const renderLicenseSwitch = () => {
     return (
@@ -38,12 +39,12 @@ const DriversLicenceInput = () => {
           <Text style={styles.switchFieldText}>drivers license?</Text>
           <Switch
             trackColor={{ false: '#ffff', true: '#81b0ff' }}
-            thumbColor={driversLicense ? '#f5dd4b' : '#f4f3f4'}
+            thumbColor={driversLicenseCodesShow ? '#f5dd4b' : '#f4f3f4'}
             onValueChange={toggleDiversLicense}
-            value={driversLicense}
+            value={driversLicenseCodesShow}
           />
           <Text style={styles.switchFieldText}>
-            {driversLicense ? 'yes' : 'no'}
+            {driversLicenseCodesShow ? 'yes' : 'no'}
           </Text>
         </View>
       </View>
@@ -51,7 +52,7 @@ const DriversLicenceInput = () => {
   }
 
   const renderLicenseSelector = () => {
-    if (!driversLicense) return null
+    if (!driversLicenseCodesShow) return null
     return (
       <>
         <Text style={styles.licenseCodeIntruction}>select license code</Text>
