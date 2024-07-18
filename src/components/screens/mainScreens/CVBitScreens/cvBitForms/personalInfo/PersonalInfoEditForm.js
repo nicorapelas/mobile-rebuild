@@ -24,22 +24,11 @@ import { Context as PersonalInfoContext } from '../../../../../../context/Person
 import { Context as UniversalContext } from '../../../../../../context/UniversalContext'
 import { Context as NavContext } from '../../../../../../context/NavContext'
 
-const PersonalInfoEditForm = ({
-  incomingDateOfBirth,
-  incomingDriversLicense,
-  incomingFullName,
-  incomingGender,
-  incomingIdNumber,
-  incomingLicenseCode,
-  incomingNationality,
-  incomingPpNumber,
-  incomingSaCitizen,
-}) => {
+const PersonalInfoEditForm = () => {
+  const [dateOfBirthCount, setDateOfBirthCount] = useState(0)
   const [fullName, setFullName] = useState(null)
   const [dateOfBirth, setDateOfBirth] = useState(new Date())
   const [gender, setGender] = useState(null)
-  const [driversLicense, setDriversLicense] = useState(false)
-  const [licenseCode, setLicenseCode] = useState(false)
   const [saCitizen, setSaCitizen] = useState(true)
   const [idNumber, setIdNumber] = useState(null)
   const [nationality, setNationality] = useState(null)
@@ -50,20 +39,20 @@ const PersonalInfoEditForm = ({
   const [dateOfBirthInputShow, setDateOfBirthInputShow] = useState(false)
   const [genderInputShow, setGenderInputShow] = useState(false)
   const [datePickerOpen, setDatePickerOpen] = useState(false)
-  const [dummyDateShow, setDummyDateShow] = useState(false)
   const [saveButtonShow, setSaveButtonShow] = useState(false)
 
   const {
     state: { optionPickerShow, optionsModalSelectedOption },
-    toggleHideNavLinks,
     setOptionPickerShow,
   } = useContext(UniversalContext)
 
   const {
-    state: { loading, error, licenseCode, personalInfoToEdit },
+    state: { loading, error, licenseCode, personalInfoToEdit, driversLicense },
     editPersonalInfo,
     addError,
     clearErrors,
+    setLicenseCode,
+    setDirversLicense,
   } = useContext(PersonalInfoContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
@@ -71,44 +60,44 @@ const PersonalInfoEditForm = ({
   useEffect(() => {
     const {
       fullName,
-      dateOfBirth,
       driversLicense,
       gender,
       idNumber,
-      licenseCode,
+      licenseCode: incomingLicenseCode,
       nationality,
       ppNumber,
       saCitizen,
     } = personalInfoToEdit
     if (fullName) setFullName(fullName)
-    if (driversLicense) setDriversLicense(driversLicense)
-    if (dateOfBirth) setDateOfBirth(dateOfBirth)
+    if (driversLicense) setDirversLicense(driversLicense)
     if (gender) setGender(gender)
     if (saCitizen) setSaCitizen(saCitizen)
     if (idNumber) setIdNumber(idNumber)
-    if (licenseCode) setLicenseCode(licenseCode)
+    if (incomingLicenseCode) setLicenseCode(incomingLicenseCode)
     if (nationality) setNationality(nationality)
     if (ppNumber) setPpNumber(ppNumber)
+    console.log(`personalInfoToEdit:`, personalInfoToEdit)
   }, [personalInfoToEdit])
 
   useEffect(() => {
-    const parsedBirthday = new Date(moment(dateOfBirth).format('YYYY-MM-DD'))
-    setDateOfBirth(parsedBirthday)
-    setDummyDateShow(true)
-  }, [dateOfBirth])
+    if (personalInfoToEdit) {
+      const { dateOfBirth } = personalInfoToEdit
+      if (dateOfBirthCount < 1) {
+        const parsedBirthday = new Date(
+          moment(dateOfBirth).format('YYYY-MM-DD')
+        )
+        setDateOfBirth(parsedBirthday)
+        setDateOfBirthCount(1)
+        // setDummyDateShow(true)
+      }
+    }
+  }, [personalInfoToEdit, dateOfBirth, dateOfBirthCount])
 
   useEffect(() => {
-    if (optionsModalSelectedOption) setGender(optionsModalSelectedOption)
+    if (optionsModalSelectedOption) {
+      setGender(optionsModalSelectedOption)
+    }
   }, [optionsModalSelectedOption])
-
-  useEffect(() => {
-    if (error) toggleHideNavLinks(false)
-  }, [error])
-
-  useEffect(() => {
-    if (incomingSaCitizen === false) setSaCitizen(false)
-    if (saCitizen === undefined || saCitizen === true) setSaCitizen(true)
-  }, [incomingSaCitizen, saCitizen])
 
   const keyboard = useKeyboard()
 
@@ -206,52 +195,6 @@ const PersonalInfoEditForm = ({
   const renderDatePicker = () => {
     let thisDate = new Date()
     if (!dateOfBirthInputShow) return null
-    if (dummyDateShow) {
-      return (
-        <>
-          <Text style={styles.inputHeader}>Date of Birth</Text>
-          <TouchableOpacity
-            style={styles.dummyInput}
-            onPress={() => {
-              setDummyDateShow(false)
-              setDatePickerOpen(true)
-            }}
-          >
-            <Text style={styles.dummyInputText}>
-              {dateOfBirth ? moment(dateOfBirth).format('D MMMM YYYY') : ''}
-            </Text>
-          </TouchableOpacity>
-          <View style={styles.nextBackButtonsBed}>
-            <TouchableOpacity
-              style={styles.addButtonContainer}
-              onPress={() => {
-                setFullNameInputShow(true)
-                setDateOfBirthInputShow(false)
-              }}
-            >
-              <Ionicons
-                name="arrow-back-circle-sharp"
-                style={styles.addButtonIcon}
-              />
-              <Text style={styles.addButtonText}>back</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.addButtonContainer}
-              onPress={() => {
-                setGenderInputShow(true)
-                setDateOfBirthInputShow(false)
-              }}
-            >
-              <Text style={styles.addButtonText}>next</Text>
-              <Ionicons
-                name="arrow-forward-circle-sharp"
-                style={styles.nextButtonIcon}
-              />
-            </TouchableOpacity>
-          </View>
-        </>
-      )
-    }
     return (
       <>
         {datePickerOpen ? (
@@ -500,7 +443,8 @@ const PersonalInfoEditForm = ({
   }
 
   const handlePressSave = (data) => {
-    editPersonalInfo(data)
+    const { _id } = personalInfoToEdit
+    editPersonalInfo({ id: _id }, data)
     setCVBitScreenSelected('personalInformation')
   }
 
@@ -590,7 +534,7 @@ const PersonalInfoEditForm = ({
             <Text style={styles.previewText}>{ppNumber}</Text>
           </View>
         )}
-        {!idNumber ? null : (
+        {!idNumber || !saCitizen ? null : (
           <View>
             <Text style={styles.previewLabel}>ID Number</Text>
             <Text style={styles.previewText}>ID {idNumber}</Text>

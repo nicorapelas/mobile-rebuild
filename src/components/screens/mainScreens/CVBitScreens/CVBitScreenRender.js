@@ -52,7 +52,7 @@ const CVBitScreenRender = () => {
         return <PersonalInfoScreen />
       case 'personalInfoCreate':
         return <PersonalInfoCreateScreen />
-      case 'personalInformationEdit':
+      case 'personalInfoEdit':
         return <PersonalInfoEditScreen />
       default:
         break
