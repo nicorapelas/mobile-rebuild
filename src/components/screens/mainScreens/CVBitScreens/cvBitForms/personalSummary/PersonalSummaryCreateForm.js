@@ -42,6 +42,11 @@ const PersonalSummaryCreateForm = ({ bit }) => {
     )
   }
 
+  const handlePressSave = () => {
+    createPersonalSummary({ content: personalSummaryNew })
+    setCVBitScreenSelected('personalSummary')
+  }
+
   const renderForm = () => {
     if (loading || loading === null) return <LoaderFullScreen />
     return (
@@ -73,15 +78,7 @@ const PersonalSummaryCreateForm = ({ bit }) => {
           <FormCancelButton route="personalSummary" />
           <TouchableOpacity
             style={styles.addButtonContainer}
-            onPress={() => {
-              toggleHideNavLinks(true)
-              createPersonalSummary({ content: personalSummaryNew }, () => {
-                toggleHideNavLinks(false)
-                navigation.navigate('PersonalSummary')
-              })
-              buildCV()
-              setPersonalSummaryNew(null)
-            }}
+            onPress={handlePressSave}
           >
             <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
             <Text
@@ -114,6 +111,7 @@ const PersonalSummaryCreateForm = ({ bit }) => {
         keyboardShouldPersistTaps="always"
       >
         {renderForm()}
+        <FormHintModal bit="personalSummary" />
       </ScrollView>
     </KeyboardAvoidingView>
   )

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { Feather, Octicons } from '@expo/vector-icons'
 
 import { Context as PersonalSummaryContext } from '../../context/PersonalSummaryContext'
 import { Context as NavContext } from '../../context/NavContext'
@@ -34,18 +34,37 @@ const PersonalSummaryBitButton = () => {
       return <View style={styles.statusBed}>{renderStatusLoader()}</View>
     return (
       <View style={styles.statusBed}>
-        <Text style={styles.percentage}>X {personalSummaryStatus}</Text>
-        {personalSummaryStatus === '0' ? (
-          <Feather style={styles.redDot} name="target" />
+        {personalSummaryStatus < 10 ? (
+          <>
+            <Text style={styles.percentage}>
+              <Feather name="circle" size={24} />
+            </Text>
+            <Octicons style={styles.redDot} name="dot-fill" />
+          </>
         ) : null}
-        {personalSummaryStatus === '1' ? (
-          <Feather style={styles.orangeDot} name="target" />
+        {personalSummaryStatus > 9 && personalSummaryStatus < 100 ? (
+          <>
+            <Text style={styles.percentage}>
+              <Feather name="check-circle" size={24} />
+            </Text>
+            <Octicons style={styles.orangeDot} name="dot-fill" />
+          </>
         ) : null}
-        {personalSummaryStatus === '2' ? (
-          <Feather style={styles.yellowDot} name="target" />
+        {personalSummaryStatus > 99 && personalSummaryStatus < 150 ? (
+          <>
+            <Text style={styles.percentage}>
+              <Feather name="check-circle" size={24} />
+            </Text>
+            <Octicons style={styles.yellowDot} name="dot-fill" />
+          </>
         ) : null}
-        {personalSummaryStatus > '2' ? (
-          <Feather style={styles.greenDot} name="target" />
+        {personalSummaryStatus > 149 ? (
+          <>
+            <Text style={styles.percentage}>
+              <Feather name="check-circle" size={24} />
+            </Text>
+            <Octicons style={styles.greenDot} name="dot-fill" />
+          </>
         ) : null}
       </View>
     )

@@ -1,5 +1,11 @@
-import React, { useContext, useState } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import React, { useContext, useState, useEffect } from 'react'
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 
 import LoaderFullScreen from '../../../../common/LoaderFullScreen'
@@ -23,51 +29,39 @@ const PersonalSummaryScreen = () => {
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   const renderSummary = () => {
+    const { _id, content, lastUpdate } = personalSummary[0]
     return (
-      <>
-        <DeleteModal id={documentId} bit="personalSummary" />
-        <AddContentButtonLink
-          routeName="personalSummaryCreate"
-          text="add personal summary"
-        />
-        <>
-          <View style={styles.contentBed}>
-            {!content || content.length < 1 ? null : (
-              <ScrollView style={styles.contentRow}>
-                <Text style={styles.text}>{content}</Text>
-              </ScrollView>
-            )}
-            <View style={styles.lastUpdateRow}>
-              <MaterialIcons style={styles.lastUpdateIcon} name="watch-later" />
-              <Text style={styles.LastUpdateText}>
-                Last update: {new Date(lastUpdate).toLocaleDateString()}
-              </Text>
-            </View>
+      <View style={styles.formBlock}>
+        <View style={styles.contentBed}>
+          <ScrollView style={styles.contentRow}>
+            <Text style={styles.text}>{content}</Text>
+          </ScrollView>
+          <View style={styles.lastUpdateRow}>
+            <MaterialIcons style={styles.lastUpdateIcon} name="watch-later" />
+            <Text style={styles.LastUpdateText}>
+              Last update: {new Date(lastUpdate).toLocaleDateString()}
+            </Text>
           </View>
-          <View style={styles.buttonBed}>
-            <TouchableOpacity
-              style={styles.editButtonBed}
-              onPress={() => console.log(`personal summary edit`)}
-            >
-              <MaterialCommunityIcons
-                style={styles.actionButton}
-                name="pencil"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.deleteButtonBed}>
-              <MaterialCommunityIcons
-                onPress={() => {
-                  setDocumentId(_id)
-                  showDeleteModal()
-                }}
-                style={styles.actionButton}
-                name="delete"
-              />
-            </TouchableOpacity>
-          </View>
-        </>
-        <DoneButton text="Done" routeName="" />
-      </>
+        </View>
+        <View style={styles.buttonBed}>
+          <TouchableOpacity
+            style={styles.editButtonBed}
+            onPress={() => console.log(`personal summary edit`)}
+          >
+            <MaterialCommunityIcons style={styles.actionButton} name="pencil" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.deleteButtonBed}>
+            <MaterialCommunityIcons
+              onPress={() => {
+                setDocumentId(_id)
+                showDeleteModal()
+              }}
+              style={styles.actionButton}
+              name="delete"
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     )
   }
 
@@ -75,17 +69,25 @@ const PersonalSummaryScreen = () => {
     if (loading || !personalSummary) return <LoaderFullScreen />
     if (personalSummary.length < 1) {
       return (
-        <BitNoData
-          cvBit="personal summary"
-          routeName="personalSummaryCreate"
-          buttonText="add personal summary"
-        />
+        <View style={styles.formBlock}>
+          <BitNoData
+            cvBit="personal summary"
+            routeName="personalSummaryCreate"
+            buttonText="add personal summary"
+          />
+        </View>
       )
     }
     return renderSummary()
   }
 
-  return <View style={styles.bed}>{renderContent()}</View>
+  return (
+    <View style={styles.bed}>
+      <DeleteModal id={documentId} bit="personal summary" />
+      {renderContent()}
+      <DoneButton text="Done" routeName="" />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -94,12 +96,14 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   bed: {
-    backgroundColor: '#232936',
+    width: '100%',
     flex: 1,
     flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  formBlock: {
+    flex: 1,
     justifyContent: 'center',
-    width: '100%',
-    padding: '5%',
   },
   contentBed: {
     backgroundColor: '#ffff',

@@ -27,7 +27,7 @@ const PersonalSummaryReducer = (state, action) => {
 }
 
 // Actions
-const fetchPersonalSummarySample = dispatch => async () => {
+const fetchPersonalSummarySample = (dispatch) => async () => {
   try {
     const response = await ngrokApi.get('/api/personal-summary/sample')
     dispatch({ type: 'FETCH_SAMPLE', payload: response.data })
@@ -38,7 +38,7 @@ const fetchPersonalSummarySample = dispatch => async () => {
   }
 }
 
-const fetchPersonalSummaryStatus = dispatch => async () => {
+const fetchPersonalSummaryStatus = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/personal-summary/status')
@@ -50,7 +50,7 @@ const fetchPersonalSummaryStatus = dispatch => async () => {
   }
 }
 
-const fetchPersonalSummary = dispatch => async () => {
+const fetchPersonalSummary = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/personal-summary')
@@ -62,16 +62,16 @@ const fetchPersonalSummary = dispatch => async () => {
   }
 }
 
-const createPersonalSummary = dispatch => async (formValues, callback) => {
+const createPersonalSummary = (dispatch) => async (formValues) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/personal-summary', formValues)
+    console.log(`responase:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
     }
     dispatch({ type: 'CREATE', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
@@ -80,7 +80,7 @@ const createPersonalSummary = dispatch => async (formValues, callback) => {
   }
 }
 
-const editPersonalSummary = dispatch => async (id, formValues, callback) => {
+const editPersonalSummary = (dispatch) => async (id, formValues, callback) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch(
@@ -97,7 +97,7 @@ const editPersonalSummary = dispatch => async (id, formValues, callback) => {
   }
 }
 
-const deletePersonalSummary = dispatch => async (id, callback) => {
+const deletePersonalSummary = (dispatch) => async (id, callback) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete(`/api/personal-summary/${id}`)
@@ -111,7 +111,7 @@ const deletePersonalSummary = dispatch => async (id, callback) => {
   }
 }
 
-const clearPersonalSummaryErrors = dispatch => async () => {
+const clearPersonalSummaryErrors = (dispatch) => async () => {
   dispatch({ type: 'CLEAR_ERRORS', payload: null })
   return
 }
@@ -125,7 +125,7 @@ export const { Context, Provider } = createDataContext(
     createPersonalSummary,
     editPersonalSummary,
     deletePersonalSummary,
-    clearPersonalSummaryErrors
+    clearPersonalSummaryErrors,
   },
   // Initial state
   {
@@ -133,6 +133,6 @@ export const { Context, Provider } = createDataContext(
     personalSummarySample: null,
     personalSummaryStatus: null,
     loading: null,
-    error: null
+    error: null,
   }
 )
