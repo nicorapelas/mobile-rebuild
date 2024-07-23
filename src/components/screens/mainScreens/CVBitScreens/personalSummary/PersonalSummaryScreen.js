@@ -24,9 +24,15 @@ const PersonalSummaryScreen = () => {
 
   const {
     state: { loading, personalSummary },
+    setPersonalSummaryToEdit,
   } = useContext(PersonalSummaryContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const handlePressEdit = (data) => {
+    setPersonalSummaryToEdit(data)
+    setCVBitScreenSelected('personalSummaryEdit')
+  }
 
   const renderSummary = () => {
     const { _id, content, lastUpdate } = personalSummary[0]
@@ -46,7 +52,7 @@ const PersonalSummaryScreen = () => {
         <View style={styles.buttonBed}>
           <TouchableOpacity
             style={styles.editButtonBed}
-            onPress={() => console.log(`personal summary edit`)}
+            onPress={() => handlePressEdit({ _id, content })}
           >
             <MaterialCommunityIcons style={styles.actionButton} name="pencil" />
           </TouchableOpacity>
@@ -108,6 +114,7 @@ const styles = StyleSheet.create({
   contentBed: {
     backgroundColor: '#ffff',
     maxHeight: '70%',
+    marginHorizontal: 10,
     padding: 15,
     borderRadius: 7,
   },

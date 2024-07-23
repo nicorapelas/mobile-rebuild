@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
 
+import ContactInfoBitButton from '../../../cvBitButtons/ContactInfoBitButton'
 import PersonalInfoBitButton from '../../../cvBitButtons/PersonalInfoBitButton'
 import PersonalSummaryBitButton from '../../../cvBitButtons/PersonalSummaryBitButton'
 import AttributeBitButton from '../../../cvBitButtons/AttributeBitButton'
@@ -19,8 +20,9 @@ const DashboardScreen = () => {
     if (CVBitScreenSelected === '') {
       return (
         <View style={styles.container}>
-          <PersonalInfoBitButton />
           <PersonalSummaryBitButton />
+          <PersonalInfoBitButton />
+          <ContactInfoBitButton />
           <LanguageBitButton />
           <AttributeBitButton />
           <InterestBitButton />
