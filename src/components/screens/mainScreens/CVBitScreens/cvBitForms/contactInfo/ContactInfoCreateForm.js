@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native'
-import * as RNLocalize from 'react-native-localize'
+import * as Localization from 'expo-localization'
 
 const ContactInfoCreateForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -10,8 +10,8 @@ const ContactInfoCreateForm = () => {
 
   useEffect(() => {
     // Detect user's country code
-    const detectedCountryCode = RNLocalize.getCountry()
-    setCountryCode(detectedCountryCode)
+    const userCountryCode = Localization.region
+    setCountryCode(userCountryCode)
   }, [])
 
   const countryPhoneFormats = {
@@ -20,6 +20,10 @@ const ContactInfoCreateForm = () => {
     IN: { countryCode: '+91', localCodeLength: 0, totalLength: 10 },
     // Add more countries and their formats here
   }
+
+  useEffect(() => {
+    console.log(countryCode)
+  }, [countryCode])
 
   const formatPhoneNumber = (number, countryCode) => {
     let formattedNumber = number.replace(/[^\d]/g, '')
@@ -59,39 +63,43 @@ const ContactInfoCreateForm = () => {
     Alert.alert('Success', 'Phone number verified!')
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>ContactInfoCreateForm with Phone Number</Text>
+  const renderContent = () => {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          ContactInfoCreateForm with Phone Number
+        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          keyboardType="number-pad"
+          editable={!otpSent}
+        />
+        {otpSent && (
+          <>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter OTP"
+              value={otp}
+              onChangeText={setOtp}
+              keyboardType="number-pad"
+            />
+            <Button title="Verify OTP" onPress={verifyOtp} />
+          </>
+        )}
+        {!otpSent && <Button title="Request OTP" onPress={requestOtp} />}
+      </View>
+    )
+  }
 
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
-        keyboardType="number-pad"
-        editable={!otpSent}
-      />
-
-      {otpSent && (
-        <>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter OTP"
-            value={otp}
-            onChangeText={setOtp}
-            keyboardType="number-pad"
-          />
-          <Button title="Verify OTP" onPress={verifyOtp} />
-        </>
-      )}
-
-      {!otpSent && <Button title="Request OTP" onPress={requestOtp} />}
-    </View>
-  )
+  return renderContent()
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'yellow',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
