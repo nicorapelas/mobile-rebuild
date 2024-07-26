@@ -20,6 +20,7 @@ import PersonalSummaryCreateScreen from './personalSummary/PersonalSummaryCreate
 import PersonalSummaryEditScreen from './personalSummary/PersonalSummaryEditScreen'
 import ContactInfoScreen from './contactInfo/ContactInfoScreen'
 import ContactInfoCreateScreen from './contactInfo/ContactInfoCreateScreen'
+import ContactInfoEditScreen from './contactInfo/ContactInfoEditScreen'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const CVBitScreenRender = () => {
@@ -69,6 +70,8 @@ const CVBitScreenRender = () => {
         return <ContactInfoScreen />
       case 'contactInfoCreate':
         return <ContactInfoCreateScreen />
+      case 'contactInfoEdit':
+        return <ContactInfoEditScreen />
       default:
         break
     }

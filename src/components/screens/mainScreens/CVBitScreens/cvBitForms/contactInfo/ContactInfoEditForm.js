@@ -20,7 +20,7 @@ import { Context as ContactInfoContext } from '../../../../../../context/Contact
 import { Context as UniversalContext } from '../../../../../../context/UniversalContext'
 import { Context as NavContext } from '../../../../../../context/NavContext'
 
-const ContactInfoCreateForm = () => {
+const ContactInfoEditForm = () => {
   const [email, setEmail] = useState(null)
   const [phone, setPhone] = useState(null)
   const [unit, setUnit] = useState(null)
@@ -40,17 +40,19 @@ const ContactInfoCreateForm = () => {
   const { toggleHideNavLinks } = useContext(UniversalContext)
 
   const {
-    state: { loading, error },
+    state: { loading, error, contactInfoToEdit },
     createContactInfo,
     addError,
     clearErrors,
   } = useContext(ContactInfoContext)
 
-  const { setCVBitScreenSelected } = useContext(NavContext)
-
   useEffect(() => {
     if (error) toggleHideNavLinks(false)
   }, [error])
+
+  useEffect(() => {
+    console.log(`contactInfoToEdit:`, contactInfoToEdit)
+  }, [contactInfoToEdit])
 
   const errorHeading = () => {
     if (error === null) return null
@@ -63,7 +65,6 @@ const ContactInfoCreateForm = () => {
 
   const handlePressSave = (data) => {
     createContactInfo(data)
-    setCVBitScreenSelected('contactInfo')
   }
 
   const saveButton = () => {
@@ -556,4 +557,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ContactInfoCreateForm
+export default ContactInfoEditForm

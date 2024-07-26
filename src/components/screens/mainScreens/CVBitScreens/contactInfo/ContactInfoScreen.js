@@ -26,9 +26,17 @@ const ContactInfoScreen = () => {
 
   const {
     state: { loading, contactInfo },
+    setContactInfoToEdit,
   } = useContext(ContactInfoContext)
 
   const { showDeleteModal } = useContext(UniversalContext)
+
+  const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const handlePressEdit = (data) => {
+    setContactInfoToEdit(data)
+    setCVBitScreenSelected('contactInfoEdit')
+  }
 
   const renderContent = () => {
     if (loading || contactInfo === null) return <LoaderFullScreen />
@@ -72,62 +80,64 @@ const ContactInfoScreen = () => {
               <Text style={styles.text}>{phone}</Text>
             </View>
           )}
-          {!unit || unit.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              <Entypo name="address" style={styles.icon} />
-              <Text style={styles.text}>unit: {unit}</Text>
-            </View>
-          )}
-          {!complex || complex.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              {!unit || unit.length === 0 ? (
+          <View style={styles.addressContentBlock}>
+            {!unit || unit.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
                 <Entypo name="address" style={styles.icon} />
-              ) : (
+                <Text style={styles.text}>unit: {unit}</Text>
+              </View>
+            )}
+            {!complex || complex.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
+                {!unit || unit.length === 0 ? (
+                  <Entypo name="address" style={styles.icon} />
+                ) : (
+                  <Entypo style={styles.icon} />
+                )}
+                <Text style={styles.text}>{complex}</Text>
+              </View>
+            )}
+            {!address || address.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
+                {!unit && !complex ? (
+                  <Entypo name="address" style={styles.icon} />
+                ) : (
+                  <Entypo style={styles.icon} />
+                )}
+                <Text style={styles.text}>{address}</Text>
+              </View>
+            )}
+            {!suburb || suburb.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
                 <Entypo style={styles.icon} />
-              )}
-              <Text style={styles.text}>{complex}</Text>
-            </View>
-          )}
-          {!address || address.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              {!unit && !complex ? (
-                <Entypo name="address" style={styles.icon} />
-              ) : (
+                <Text style={styles.text}>{suburb}</Text>
+              </View>
+            )}
+            {!city || city.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
                 <Entypo style={styles.icon} />
-              )}
-              <Text style={styles.text}>{address}</Text>
-            </View>
-          )}
-          {!suburb || suburb.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              <Entypo style={styles.icon} />
-              <Text style={styles.text}>{suburb}</Text>
-            </View>
-          )}
-          {!city || city.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              <Entypo style={styles.icon} />
-              <Text style={styles.text}>{city}</Text>
-            </View>
-          )}
-          {!postalCode || postalCode.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              <Entypo style={styles.icon} />
-              <Text style={styles.text}>{postalCode}</Text>
-            </View>
-          )}
-          {!province || province.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              <Entypo style={styles.icon} />
-              <Text style={styles.text}>{province}</Text>
-            </View>
-          )}
-          {!country || country.length === 0 ? null : (
-            <View style={styles.contentRow}>
-              <Entypo style={styles.icon} />
-              <Text style={styles.text}>{country}</Text>
-            </View>
-          )}
+                <Text style={styles.text}>{city}</Text>
+              </View>
+            )}
+            {!postalCode || postalCode.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
+                <Entypo style={styles.icon} />
+                <Text style={styles.text}>{postalCode}</Text>
+              </View>
+            )}
+            {!province || province.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
+                <Entypo style={styles.icon} />
+                <Text style={styles.text}>{province}</Text>
+              </View>
+            )}
+            {!country || country.length === 0 ? null : (
+              <View style={styles.addressContentRow}>
+                <Entypo style={styles.icon} />
+                <Text style={styles.text}>{country}</Text>
+              </View>
+            )}
+          </View>
           <View style={styles.lastUpdateRow}>
             <MaterialIcons style={styles.lastUpdateIcon} name="watch-later" />
             <Text style={styles.LastUpdateText}>
@@ -138,7 +148,7 @@ const ContactInfoScreen = () => {
         <View style={styles.buttonBed}>
           <TouchableOpacity
             style={styles.editButtonBed}
-            onPress={() => console.log('edit this')}
+            onPress={handlePressEdit}
           >
             <MaterialCommunityIcons style={styles.actionButton} name="pencil" />
           </TouchableOpacity>
@@ -193,7 +203,7 @@ const ContactInfoScreen = () => {
       <DeleteModal id={documentId} bit="contact information" />
       <View style={styles.bed}>{renderContent()}</View>
       {loading || !contactInfo || contactInfo.length < 1 ? null : (
-        <DoneButton text="Done" routeName="Dashboard" />
+        <DoneButton text="Done" routeName="" />
       )}
     </>
   )
@@ -222,29 +232,24 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   icon: {
-    width: 30,
-    fontSize: 22,
+    width: 25,
+    fontSize: 18,
+    alignSelf: 'flex-end',
   },
   text: {
     fontSize: 18,
     paddingLeft: 5,
     width: '90%',
   },
-  addressbed: {
+  addressContentBlock: {
+    marginTop: 3,
+  },
+  addressContentRow: {
     flexDirection: 'row',
-    paddingTop: 5,
-  },
-  addressTextBed: {
-    width: '90%',
-  },
-  addressText: {
-    fontSize: 18,
-    paddingLeft: 5,
-    width: '100%',
   },
   lastUpdateRow: {
     flexDirection: 'row',
-    paddingTop: 20,
+    paddingTop: 15,
     fontSize: 5,
   },
   lastUpdateIcon: {
