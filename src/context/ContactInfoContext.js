@@ -19,6 +19,8 @@ const ContactInfoReducer = (state, action) => {
       return { ...state, contactInfo: action.payload, loading: false }
     case 'CREATE':
       return { ...state, contactInfo: action.payload, loading: false }
+    case 'EDIT':
+      return { ...state, contactInfo: action.payload, loading: false }
     case 'SET_CONTACT_INFO_TO_EDIT':
       return { ...state, contactInfoToEdit: action.payload }
     case 'DELETE':
@@ -97,16 +99,18 @@ const setContactInfoToEdit = (dispatch) => (data) => {
   return
 }
 
-const editContactInfo = (dispatch) => async (id, formValues, callback) => {
+const editContactInfo = (dispatch) => async (id, formValues) => {
   dispatch({ type: 'LOADING' })
   try {
-    const response = await ngrokApi.patch(`/api/contact-info/${id}`, formValues)
+    const response = await ngrokApi.patch(
+      `/api/contact-info/${id.id}`,
+      formValues
+    )
+    console.log(`response:`, response.data)
     dispatch({ type: 'EDIT', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }

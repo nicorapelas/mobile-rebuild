@@ -41,17 +41,42 @@ const ContactInfoEditForm = () => {
 
   const {
     state: { loading, error, contactInfoToEdit },
-    createContactInfo,
+    editContactInfo,
     addError,
     clearErrors,
   } = useContext(ContactInfoContext)
+
+  const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
     if (error) toggleHideNavLinks(false)
   }, [error])
 
   useEffect(() => {
-    console.log(`contactInfoToEdit:`, contactInfoToEdit)
+    if (contactInfoToEdit) {
+      const {
+        address,
+        city,
+        complex,
+        country,
+        email,
+        phone,
+        postalCode,
+        province,
+        suburb,
+        unit,
+      } = contactInfoToEdit
+      setEmail(email)
+      setPhone(phone)
+      setUnit(unit)
+      setComplex(complex)
+      setAddress(address)
+      setSuburb(suburb)
+      setCity(city)
+      setProvince(province)
+      setCountry(country)
+      setPostalCode(postalCode)
+    }
   }, [contactInfoToEdit])
 
   const errorHeading = () => {
@@ -64,7 +89,9 @@ const ContactInfoEditForm = () => {
   }
 
   const handlePressSave = (data) => {
-    createContactInfo(data)
+    const { _id } = contactInfoToEdit
+    editContactInfo({ id: _id }, data)
+    setCVBitScreenSelected('contactInfo')
   }
 
   const saveButton = () => {
@@ -81,6 +108,7 @@ const ContactInfoEditForm = () => {
       country,
       postalCode,
     }
+    console.log(`formValues:`, formValues)
     return (
       <View style={styles.nextBackButtonsBed}>
         <TouchableOpacity

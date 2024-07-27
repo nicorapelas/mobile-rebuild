@@ -148,7 +148,7 @@ const ContactInfoScreen = () => {
         <View style={styles.buttonBed}>
           <TouchableOpacity
             style={styles.editButtonBed}
-            onPress={handlePressEdit}
+            onPress={() => handlePressEdit(contactInfo[0])}
           >
             <MaterialCommunityIcons style={styles.actionButton} name="pencil" />
           </TouchableOpacity>
