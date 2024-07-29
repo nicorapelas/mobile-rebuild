@@ -9,6 +9,7 @@ import InterestBitButton from '../../../cvBitButtons/InterestBitButton'
 import SkillBitButton from '../../../cvBitButtons/SkillBitButton'
 import CVBitScreenRender from '../CVBitScreens/CVBitScreenRender'
 import LanguageBitButton from '../../../cvBitButtons/LanguageBitButton'
+import SecondEduBitButton from '../../../cvBitButtons/SecondEduBitButton'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const DashboardScreen = () => {
@@ -21,6 +22,7 @@ const DashboardScreen = () => {
       return (
         <View style={styles.container}>
           <PersonalSummaryBitButton />
+          <SecondEduBitButton />
           <PersonalInfoBitButton />
           <ContactInfoBitButton />
           <LanguageBitButton />

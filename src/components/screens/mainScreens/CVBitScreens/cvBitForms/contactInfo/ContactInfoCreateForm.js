@@ -389,7 +389,12 @@ const ContactInfoCreateForm = () => {
         (!postalCode || postalCode.length < 1) ? null : (
           <View>
             <Text style={styles.previewLabel}>Residential address</Text>
-            {!unit || unit.length < 1 ? null : <Text>unit: {unit}</Text>}
+            {!unit || unit.length < 1 ? null : (
+              <Text>
+                {!complex || complex.length === 0 ? null : 'unit:'}
+                {unit}
+              </Text>
+            )}
             {!complex || complex.length < 1 ? null : <Text>{complex}</Text>}
             {!address || address.length < 1 ? null : <Text>{address}</Text>}
             {!suburb || suburb.length < 1 ? null : <Text>{suburb}</Text>}

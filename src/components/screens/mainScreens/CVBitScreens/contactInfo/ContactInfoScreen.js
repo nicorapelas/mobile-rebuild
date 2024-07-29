@@ -84,7 +84,10 @@ const ContactInfoScreen = () => {
             {!unit || unit.length === 0 ? null : (
               <View style={styles.addressContentRow}>
                 <Entypo name="address" style={styles.icon} />
-                <Text style={styles.text}>unit: {unit}</Text>
+                <Text style={styles.text}>
+                  {!complex || complex.length === 0 ? null : 'unit:'}
+                  {unit}
+                </Text>
               </View>
             )}
             {!complex || complex.length === 0 ? null : (
