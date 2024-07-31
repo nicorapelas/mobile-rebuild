@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
 import {
   View,
+  Text,
   StyleSheet,
+  ScrollView,
+  TextInput,
   TouchableOpacity,
   Platform,
   Keyboard,
 } from 'react-native'
-import { Text } from 'react-native-elements'
-import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { useKeyboard } from '@react-native-community/hooks'
 import {
   MaterialIcons,
@@ -51,18 +52,6 @@ const SecondEduCreateForm = () => {
     addError,
     clearSecondEduErrors,
   } = useContext(SecondEduContext)
-
-  useEffect(() => {
-    if (incomingStartDate) {
-      setStartDate(incomingStartDate)
-    }
-    if (incomingEndDate) {
-      setEndDate(incomingEndDate)
-    }
-    if (incomingSubjects) {
-      setSubjectsArray(incomingSubjects)
-    }
-  }, [])
 
   useEffect(() => {
     setDatesFromPicker()
@@ -122,16 +111,8 @@ const SecondEduCreateForm = () => {
       return (
         <View style={error && error.dates ? styles.datesErrorBed : null}>
           <Text style={styles.inputHeader}>Dates attended</Text>
-          <YearPicker
-            bit="startDate"
-            buttonText="start date"
-            incomingYearSelected={startDate}
-          />
-          <YearPicker
-            bit="endDate"
-            buttonText="end date"
-            incomingYearSelected={endDate}
-          />
+          <YearPicker bit="startDate" buttonText="start date" />
+          {/* <YearPicker bit="endDate" buttonText="end date" /> */}
           <View style={styles.nextBackButtonsBed}>
             <TouchableOpacity
               style={styles.addButtonContainer}

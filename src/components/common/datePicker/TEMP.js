@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { View, Button, Text, StyleSheet, Modal } from 'react-native'
-import { Picker } from '@react-native-picker/picker'
+import { View, Button, Text, StyleSheet, Modal, Picker } from 'react-native'
 
-const YearPicker = () => {
+const YearPickerComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear())
   const [show, setShow] = useState(false)
 
@@ -36,7 +35,7 @@ const YearPicker = () => {
             <Picker
               selectedValue={year}
               onValueChange={handleYearChange}
-              style={{ height: 200, width: 200 }}
+              style={{ height: 200, width: 100 }}
             >
               {years.map((year) => (
                 <Picker.Item key={year} label={String(year)} value={year} />
@@ -80,4 +79,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default YearPicker
+export default YearPickerComponent
