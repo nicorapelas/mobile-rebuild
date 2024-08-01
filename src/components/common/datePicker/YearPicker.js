@@ -1,82 +1,150 @@
-import React, { useState } from 'react'
-import { View, Button, Text, StyleSheet, Modal } from 'react-native'
-import { Picker } from '@react-native-picker/picker'
+import React, { useState, useContext, useEffect } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
-const YearPicker = () => {
-  const [year, setYear] = useState(new Date().getFullYear())
-  const [show, setShow] = useState(false)
+import { Context as UniversalContext } from '../../../context/UniversalContext'
+import { Context as SecondEduContext } from '../../../context/SecondEduContext'
+import { Context as TertEduContext } from '../../../context/TertEduContext'
+import { Context as EmployHistoryContext } from '../../../context/EmployHistoryContext'
 
-  const showYearpicker = () => {
-    setShow(true)
-  }
+const YearPicker = ({ bit, buttonText, incomingYearSelected }) => {
+  const [condensedYearArray, setCondensedYearArray] = useState([])
 
-  const handleYearChange = (itemValue) => {
-    setYear(itemValue)
-    setShow(false)
-  }
+  const {
+    state: { yearPickerShow, startDateToCompare, yearSelected },
+    setYearPickerShow,
+    setYearPickerProps,
+    clearYearPickerProps,
+    setYearSelected,
+  } = useContext(UniversalContext)
 
-  const years = []
+  const { clearSecondEduErrors } = useContext(SecondEduContext)
+  const { clearTertEduErrors } = useContext(TertEduContext)
+  const { clearEmployHistoryErrors } = useContext(EmployHistoryContext)
+
+  const yearsArray = []
   for (let i = 1900; i <= new Date().getFullYear(); i++) {
-    years.push(i)
+    yearsArray.push(i)
   }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.pickerContainer}>
-        <Button onPress={showYearpicker} title="Show year picker!" />
-      </View>
-      <Modal
-        transparent={true}
-        visible={show}
-        animationType="slide"
-        onRequestClose={() => setShow(false)}
-      >
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <Picker
-              selectedValue={year}
-              onValueChange={handleYearChange}
-              style={{ height: 200, width: 200 }}
+  useEffect(() => {
+    console.log(`yearSelected:`, yearSelected)
+    setYearPickerProps({ bit, yearSelected })
+  }, [yearSelected])
+
+  useEffect(() => {
+    if (yearPickerShow === false) {
+      clearYearPickerProps()
+    }
+  }, [yearPickerShow])
+
+  useEffect(() => {
+    if (startDateToCompare) {
+      const condensedArray = yearsArray.filter((year) => {
+        return year > startDateToCompare
+      })
+      setCondensedYearArray(condensedArray)
+    }
+  }, [startDateToCompare])
+
+  const handlePressYearSelect = (data) => {
+    console.log(data.toString())
+    setYearSelected(data.toString())
+    setYearPickerShow(false)
+  }
+
+  const CustomPicker = () => {
+    return (
+      <View style={styles.pickerBed}>
+        <ScrollView style={styles.scrollPicker}>
+          {(condensedYearArray.length > 0 && bit === 'endDate'
+            ? condensedYearArray
+            : yearsArray
+          ).map((year) => (
+            <TouchableOpacity
+              key={year}
+              style={styles.pickerItem}
+              onPress={() => handlePressYearSelect(year)}
             >
-              {years.map((year) => (
-                <Picker.Item key={year} label={String(year)} value={year} />
-              ))}
-            </Picker>
-          </View>
-        </View>
-      </Modal>
-      <Text style={styles.text}>Selected Year: {year}</Text>
-    </View>
-  )
+              <Text style={styles.pickerItemText}>{year}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+    )
+  }
+
+  const showPickerButton = () => {
+    return (
+      <TouchableOpacity
+        style={styles.dummyInput}
+        onPress={() => {
+          setYearPickerShow(true)
+          setYearPickerProps({ bit })
+          clearSecondEduErrors()
+          clearTertEduErrors()
+          clearEmployHistoryErrors()
+        }}
+      >
+        <Text
+          style={
+            !incomingYearSelected ? styles.dummyInputText : styles.inputText
+          }
+        >
+          {!yearSelected ? buttonText : yearSelected}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
+
+  const renderContent = () => {
+    if (!yearPickerShow) {
+      return showPickerButton()
+    }
+    return CustomPicker()
+  }
+
+  return renderContent()
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
+  dummyInput: {
+    backgroundColor: '#ffffff',
+    alignSelf: 'center',
     alignItems: 'center',
-    padding: 16,
+    height: 50,
+    width: '85%',
+    borderRadius: 7,
+    margin: 5,
   },
-  pickerContainer: {
-    justifyContent: 'center',
-    width: '100%',
-    marginBottom: 20,
+  dummyInputText: {
+    color: '#B6B8BA',
+    marginTop: 17,
   },
-  modalBackground: {
-    flex: 1,
-    justifyContent: 'center',
+  inputText: {
+    marginTop: 17,
+  },
+  pickerBed: {
+    backgroundColor: '#ffff',
+    borderRadius: 7,
+    margin: 20,
+  },
+  scrollPicker: {
+    maxHeight: 200,
+  },
+  pickerItem: {
+    padding: 10,
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  modalContainer: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
-    alignItems: 'center',
-  },
-  text: {
-    marginTop: 20,
-    fontSize: 16,
+  pickerItemText: {
+    fontSize: 18,
+    color: '#1a1a1a',
   },
 })
 

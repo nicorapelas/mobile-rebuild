@@ -617,6 +617,7 @@ const styles = StyleSheet.create({
     color: '#ffff',
     width: '85%',
     alignSelf: 'center',
+    marginBottom: 5,
   },
   maxCharactersNote: {
     color: '#ffff',

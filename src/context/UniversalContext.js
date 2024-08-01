@@ -74,6 +74,8 @@ const UniversalReducer = (state, action) => {
       return { ...state, startDateToCompare: action.payload }
     case 'SET_USER_PLATFORM_OS':
       return { ...state, userPlanformOS: action.payload }
+    case 'SET_YEAT_SELECTED':
+      return { ...state, yearSelected: action.payload }
     default:
       return state
   }
@@ -245,6 +247,10 @@ const setUserPlatformOS = (dispatch) => (value) => {
   dispatch({ type: 'SET_USER_PLATFORM_OS', payload: value })
 }
 
+const setYearSelected = (dispatch) => (value) => {
+  dispatch({ type: 'SET_YEAT_SELECTED', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   UniversalReducer,
   {
@@ -277,6 +283,7 @@ export const { Context, Provider } = createDataContext(
     setOptionPickerShow,
     setOptionPickerProps,
     setUserPlatformOS,
+    setYearSelected,
   },
   // Initial state
   {
@@ -304,5 +311,6 @@ export const { Context, Provider } = createDataContext(
     optionPickerShow: false,
     optionPickerProps: null,
     userPlanformOS: 'android',
+    yearSelected: null,
   }
 )
