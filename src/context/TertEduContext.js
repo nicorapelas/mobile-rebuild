@@ -18,18 +18,20 @@ const TertEduReducer = (state, action) => {
     case 'FETCH_TERT_EDUS':
       return { ...state, tertEdus: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, tertEdu: action.payload, loading: false }
+      return { ...state, tertEdus: action.payload, loading: false }
+    case 'SET_TERT_EDU_TO_EDIT':
+      return { ...state, tertEduToEdit: action.payload }
     case 'EDIT':
       return { ...state, [action.payload._id]: action.payload, loading: false }
     case 'DELETE':
-      return _.omit(state, action.payload)
+      return { ...state, tertEdus: action.payload, loading: false }
     default:
       return state
   }
 }
 
 // Actions
-const fetchTertEduSample = dispatch => async () => {
+const fetchTertEduSample = (dispatch) => async () => {
   try {
     const response = await ngrokApi.get('/api/tertiary-education/sample')
     dispatch({ type: 'FETCH_SAMPLE', payload: response.data })
@@ -40,7 +42,7 @@ const fetchTertEduSample = dispatch => async () => {
   }
 }
 
-const fetchTertEduStatus = dispatch => async () => {
+const fetchTertEduStatus = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/tertiary-education/status')
@@ -50,7 +52,7 @@ const fetchTertEduStatus = dispatch => async () => {
   }
 }
 
-const fetchTertEdus = dispatch => async () => {
+const fetchTertEdus = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/tertiary-education')
@@ -60,7 +62,7 @@ const fetchTertEdus = dispatch => async () => {
   }
 }
 
-const createTertEdu = dispatch => async (formValues, callback) => {
+const createTertEdu = (dispatch) => async (formValues) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/tertiary-education', formValues)
@@ -69,13 +71,16 @@ const createTertEdu = dispatch => async (formValues, callback) => {
       return
     }
     dispatch({ type: 'CREATE', payload: response.data })
-    callback()
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
   }
 }
 
-const editTertEdu = dispatch => async (id, formValues, callback) => {
+const setTertEduToEdit = (dispatch) => (data) => {
+  dispatch({ type: 'SET_TERT_EDU_TO_EDIT', payload: data })
+}
+
+const editTertEdu = (dispatch) => async (id, formValues, callback) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch(
@@ -94,7 +99,7 @@ const editTertEdu = dispatch => async (id, formValues, callback) => {
   }
 }
 
-const deleteTertEdu = dispatch => async (id, callback) => {
+const deleteTertEdu = (dispatch) => async (id, callback) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete(`/api/tertiary-education/${id}`)
@@ -106,11 +111,11 @@ const deleteTertEdu = dispatch => async (id, callback) => {
   }
 }
 
-const addError = dispatch => error => {
+const addError = (dispatch) => (error) => {
   dispatch({ type: 'ADD_ERROR', payload: error })
 }
 
-const clearTertEduErrors = dispatch => () => {
+const clearTertEduErrors = (dispatch) => () => {
   dispatch({ type: 'CLEAR_ERRORS' })
 }
 
@@ -121,10 +126,11 @@ export const { Context, Provider } = createDataContext(
     fetchTertEduStatus,
     fetchTertEdus,
     createTertEdu,
+    setTertEduToEdit,
     editTertEdu,
     deleteTertEdu,
     addError,
-    clearTertEduErrors
+    clearTertEduErrors,
   },
   // Initial state
   {
@@ -132,7 +138,8 @@ export const { Context, Provider } = createDataContext(
     tertEdus: null,
     tertEduSample: null,
     tertEduStatus: null,
+    tertEduToEdit: null,
     loading: null,
-    error: null
+    error: null,
   }
 )

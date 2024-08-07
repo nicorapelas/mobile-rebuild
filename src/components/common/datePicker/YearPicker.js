@@ -6,22 +6,22 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
 
 import { Context as UniversalContext } from '../../../context/UniversalContext'
 import { Context as SecondEduContext } from '../../../context/SecondEduContext'
 import { Context as TertEduContext } from '../../../context/TertEduContext'
 import { Context as EmployHistoryContext } from '../../../context/EmployHistoryContext'
 
-const YearPicker = ({ bit, buttonText, incomingYearSelected }) => {
+const YearPicker = ({ bit, buttonText }) => {
   const [condensedYearArray, setCondensedYearArray] = useState([])
 
   const {
-    state: { yearPickerShow, startDateToCompare, yearSelected },
+    state: { yearPickerShow, yearSelected, startDate, endDate },
     setYearPickerShow,
     setYearPickerProps,
     clearYearPickerProps,
-    setYearSelected,
+    setStartDate,
+    setEndDate,
   } = useContext(UniversalContext)
 
   const { clearSecondEduErrors } = useContext(SecondEduContext)
@@ -34,28 +34,20 @@ const YearPicker = ({ bit, buttonText, incomingYearSelected }) => {
   }
 
   useEffect(() => {
-    console.log(`yearSelected:`, yearSelected)
-    setYearPickerProps({ bit, yearSelected })
-  }, [yearSelected])
-
-  useEffect(() => {
     if (yearPickerShow === false) {
       clearYearPickerProps()
     }
   }, [yearPickerShow])
 
   useEffect(() => {
-    if (startDateToCompare) {
-      const condensedArray = yearsArray.filter((year) => {
-        return year > startDateToCompare
-      })
-      setCondensedYearArray(condensedArray)
+    if (startDate && endDate && parseInt(startDate) > parseInt(endDate)) {
+      setEndDate(startDate)
     }
-  }, [startDateToCompare])
+  }, [startDate, endDate])
 
   const handlePressYearSelect = (data) => {
-    console.log(data.toString())
-    setYearSelected(data.toString())
+    if (bit === 'startDate') setStartDate(data.toString())
+    if (bit === 'endDate') setEndDate(data.toString())
     setYearPickerShow(false)
   }
 
@@ -92,12 +84,11 @@ const YearPicker = ({ bit, buttonText, incomingYearSelected }) => {
           clearEmployHistoryErrors()
         }}
       >
-        <Text
-          style={
-            !incomingYearSelected ? styles.dummyInputText : styles.inputText
-          }
-        >
-          {!yearSelected ? buttonText : yearSelected}
+        <Text style={!yearSelected ? styles.dummyInputText : styles.inputText}>
+          {bit !== 'startDate' ? null : startDate}
+          {bit !== 'endDate' ? null : endDate}
+          {bit === 'startDate' && !startDate ? buttonText : null}
+          {bit === 'endDate' && !endDate ? buttonText : null}
         </Text>
       </TouchableOpacity>
     )
@@ -143,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pickerItemText: {
-    fontSize: 18,
+    fontSize: 22,
     color: '#1a1a1a',
   },
 })

@@ -28,7 +28,7 @@ import { Context as SecondEduContext } from '../../../../../../context/SecondEdu
 import { Context as UniversalContext } from '../../../../../../context/UniversalContext'
 import { Context as NavContext } from '../../../../../../context/NavContext'
 
-const SecondEduCreateForm = () => {
+const SecondEduEditForm = () => {
   const [schoolName, setSchoolName] = useState(null)
   const [subject, setSubject] = useState(null)
   const [subjectsArray, setSubjectsArray] = useState([])
@@ -41,12 +41,14 @@ const SecondEduCreateForm = () => {
 
   const {
     state: { yearPickerProps, yearPickerShow, startDate, endDate },
+    setStartDate,
+    setEndDate,
     toggleHideNavLinks,
   } = useContext(UniversalContext)
 
   const {
-    state: { loading, error },
-    createSecondEdu,
+    state: { loading, error, secondEduToEdit },
+    editSecondEdu,
     addError,
     clearSecondEduErrors,
   } = useContext(SecondEduContext)
@@ -63,6 +65,18 @@ const SecondEduCreateForm = () => {
       if (error.dates) setDatesInputShow(true)
     }
   }, [error])
+
+  useEffect(() => {
+    if (secondEduToEdit) {
+      const { schoolName, startDate, endDate, subjects, additionalInfo } =
+        secondEduToEdit
+      setSchoolName(schoolName)
+      setStartDate(startDate)
+      setEndDate(endDate)
+      setSubjectsArray(subjects)
+      setAdditionalInfo(additionalInfo)
+    }
+  }, [secondEduToEdit])
 
   const keyboard = useKeyboard()
 
@@ -491,7 +505,8 @@ const SecondEduCreateForm = () => {
   }
 
   const handlePressSave = (data) => {
-    createSecondEdu(data)
+    const { _id } = secondEduToEdit
+    editSecondEdu({ id: _id }, { formValues: data })
     setCVBitScreenSelected('secondEdu')
   }
 
@@ -504,6 +519,7 @@ const SecondEduCreateForm = () => {
       subjects: subjectsArray,
       additionalInfo,
     }
+    console.log(`formValues:`, formValues)
     return (
       <View style={styles.nextBackButtonsBed}>
         <TouchableOpacity
@@ -776,4 +792,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SecondEduCreateForm
+export default SecondEduEditForm

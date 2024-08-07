@@ -60,6 +60,10 @@ const UniversalReducer = (state, action) => {
       return { ...state, yearPickerShow: action.payload }
     case 'YEAR_PICKER_PROPS':
       return { ...state, yearPickerProps: action.payload }
+    case 'SET_START_DATE':
+      return { ...state, startDate: action.payload }
+    case 'SET_END_DATE':
+      return { ...state, endDate: action.payload }
     case 'CLEAR_YEAR_PICKER_PROPS':
       return { ...state, yearPickerProps: action.payload }
     case 'MONTH_YEAR_PICKER_SHOW':
@@ -70,8 +74,6 @@ const UniversalReducer = (state, action) => {
       return { ...state, monthYearPickerProps: action.payload }
     case 'SET_PHOTO_SAMPLE_VIEW_SHOW':
       return { ...state, showPhotoSample: action.payload }
-    case 'SET_START_DATE_TO_COMPARE':
-      return { ...state, startDateToCompare: action.payload }
     case 'SET_USER_PLATFORM_OS':
       return { ...state, userPlanformOS: action.payload }
     case 'SET_YEAT_SELECTED':
@@ -220,6 +222,15 @@ const setYearPickerShow = (dispatch) => (value) => {
 const setYearPickerProps = (dispatch) => (props) => {
   dispatch({ type: 'YEAR_PICKER_PROPS', payload: props })
 }
+
+const setStartDate = (dispatch) => (props) => {
+  dispatch({ type: 'SET_START_DATE', payload: props })
+}
+
+const setEndDate = (dispatch) => (props) => {
+  dispatch({ type: 'SET_END_DATE', payload: props })
+}
+
 const clearYearPickerProps = (dispatch) => () => {
   dispatch({ type: 'CLEAR_YEAR_PICKER_PROPS', payload: null })
 }
@@ -237,10 +248,6 @@ const clearMonthYearPickerProps = (dispatch) => () => {
 
 const setPhotoSampleViewShow = (dispatch) => (value) => {
   dispatch({ type: 'SET_PHOTO_SAMPLE_VIEW_SHOW', payload: value })
-}
-
-const setStartDateToCompare = (dispatch) => (value) => {
-  dispatch({ type: 'SET_START_DATE_TO_COMPARE', payload: value })
 }
 
 const setUserPlatformOS = (dispatch) => (value) => {
@@ -274,12 +281,13 @@ export const { Context, Provider } = createDataContext(
     setOptionsModalSelectedOption,
     setYearPickerShow,
     setYearPickerProps,
+    setStartDate,
+    setEndDate,
     clearYearPickerProps,
     setMonthYearPickerShow,
     setMonthYearPickerProps,
     clearMonthYearPickerProps,
     setPhotoSampleViewShow,
-    setStartDateToCompare,
     setOptionPickerShow,
     setOptionPickerProps,
     setUserPlatformOS,
@@ -304,10 +312,11 @@ export const { Context, Provider } = createDataContext(
     optionsModalSelectedOption: null,
     yearPickerShow: false,
     yearPickerProps: null,
+    startDate: null,
+    endDate: null,
     monthYearPickerShow: false,
     monthYearPickerProps: null,
     showPhotoSample: null,
-    startDateToCompare: null,
     optionPickerShow: false,
     optionPickerProps: null,
     userPlanformOS: 'android',

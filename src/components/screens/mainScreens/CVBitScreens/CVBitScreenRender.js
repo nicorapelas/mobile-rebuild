@@ -23,6 +23,10 @@ import ContactInfoCreateScreen from './contactInfo/ContactInfoCreateScreen'
 import ContactInfoEditScreen from './contactInfo/ContactInfoEditScreen'
 import SecondEduScreen from './secondEdu/SecondEduScreen'
 import SecondEduCreateScreen from './secondEdu/SecondEduCreateScreen'
+import SecondEduEditScreen from './secondEdu/SecondEduEditScreen'
+import TertEduScreen from './tertEdu/TertEduScreen'
+import TertEduCreateScreen from './tertEdu/TertEduCreateScreen'
+import TertEduEditScreen from './tertEdu/TertEduEditScreen'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const CVBitScreenRender = () => {
@@ -79,6 +83,14 @@ const CVBitScreenRender = () => {
         return <SecondEduScreen />
       case 'secondEduCreate':
         return <SecondEduCreateScreen />
+      case 'secondEditEdit':
+        return <SecondEduEditScreen />
+      case 'tertEdu':
+        return <TertEduScreen />
+      case 'tertEduCreate':
+        return <TertEduCreateScreen />
+      case 'tertEduEdit':
+        return <TertEduEditScreen />
       default:
         break
     }
