@@ -90,11 +90,10 @@ const setSecondEduToEdit = (dispatch) => (data) => {
 }
 
 const editSecondEdu = (dispatch) => async (id, formValues) => {
-  console.log(`id:`, id)
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch(
-      `/api/secondary-education/${id.id}`,
+      `/api/tertiary-education/${id.id}`,
       formValues
     )
     if (response.data.error) {

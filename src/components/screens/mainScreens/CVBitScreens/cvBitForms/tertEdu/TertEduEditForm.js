@@ -43,6 +43,8 @@ const TertEduEditEditForm = ({ incomingCertificationType }) => {
       startDate,
       endDate,
     },
+    setStartDate,
+    setEndDate,
   } = useContext(UniversalContext)
 
   const {
@@ -56,12 +58,20 @@ const TertEduEditEditForm = ({ incomingCertificationType }) => {
 
   useEffect(() => {
     if (tertEduToEdit) {
-      const { additionalInfo, certificationType, description, instituteName } =
-        tertEduToEdit
+      const {
+        additionalInfo,
+        certificationType,
+        description,
+        instituteName,
+        startDate,
+        endDate,
+      } = tertEduToEdit
       setAdditionalInfo(additionalInfo)
       setCertificationType(certificationType)
       setDescription(description)
       setInstituteName(instituteName)
+      setStartDate(startDate)
+      setEndDate(endDate)
     }
   }, [tertEduToEdit])
 
