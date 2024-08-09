@@ -519,7 +519,6 @@ const SecondEduEditForm = () => {
       subjects: subjectsArray,
       additionalInfo,
     }
-    console.log(`formValues:`, formValues)
     return (
       <View style={styles.nextBackButtonsBed}>
         <TouchableOpacity

@@ -149,7 +149,7 @@ const TertEduScreen = () => {
       )}
       <View style={styles.bed}>{renderList()}</View>
       {loading || !tertEdus || tertEdus.length < 1 ? null : (
-        <DoneButton text="Done" routeName="dashboard" />
+        <DoneButton text="Done" routeName="" />
       )}
     </>
   )
