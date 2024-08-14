@@ -29,7 +29,6 @@ const EmployHistoryEditForm = () => {
   const [descriptionInputShow, setDescriptionInputShow] = useState(false)
   const [saveButtonShow, setSaveButtonShow] = useState(false)
   const [current, setCurrent] = useState(false)
-
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
 
@@ -51,7 +50,7 @@ const EmployHistoryEditForm = () => {
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   const {
-    state: { loading, error },
+    state: { loading, error, employHistoryToEdit },
     editEmployHistory,
     addError,
     clearEmployHistoryErrors,
@@ -61,6 +60,19 @@ const EmployHistoryEditForm = () => {
     if (startYear && startMonth) setStartDate(`${startMonth} ${startYear}`)
     if (endYear && endMonth) setEndDate(`${endMonth} ${endYear}`)
   }, [startYear, endYear, startMonth, endMonth])
+
+  useEffect(() => {
+    if (employHistoryToEdit) {
+      const { company, current, description, startDate, endDate, position } =
+        employHistoryToEdit
+      setCompany(company)
+      setCurrent(current)
+      setDescription(description)
+      setStartDate(startDate)
+      setEndDate(endDate)
+      setPosition(position)
+    }
+  }, [employHistoryToEdit])
 
   useEffect(() => {
     if (current) {

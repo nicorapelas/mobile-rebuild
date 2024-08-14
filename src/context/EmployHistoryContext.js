@@ -23,10 +23,12 @@ const EmployHistoryReducer = (state, action) => {
       return { ...state, employHistorys: action.payload, loading: false }
     case 'CREATE':
       return { ...state, employHistorys: action.payload, loading: false }
+    case 'SET_EMPLOY_HISTORY_TO_EDIT':
+      return { ...state, employHistoryToEdit: action.payload }
     case 'EDIT':
       return { ...state, employHistory: action.payload, loading: false }
     case 'DELETE':
-      return _.omit(state, action.payload)
+      return { ...state, employHistorys: action.payload, loading: false }
     default:
       return state
   }
@@ -84,6 +86,10 @@ const createEmployHistory = (dispatch) => async (formValues) => {
   }
 }
 
+const setEmployHistoryToEdit = (dispatch) => (data) => {
+  dispatch({ type: 'SET_EMPLOY_HISTORY_TO_EDIT', payload: data })
+}
+
 const editEmployHistory = (dispatch) => async (id, formValues, callback) => {
   dispatch({ type: 'LOADING' })
   try {
@@ -105,16 +111,14 @@ const editEmployHistory = (dispatch) => async (id, formValues, callback) => {
   }
 }
 
-const deleteEmployHistory = (dispatch) => async (id, callback) => {
+const deleteEmployHistory = (dispatch) => async (id) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete(`/api/employment-history/${id}`)
     dispatch({ type: 'DELETE', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }
@@ -135,6 +139,7 @@ export const { Context, Provider } = createDataContext(
     fetchEmployHistoryStatus,
     fetchEmployHistorys,
     createEmployHistory,
+    setEmployHistoryToEdit,
     editEmployHistory,
     deleteEmployHistory,
     addError,
@@ -146,6 +151,7 @@ export const { Context, Provider } = createDataContext(
     employHistorys: null,
     employHistorySample: null,
     employHistoryStatus: null,
+    employHistoryToEdit: null,
     loading: null,
   }
 )

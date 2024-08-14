@@ -28,9 +28,17 @@ const EmployHistoryScreen = () => {
 
   const {
     state: { loading, employHistorys },
+    setEmployHistoryToEdit,
   } = useContext(EmployHistoryContext)
 
   const { showDeleteModal } = useContext(UniversalContext)
+
+  const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const handlePressEdit = (data) => {
+    setEmployHistoryToEdit(data)
+    setCVBitScreenSelected('employHistoryEdit')
+  }
 
   const renderList = () => {
     if (loading || employHistorys === null) return <LoaderFullScreen />
@@ -95,7 +103,7 @@ const EmployHistoryScreen = () => {
                       <MaterialCommunityIcons
                         style={styles.actionButton}
                         name="pencil"
-                        onPress={() => console.log(`edit this`)}
+                        onPress={() => handlePressEdit(item)}
                       />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.deleteButtonBed}>

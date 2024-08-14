@@ -515,7 +515,14 @@ const EmployHistoryCreateForm = () => {
   const renderContent = () => {
     if (loading) return <LoaderFullScreen />
     return (
-      <View View style={styles.bed}>
+      <KeyboardAvoidingView
+        style={
+          Platform.OS === 'ios' && keyboard.keyboardShown === false
+            ? styles.bedIos
+            : styles.bedAndroid
+        }
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         {errorHeading()}
         {!monthYearPickerShow ? (
           <ScrollView
@@ -528,17 +535,23 @@ const EmployHistoryCreateForm = () => {
         ) : (
           <View style={styles.yearPickerBed}>{renderForm()}</View>
         )}
-      </View>
+      </KeyboardAvoidingView>
     )
   }
   return renderContent()
 }
 
 const styles = StyleSheet.create({
-  bed: {
+  bedIos: {
     backgroundColor: '#232936',
-    flex: 1,
     width: '100%',
+    flex: 1,
+    marginTop: -100,
+  },
+  bedAndroid: {
+    backgroundColor: '#232936',
+    width: '100%',
+    flex: 1,
   },
   formBed: {
     flexDirection: 'column',
