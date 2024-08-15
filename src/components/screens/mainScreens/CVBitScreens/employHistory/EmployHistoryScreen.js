@@ -42,7 +42,6 @@ const EmployHistoryScreen = () => {
 
   const renderList = () => {
     if (loading || employHistorys === null) return <LoaderFullScreen />
-    console.log(employHistorys)
     if (employHistorys.length < 1)
       return (
         <BitNoData

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {
   View,
+  KeyboardAvoidingView,
   ScrollView,
   Text,
   TextInput,
@@ -10,6 +11,7 @@ import {
   Keyboard,
 } from 'react-native'
 import { MaterialIcons, Ionicons } from '@expo/vector-icons'
+import { useKeyboard } from '@react-native-community/hooks'
 
 import FormHintModal from '../../../../../common/modals/FormHintModal'
 import FormCancelButton from '../../../../../common/FormCancelButton'
@@ -67,6 +69,8 @@ const EmployHistoryCreateForm = () => {
       setEndDate(null)
     }
   }, [current])
+
+  const keyboard = useKeyboard()
 
   const errorHeading = () => {
     if (error === null) return null
