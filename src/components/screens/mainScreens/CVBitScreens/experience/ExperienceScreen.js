@@ -27,8 +27,17 @@ const ExperienceScreen = ({ navigation }) => {
 
   const {
     state: { loading, experiences },
+    setExperienceToEdit,
   } = useContext(ExperienceContext)
+
   const { showDeleteModal } = useContext(UniversalContext)
+
+  const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const handlePressEdit = (data) => {
+    setExperienceToEdit(data)
+    setCVBitScreenSelected('experienceEdit')
+  }
 
   const renderList = () => {
     if (loading || experiences === null) return <LoaderFullScreen />
@@ -75,13 +84,7 @@ const ExperienceScreen = ({ navigation }) => {
                     <MaterialCommunityIcons
                       style={styles.actionButton}
                       name="pencil"
-                      onPress={() =>
-                        navigation.navigate('ExperienceEdit', {
-                          id: item._id,
-                          title: item.title,
-                          description: item.description,
-                        })
-                      }
+                      onPress={() => handlePressEdit(item)}
                     />
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.deleteButtonBed}>

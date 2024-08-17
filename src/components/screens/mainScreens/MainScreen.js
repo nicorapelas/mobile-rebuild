@@ -83,7 +83,8 @@ const Main = () => {
       CVBitScreenSelected === 'tertEduCreate' ||
       CVBitScreenSelected === 'tertEduEdit' ||
       CVBitScreenSelected === 'employHistoryCreate' ||
-      CVBitScreenSelected === 'employHistoryEdit'
+      CVBitScreenSelected === 'employHistoryEdit' ||
+      CVBitScreenSelected === 'experienceCreate'
     ) {
       setShowHeader(false)
     } else {

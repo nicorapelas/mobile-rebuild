@@ -18,7 +18,7 @@ import FormCancelButton from '../../../../../common/FormCancelButton'
 import { Context as ExperienceContext } from '../../../../../../context/ExperienceContext'
 import { Context as NavContext } from '../../../../../../context/NavContext'
 
-const ExperienceCreateForm = () => {
+const ExperienceEditForm = () => {
   const [title, setTitle] = useState(null)
   const [description, setDescription] = useState(null)
   const [titleInputShow, setTitleInputShow] = useState(true)
@@ -26,7 +26,7 @@ const ExperienceCreateForm = () => {
   const [saveButtonShow, setSaveButtonShow] = useState(false)
 
   const {
-    state: { loading, error },
+    state: { loading, error, experienceToEdit },
     createExperience,
     addError,
     clearExperienceErrors,
@@ -39,6 +39,10 @@ const ExperienceCreateForm = () => {
       if (error.title) setTitleInputShow(true)
     }
   }, [error])
+
+  useEffect(() => {
+    console.log(`experienceToEdit:`, experienceToEdit)
+  }, [experienceToEdit])
 
   const errorHeading = () => {
     if (error === null) return null
@@ -436,4 +440,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ExperienceCreateForm
+export default ExperienceEditForm

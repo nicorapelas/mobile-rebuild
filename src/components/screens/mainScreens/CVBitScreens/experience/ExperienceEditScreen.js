@@ -1,19 +1,19 @@
 import React, { useContext } from 'react'
 import LoaderFullScreen from '../../../../common/LoaderFullScreen'
 import { Context as ExperienceContext } from '../../../../../context/ExperienceContext'
-import ExperienceCreateForm from '../cvBitForms/experience/ExperienceCreateForm'
+import ExperienceEditForm from '../cvBitForms/experience/ExperienceEditForm'
 
-const ExperienceCreateScreen = () => {
+const ExperienceEditScreen = () => {
   const {
     state: { loading },
   } = useContext(ExperienceContext)
 
   const renderContent = () => {
     if (loading || loading === null) return <LoaderFullScreen />
-    return <ExperienceCreateForm />
+    return <ExperienceEditForm />
   }
 
   return renderContent()
 }
 
-export default ExperienceCreateScreen
+export default ExperienceEditScreen
