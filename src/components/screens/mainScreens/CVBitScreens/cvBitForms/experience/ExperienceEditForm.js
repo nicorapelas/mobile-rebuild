@@ -27,7 +27,7 @@ const ExperienceEditForm = () => {
 
   const {
     state: { loading, error, experienceToEdit },
-    createExperience,
+    editExperience,
     addError,
     clearExperienceErrors,
   } = useContext(ExperienceContext)
@@ -41,7 +41,11 @@ const ExperienceEditForm = () => {
   }, [error])
 
   useEffect(() => {
-    console.log(`experienceToEdit:`, experienceToEdit)
+    if (experienceToEdit) {
+      const { description, title } = experienceToEdit
+      setDescription(description)
+      setTitle(title)
+    }
   }, [experienceToEdit])
 
   const errorHeading = () => {
@@ -189,7 +193,10 @@ const ExperienceEditForm = () => {
   }
 
   const handlePressSave = (data) => {
-    createExperience(data)
+    const { _id } = experienceToEdit
+    editExperience({ id: _id }, { formValues: data })
+    setTitle(null)
+    setDescription(null)
     setCVBitScreenSelected('experience')
   }
 

@@ -13,6 +13,7 @@ import SecondEduBitButton from '../../../cvBitButtons/SecondEduBitButton'
 import TertEduBitButton from '../../../cvBitButtons/TertEduBitButton'
 import EmployHistoryBitButton from '../../../cvBitButtons/EmployHistoryBitButton'
 import ExperienceBitButton from '../../../cvBitButtons/ExperienceBitButton'
+import ReferenceBitButton from '../../../cvBitButtons/ReferenceBitButton'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const DashboardScreen = () => {
@@ -35,6 +36,7 @@ const DashboardScreen = () => {
           <SkillBitButton />
           <EmployHistoryBitButton />
           <ExperienceBitButton />
+          <ReferenceBitButton />
         </ScrollView>
       )
     }

@@ -26,7 +26,7 @@ const ExperienceReducer = (state, action) => {
     case 'SET_EXPERIENCE_TO_EDIT':
       return { ...state, experienceToEdit: action.payload }
     case 'EDIT':
-      return { ...state, [action.payload._id]: action.payload, loading: false }
+      return { ...state, experiences: action.payload, loading: false }
     case 'DELETE':
       return { ...state, experiences: action.payload, loading: false }
     default:
@@ -91,20 +91,21 @@ const setExperienceToEdit = (dispatch) => (data) => {
   return
 }
 
-const editExperience = (dispatch) => async (id, formValues, callback) => {
+const editExperience = (dispatch) => async (id, formValues) => {
   dispatch({ type: 'LOADING' })
   try {
-    const response = await ngrokApi.patch(`/api/experience/${id}`, formValues)
+    const response = await ngrokApi.patch(
+      `/api/experience/${id.id}`,
+      formValues
+    )
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
     }
     dispatch({ type: 'EDIT', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }
@@ -113,6 +114,7 @@ const deleteExperience = (dispatch) => async (id) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete(`/api/experience/${id}`)
+    console.log(`response:`, response)
     dispatch({ type: 'DELETE', payload: response.data })
     return
   } catch (error) {

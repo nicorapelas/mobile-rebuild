@@ -33,6 +33,8 @@ import EmployHistoryEditScreen from './employHistory/EmployHistoryEditScreen'
 import ExperienceScreen from './experience/ExperienceScreen'
 import ExperienceCreateScreen from './experience/ExperienceCreateScreen'
 import ExperienceEditScreen from './experience/ExperienceEditScreen'
+import ReferenceScreen from './reference/ReferenceScreen'
+import ReferenceCreateScreen from './reference/ReferenceCreateScreen'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const CVBitScreenRender = () => {
@@ -108,6 +110,10 @@ const CVBitScreenRender = () => {
         return <ExperienceCreateScreen />
       case 'experienceEdit':
         return <ExperienceEditScreen />
+      case 'reference':
+        return <ReferenceScreen />
+      case 'referenceCreate':
+        return <ReferenceCreateScreen />
       default:
         break
     }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -21,7 +21,7 @@ import { Context as ExperienceContext } from '../../../../../context/ExperienceC
 import { Context as UniversalContext } from '../../../../../context/UniversalContext'
 import { Context as NavContext } from '../../../../../context/NavContext'
 
-const ExperienceScreen = ({ navigation }) => {
+const ExperienceScreen = () => {
   const [documentId, setDocumentId] = useState('')
   const [documentSelected, setDocumentSelected] = useState('')
 
@@ -33,6 +33,10 @@ const ExperienceScreen = ({ navigation }) => {
   const { showDeleteModal } = useContext(UniversalContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
+
+  useEffect(() => {
+    console.log(experiences)
+  }, [experiences])
 
   const handlePressEdit = (data) => {
     setExperienceToEdit(data)
