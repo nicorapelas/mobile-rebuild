@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -15,6 +15,7 @@ import AddContentButtonLink from '../../../../links/AddContentButtonLink'
 import DoneButton from '../../../../links/DoneButton'
 import { Context as ReferenceContext } from '../../../../../context/ReferenceContext'
 import { Context as UniversalContext } from '../../../../../context/UniversalContext'
+import { Context as NavContext } from '../../../../../context/NavContext'
 
 const ReferenceScreen = () => {
   const [documentId, setDocumentId] = useState('')
@@ -22,9 +23,17 @@ const ReferenceScreen = () => {
 
   const {
     state: { loading, references },
+    setReferenceToEdit,
   } = useContext(ReferenceContext)
 
   const { showDeleteModal } = useContext(UniversalContext)
+
+  const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const handlePressEdit = (data) => {
+    setReferenceToEdit(data)
+    setCVBitScreenSelected('referenceEdit')
+  }
 
   const renderList = () => {
     if (loading || references === null) return <LoaderFullScreen />
@@ -37,80 +46,72 @@ const ReferenceScreen = () => {
         />
       )
     return (
-      <>
-        <FlatList
-          keyExtractor={(reference) => reference._id}
-          data={references}
-          renderItem={({ item }) => {
-            return (
-              <>
-                <View style={styles.contentBed}>
-                  {!item.name || item.name.length < 1 ? null : (
-                    <View style={styles.contentRow}>
-                      <MaterialIcons style={styles.icon} name="person" />
-                      <Text style={styles.text}>{item.name}</Text>
-                    </View>
-                  )}
-                  {!item.company || item.company.length < 1 ? null : (
-                    <View style={styles.contentRow}>
-                      <MaterialIcons style={styles.icon} name="business" />
-                      <Text style={styles.text}>{item.company}</Text>
-                    </View>
-                  )}
-                  {!item.phone || item.phone.length < 1 ? null : (
-                    <View style={styles.contentRow}>
-                      <MaterialCommunityIcons
-                        style={styles.icon}
-                        name="cellphone-basic"
-                      />
-                      <Text style={styles.text}>{item.phone}</Text>
-                    </View>
-                  )}
-                  {!item.email || item.email.length < 1 ? null : (
-                    <View style={styles.contentRow}>
-                      <MaterialCommunityIcons
-                        style={styles.icon}
-                        name="email"
-                      />
-                      <Text style={styles.text}>{item.email}</Text>
-                    </View>
-                  )}
-                  <View style={styles.lastUpdateRow}>
-                    <MaterialIcons
-                      style={styles.lastUpdateIcon}
-                      name="watch-later"
-                    />
-                    <Text style={styles.LastUpdateText}>
-                      Last update:{' '}
-                      {new Date(item.lastUpdate).toLocaleDateString()}
-                    </Text>
-                  </View>
-                  <View style={styles.buttonBed}>
-                    <TouchableOpacity style={styles.editButtonBed}>
-                      <MaterialCommunityIcons
-                        style={styles.actionButton}
-                        name="pencil"
-                        onPress={() => console.log(`edit this`)}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.deleteButtonBed}>
-                      <MaterialCommunityIcons
-                        style={styles.actionButton}
-                        name="delete"
-                        onPress={() => {
-                          setDocumentId(item._id)
-                          setDocumentSelected(item.name)
-                          showDeleteModal()
-                        }}
-                      />
-                    </TouchableOpacity>
-                  </View>
+      <FlatList
+        keyExtractor={(reference) => reference._id}
+        data={references}
+        renderItem={({ item }) => {
+          return (
+            <View style={styles.contentBed}>
+              {!item.name || item.name.length < 1 ? null : (
+                <View style={styles.contentRow}>
+                  <MaterialIcons style={styles.icon} name="person" />
+                  <Text style={styles.text}>{item.name}</Text>
                 </View>
-              </>
-            )
-          }}
-        />
-      </>
+              )}
+              {!item.company || item.company.length < 1 ? null : (
+                <View style={styles.contentRow}>
+                  <MaterialIcons style={styles.icon} name="business" />
+                  <Text style={styles.text}>{item.company}</Text>
+                </View>
+              )}
+              {!item.phone || item.phone.length < 1 ? null : (
+                <View style={styles.contentRow}>
+                  <MaterialCommunityIcons
+                    style={styles.icon}
+                    name="cellphone-basic"
+                  />
+                  <Text style={styles.text}>{item.phone}</Text>
+                </View>
+              )}
+              {!item.email || item.email.length < 1 ? null : (
+                <View style={styles.contentRow}>
+                  <MaterialCommunityIcons style={styles.icon} name="email" />
+                  <Text style={styles.text}>{item.email}</Text>
+                </View>
+              )}
+              <View style={styles.lastUpdateRow}>
+                <MaterialIcons
+                  style={styles.lastUpdateIcon}
+                  name="watch-later"
+                />
+                <Text style={styles.LastUpdateText}>
+                  Last update: {new Date(item.lastUpdate).toLocaleDateString()}
+                </Text>
+              </View>
+              <View style={styles.buttonBed}>
+                <TouchableOpacity style={styles.editButtonBed}>
+                  <MaterialCommunityIcons
+                    style={styles.actionButton}
+                    name="pencil"
+                    onPress={() => handlePressEdit(item)}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.deleteButtonBed}>
+                  <MaterialCommunityIcons
+                    style={styles.actionButton}
+                    name="delete"
+                    onPress={() => {
+                      setDocumentId(item._id)
+                      setDocumentSelected(item.name)
+                      showDeleteModal()
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
+        }}
+      />
     )
   }
 

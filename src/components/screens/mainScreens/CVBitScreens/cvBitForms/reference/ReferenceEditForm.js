@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   View,
   ScrollView,
@@ -21,7 +21,7 @@ import validatePhoneInput from '../../../../../../validation/phone'
 import { Context as ReferenceContext } from '../../../../../../context/ReferenceContext'
 import { Context as NavContext } from '../../../../../../context/NavContext'
 
-const ReferenceCreateForm = () => {
+const ReferenceEditForm = () => {
   const [email, setEmail] = useState(null)
   const [phone, setPhone] = useState(null)
   const [name, setName] = useState(null)
@@ -34,8 +34,8 @@ const ReferenceCreateForm = () => {
   const [saveButtonShow, setSaveButtonShow] = useState(false)
 
   const {
-    state: { loading, error },
-    createReference,
+    state: { loading, error, referenceToEdit },
+    editReference,
     addError,
     clearReferenceErrors,
   } = useContext(ReferenceContext)
@@ -43,6 +43,16 @@ const ReferenceCreateForm = () => {
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   const keyboard = useKeyboard()
+
+  useEffect(() => {
+    if (referenceToEdit) {
+      const { email, name, phone, company } = referenceToEdit
+      setEmail(email)
+      setName(name)
+      setPhone(phone)
+      setCompany(company)
+    }
+  }, [referenceToEdit])
 
   const errorHeading = () => {
     if (error === null) return null
@@ -372,7 +382,8 @@ const ReferenceCreateForm = () => {
   }
 
   const handlePressSave = (data) => {
-    createReference(data)
+    const { _id } = referenceToEdit
+    editReference({ id: _id }, { formValues: data })
     setCVBitScreenSelected('reference')
   }
 
@@ -624,4 +635,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ReferenceCreateForm
+export default ReferenceEditForm
