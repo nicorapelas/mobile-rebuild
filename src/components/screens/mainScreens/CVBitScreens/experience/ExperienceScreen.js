@@ -34,10 +34,6 @@ const ExperienceScreen = () => {
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
-  useEffect(() => {
-    console.log(experiences)
-  }, [experiences])
-
   const handlePressEdit = (data) => {
     setExperienceToEdit(data)
     setCVBitScreenSelected('experienceEdit')

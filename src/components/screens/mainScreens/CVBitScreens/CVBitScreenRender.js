@@ -36,6 +36,8 @@ import ExperienceEditScreen from './experience/ExperienceEditScreen'
 import ReferenceScreen from './reference/ReferenceScreen'
 import ReferenceCreateScreen from './reference/ReferenceCreateScreen'
 import ReferenceEditScreen from './reference/ReferenceEditScreen'
+import PhotoScreen from './photo/PhotoScreen'
+import PhotoCreateScreen from './photo/PhotoCreateScreen'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const CVBitScreenRender = () => {
@@ -117,6 +119,10 @@ const CVBitScreenRender = () => {
         return <ReferenceCreateScreen />
       case 'referenceEdit':
         return <ReferenceEditScreen />
+      case 'photo':
+        return <PhotoScreen />
+      case 'photoCreate':
+        return <PhotoCreateScreen />
       default:
         break
     }

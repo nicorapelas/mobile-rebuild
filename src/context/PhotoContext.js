@@ -15,10 +15,8 @@ const PhotoReducer = (state, action) => {
       return { ...state, photoStatus: action.payload, loading: false }
     case 'FETCH_PHOTOS':
       return { ...state, photos: action.payload, loading: false }
-    case 'UPLOAD_PHOTO':
-      return { ...state, [action.payload._id]: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, photo: action.payload, loading: false }
+      return { ...state, photos: action.payload, loading: false }
     case 'ADD_UPLOAD_SIGNATURE':
       return { ...state, uploadSignature: action.payload }
     case 'CLEAR_UPLOAD_SIGNATURE':
@@ -32,7 +30,7 @@ const PhotoReducer = (state, action) => {
     case 'FETCH_ASSIGNED_PHOTO':
       return { ...state, assignedPhotoUrl: action.payload }
     case 'DELETE':
-      return _.omit(state, action.payload)
+      return { ...state, photos: action.payload, loading: false }
     case 'EDIT':
       return { ...state, [action.payload._id]: action.payload, loading: false }
     default:
@@ -41,7 +39,7 @@ const PhotoReducer = (state, action) => {
 }
 
 // Actions
-const fetchPhotoSample = dispatch => async () => {
+const fetchPhotoSample = (dispatch) => async () => {
   try {
     const response = await ngrokApi.get('/api/photo/sample')
     dispatch({ type: 'FETCH_SAMPLE', payload: response.data })
@@ -52,7 +50,7 @@ const fetchPhotoSample = dispatch => async () => {
   }
 }
 
-const fetchPhotoStatus = dispatch => async () => {
+const fetchPhotoStatus = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/photo/status')
@@ -64,21 +62,19 @@ const fetchPhotoStatus = dispatch => async () => {
   }
 }
 
-const createPhoto = dispatch => async (imageData, callback) => {
+const createPhoto = (dispatch) => async (imageData) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/photo', imageData)
     dispatch({ type: 'CREATE', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }
 
-const createUploadSignature = dispatch => async () => {
+const createUploadSignature = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post(
@@ -96,11 +92,11 @@ const createUploadSignature = dispatch => async () => {
   }
 }
 
-const clearUploadSignature = dispatch => () => {
+const clearUploadSignature = (dispatch) => () => {
   dispatch({ type: 'CLEAR_UPLOAD_SIGNATURE', payload: null })
 }
 
-const fetchAssignedPhoto = dispatch => async () => {
+const fetchAssignedPhoto = (dispatch) => async () => {
   try {
     const response = await ngrokApi.get('/api/photo/assigned')
     dispatch({ type: 'FETCH_ASSIGNED_PHOTO', payload: response.data })
@@ -111,7 +107,7 @@ const fetchAssignedPhoto = dispatch => async () => {
   }
 }
 
-const fetchPhotos = dispatch => async () => {
+const fetchPhotos = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/api/photo')
@@ -123,7 +119,7 @@ const fetchPhotos = dispatch => async () => {
   }
 }
 
-const deleteLargePhoto = dispatch => async imageFile => {
+const deleteLargePhoto = (dispatch) => async (imageFile) => {
   try {
     ngrokApi.post('/api/photo-service/delete-large-photo', { imageFile })
     return
@@ -133,7 +129,7 @@ const deleteLargePhoto = dispatch => async imageFile => {
   }
 }
 
-const deleteSmallPhoto = dispatch => async imageFile => {
+const deleteSmallPhoto = (dispatch) => async (imageFile) => {
   try {
     ngrokApi.post('/api/photo-service/delete-photo', { imageFile })
     return
@@ -143,21 +139,19 @@ const deleteSmallPhoto = dispatch => async imageFile => {
   }
 }
 
-const deletePhoto = dispatch => async (data, callback) => {
+const deletePhoto = (dispatch) => async (data) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post(`/api/photo/delete`, data)
     dispatch({ type: 'DELETE', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }
 
-const assignPhoto = dispatch => async id => {
+const assignPhoto = (dispatch) => async (id) => {
   try {
     const response = await ngrokApi.post('/api/photo/assign-photo', { id })
     dispatch({ type: 'PRESET_ASSIGNED_PHOTO_ID', payload: response.data._id })
@@ -168,16 +162,16 @@ const assignPhoto = dispatch => async id => {
   }
 }
 
-const clearAssignedPhoto = dispatch => () => {
+const clearAssignedPhoto = (dispatch) => () => {
   dispatch({ type: 'CLEAR_ASSIGNED_PHOTO', payload: null })
 }
 
-const resetAssignedPhotoId = dispatch => async => {
+const resetAssignedPhotoId = (dispatch) => (async) => {
   dispatch({ type: 'RESET_ASSIGNED_PHOTO_ID', payload: null })
   return
 }
 
-const editPhoto = dispatch => async (id, formValues, callback) => {
+const editPhoto = (dispatch) => async (id, formValues, callback) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch(`/api/photo/${id}`, formValues)
@@ -207,7 +201,7 @@ export const { Context, Provider } = createDataContext(
     deletePhoto,
     assignPhoto,
     clearAssignedPhoto,
-    resetAssignedPhotoId
+    resetAssignedPhotoId,
   },
   // Initial state
   {
@@ -219,6 +213,6 @@ export const { Context, Provider } = createDataContext(
     loading: null,
     photoError: null,
     assignedPhotoId: null,
-    assignedPhotoUrl: null
+    assignedPhotoUrl: null,
   }
 )

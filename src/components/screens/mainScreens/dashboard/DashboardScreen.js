@@ -14,6 +14,7 @@ import TertEduBitButton from '../../../cvBitButtons/TertEduBitButton'
 import EmployHistoryBitButton from '../../../cvBitButtons/EmployHistoryBitButton'
 import ExperienceBitButton from '../../../cvBitButtons/ExperienceBitButton'
 import ReferenceBitButton from '../../../cvBitButtons/ReferenceBitButton'
+import PhotoBitButton from '../../../cvBitButtons/PhotoBitButton'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const DashboardScreen = () => {
@@ -25,6 +26,7 @@ const DashboardScreen = () => {
     if (CVBitScreenSelected === '') {
       return (
         <ScrollView style={styles.container}>
+          <PhotoBitButton />
           <PersonalSummaryBitButton />
           <SecondEduBitButton />
           <TertEduBitButton />
