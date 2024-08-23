@@ -114,7 +114,6 @@ const deleteExperience = (dispatch) => async (id) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete(`/api/experience/${id}`)
-    console.log(`response:`, response)
     dispatch({ type: 'DELETE', payload: response.data })
     return
   } catch (error) {

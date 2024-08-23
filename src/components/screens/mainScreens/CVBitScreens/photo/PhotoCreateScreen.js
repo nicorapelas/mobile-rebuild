@@ -17,6 +17,7 @@ import { keys } from '../../../../../../config/keys_dev'
 import LoaderFullScreen from '../../../../common/LoaderFullScreen'
 import PhotoPermissions from './PhotoPermissions'
 import FormHintModal from '../../../../common/modals/FormHintModal'
+import FormCancelButton from '../../../../common/FormCancelButton'
 import { Context as PhotoContext } from '../../../../../context/PhotoContext'
 import { Context as NavContext } from '../../../../../context/NavContext'
 
@@ -152,13 +153,16 @@ const PhotoCreateScreen = () => {
             autoCorrect={false}
             autoCapitalize="words"
           />
-          <TouchableOpacity
-            style={styles.addButtonContainer}
-            onPress={() => createUploadSignature()}
-          >
-            <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
-            <Text style={styles.addButtonText}>save</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <FormCancelButton route="photo" />
+            <TouchableOpacity
+              style={styles.addButtonContainer}
+              onPress={() => createUploadSignature()}
+            >
+              <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
+              <Text style={styles.addButtonText}>save</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     )
@@ -243,28 +247,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingRight: 10,
   },
-  buttonContentBed: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 100,
-  },
-  buttonIcon: {
-    color: '#42daf5',
-    fontSize: 24,
-  },
-  buttonText: {
-    color: '#42daf5',
-    fontSize: 20,
-  },
-  cancelButton: {
-    alignSelf: 'center',
-    width: 37,
-    marginTop: 10,
-    backgroundColor: '#232936',
-    borderRadius: 25,
-    borderColor: 'red',
-    borderWidth: 2,
-  },
   cancelButtonIcon: {
     fontSize: 22,
     color: 'red',
@@ -279,12 +261,16 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#ffffff',
+    alignSelf: 'center',
     height: 50,
     width: '85%',
-    alignSelf: 'center',
     textAlign: 'center',
     borderRadius: 7,
-    margin: 5,
+    margin: 15,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   addButtonContainer: {
     backgroundColor: '#278ACD',
@@ -296,8 +282,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 5,
     width: 90,
-    margin: 5,
     height: 40,
+    marginLeft: 10,
   },
   addButtonIcon: {
     color: '#ffff',
@@ -307,6 +293,7 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: '#ffff',
     fontSize: 18,
+    marginBottom: 5,
   },
 })
 

@@ -18,7 +18,7 @@ import { Context as PhotoContext } from '../../../../../context/PhotoContext'
 import { Context as UniversalContext } from '../../../../../context/UniversalContext'
 import { Context as NavContext } from '../../../../../context/NavContext'
 
-const PhotoScreen = ({ navigation }) => {
+const PhotoScreen = () => {
   const [photoSelected, setPhotoSelected] = useState(null)
   const [documentId, setDocumentId] = useState('')
   const [documentSelected, setDocumentSelected] = useState('')
@@ -32,6 +32,7 @@ const PhotoScreen = ({ navigation }) => {
     state: { loading, photos, assignedPhotoId },
     assignPhoto,
     resetAssignedPhotoId,
+    setPhotoToEdit,
   } = useContext(PhotoContext)
 
   useEffect(() => {
@@ -39,7 +40,6 @@ const PhotoScreen = ({ navigation }) => {
   }, [photos])
 
   const autoAssignPhoto = () => {
-    console.log(`photos:`, photos)
     if (!photos || photos.length < 1) {
       return null
     }
@@ -67,6 +67,11 @@ const PhotoScreen = ({ navigation }) => {
     setPhotoSelected(data._id)
     resetAssignedPhotoId()
     assignPhoto(data._id)
+  }
+
+  const handlePressEdit = (data) => {
+    setPhotoToEdit(data)
+    setCVBitScreenSelected('photoEdit')
   }
 
   const handlePressDelete = (data) => {
@@ -131,7 +136,7 @@ const PhotoScreen = ({ navigation }) => {
                   <View style={styles.buttonBed}>
                     <TouchableOpacity
                       style={styles.editButtonBed}
-                      onPress={() => console.log(`edit photo`)}
+                      onPress={() => handlePressEdit(item)}
                     >
                       <MaterialCommunityIcons
                         style={styles.actionButton}

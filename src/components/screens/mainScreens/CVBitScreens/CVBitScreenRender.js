@@ -38,6 +38,7 @@ import ReferenceCreateScreen from './reference/ReferenceCreateScreen'
 import ReferenceEditScreen from './reference/ReferenceEditScreen'
 import PhotoScreen from './photo/PhotoScreen'
 import PhotoCreateScreen from './photo/PhotoCreateScreen'
+import PhotoEditScreen from './photo/PhotoEditScreen'
 import { Context as NavContext } from '../../../../context/NavContext'
 
 const CVBitScreenRender = () => {
@@ -123,6 +124,8 @@ const CVBitScreenRender = () => {
         return <PhotoScreen />
       case 'photoCreate':
         return <PhotoCreateScreen />
+      case 'photoEdit':
+        return <PhotoEditScreen />
       default:
         break
     }

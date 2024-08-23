@@ -31,6 +31,8 @@ const PhotoReducer = (state, action) => {
       return { ...state, assignedPhotoUrl: action.payload }
     case 'DELETE':
       return { ...state, photos: action.payload, loading: false }
+    case 'SET_PHOTO_TO_EDIT':
+      return { ...state, photoToEdit: action.payload }
     case 'EDIT':
       return { ...state, [action.payload._id]: action.payload, loading: false }
     default:
@@ -171,6 +173,10 @@ const resetAssignedPhotoId = (dispatch) => (async) => {
   return
 }
 
+const setPhotoToEdit = (dispatch) => (data) => {
+  dispatch({ type: 'SET_PHOTO_TO_EDIT', payload: data })
+}
+
 const editPhoto = (dispatch) => async (id, formValues, callback) => {
   dispatch({ type: 'LOADING' })
   try {
@@ -195,6 +201,7 @@ export const { Context, Provider } = createDataContext(
     createPhoto,
     createUploadSignature,
     clearUploadSignature,
+    setPhotoToEdit,
     editPhoto,
     deleteLargePhoto,
     deleteSmallPhoto,
@@ -211,6 +218,7 @@ export const { Context, Provider } = createDataContext(
     photoStatus: null,
     uploadSignature: null,
     loading: null,
+    photoToEdit: null,
     photoError: null,
     assignedPhotoId: null,
     assignedPhotoUrl: null,
