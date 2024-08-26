@@ -34,7 +34,7 @@ const PhotoReducer = (state, action) => {
     case 'SET_PHOTO_TO_EDIT':
       return { ...state, photoToEdit: action.payload }
     case 'EDIT':
-      return { ...state, [action.payload._id]: action.payload, loading: false }
+      return { ...state, photos: action.payload, loading: false }
     default:
       return state
   }
@@ -177,16 +177,14 @@ const setPhotoToEdit = (dispatch) => (data) => {
   dispatch({ type: 'SET_PHOTO_TO_EDIT', payload: data })
 }
 
-const editPhoto = (dispatch) => async (id, formValues, callback) => {
+const editPhoto = (dispatch) => async (id, formValues) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch(`/api/photo/${id}`, formValues)
     dispatch({ type: 'EDIT', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }

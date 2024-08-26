@@ -32,7 +32,7 @@ const Main = () => {
   } = useContext(AdvertisementContext)
 
   const {
-    state: { CVBitScreenSelected },
+    state: { navTabSelected, CVBitScreenSelected },
   } = useContext(NavContext)
 
   useEffect(() => {
@@ -86,18 +86,28 @@ const Main = () => {
       CVBitScreenSelected === 'employHistoryEdit' ||
       CVBitScreenSelected === 'experienceCreate' ||
       CVBitScreenSelected === 'experienceEdit' ||
-      CVBitScreenSelected === 'referenceCreate'
+      CVBitScreenSelected === 'referenceCreate' ||
+      CVBitScreenSelected === 'referenceEdit' ||
+      CVBitScreenSelected === 'photoCreate' ||
+      CVBitScreenSelected === 'photoEdit' ||
+      navTabSelected === 'viewCV'
     ) {
       setShowHeader(false)
     } else {
       setShowHeader(true)
     }
-  }, [CVBitScreenSelected])
+  }, [CVBitScreenSelected, navTabSelected])
+
+  useEffect(() => {
+    console.log(`navTabSelected`, navTabSelected)
+  }, [navTabSelected])
 
   const renderHeader = () => {
     if (!showHeader) return null
     if (CVBitScreenSelected === '') {
-      return <Header />
+      if (navTabSelected !== 'viewCV') {
+        return <Header />
+      }
     }
     return <HeaderCVBit />
   }

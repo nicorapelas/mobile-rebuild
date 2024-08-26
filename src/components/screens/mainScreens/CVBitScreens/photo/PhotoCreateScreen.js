@@ -18,6 +18,7 @@ import LoaderFullScreen from '../../../../common/LoaderFullScreen'
 import PhotoPermissions from './PhotoPermissions'
 import FormHintModal from '../../../../common/modals/FormHintModal'
 import FormCancelButton from '../../../../common/FormCancelButton'
+import DoneButton from '../../../../links/DoneButton'
 import { Context as PhotoContext } from '../../../../../context/PhotoContext'
 import { Context as NavContext } from '../../../../../context/NavContext'
 
@@ -202,10 +203,13 @@ const PhotoCreateScreen = () => {
     if (galleryPermissionStatus === false)
       return <PhotoPermissions bit="gallery" />
     return (
-      <View style={styles.bed}>
-        {cameraOrGallery()}
-        {titleField()}
-      </View>
+      <>
+        <View style={styles.bed}>
+          {cameraOrGallery()}
+          {titleField()}
+        </View>
+        <DoneButton text="Cancel" routeName="photo" />
+      </>
     )
   }
 

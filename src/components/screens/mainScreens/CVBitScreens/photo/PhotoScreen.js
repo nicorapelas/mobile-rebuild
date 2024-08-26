@@ -93,7 +93,7 @@ const PhotoScreen = () => {
       )
     return (
       <>
-        <AddContentButtonLink routeName="PhotoCreate" text="upload photo" />
+        <AddContentButtonLink routeName="photoCreate" text="upload photo" />
         <FlatList
           keyExtractor={(photo) => photo._id}
           data={photos}

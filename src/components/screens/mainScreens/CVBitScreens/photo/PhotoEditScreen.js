@@ -45,7 +45,7 @@ const PhotoEditScreen = () => {
   //   }
 
   const handlePressEdit = () => {
-    editPhoto(id, title)
+    editPhoto(id, { title })
     setTitle('')
     setCVBitScreenSelected('photo')
   }
