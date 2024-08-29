@@ -56,7 +56,7 @@ const CertificateScreen = () => {
       return (
         <BitNoData
           cvBit="Certificate"
-          routeName="CertificateCreate"
+          routeName="certificateCreate"
           buttonText="add certificate"
         />
       )

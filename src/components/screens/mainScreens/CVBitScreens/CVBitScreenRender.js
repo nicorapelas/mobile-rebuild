@@ -135,6 +135,10 @@ const CVBitScreenRender = () => {
         return <CertificateScreen />
       case 'certificateCreate':
         return <CertificateCreateScreen />
+      case 'certificatePdfUpload':
+        return <CertificatePdfUploadScreen />
+      case 'certificatePhotoUpload':
+        return <CertificatePhotoUploadScreen />
       case 'certificateEditScreen':
         return <CertificateEditScreen />
       default:

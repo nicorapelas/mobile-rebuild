@@ -1,14 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { Text } from 'react-native-elements'
-import { TextInput, ScrollView } from 'react-native-gesture-handler'
-import KeyboardSpacer from 'react-native-keyboard-spacer'
+import {
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native'
 import { MaterialIcons, AntDesign } from '@expo/vector-icons'
-import LoaderFullScreen from '../../../components/loadingModals/LoaderFullScreen'
-import { Context as CertificateContext } from '../../../context/CertificateContext'
-import { Context as NavContext } from '../../../context/NavContext'
 
-const CertificateEditScreen = ({ navigation }) => {
+import LoaderFullScreen from '../../../../common/LoaderFullScreen'
+import { Context as CertificateContext } from '../../../../../context/CertificateContext'
+import { Context as NavContext } from '../../../../../context/NavContext'
+
+const CertificateEditScreen = () => {
   const [id, setId] = useState()
   const [title, setTitle] = useState()
   const [photoUrl, setPhotoUrl] = useState()
@@ -67,7 +73,6 @@ const CertificateEditScreen = ({ navigation }) => {
               <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
               <Text style={styles.addButtonText}>save</Text>
             </TouchableOpacity>
-            <KeyboardSpacer />
           </ScrollView>
         </View>
       </View>
