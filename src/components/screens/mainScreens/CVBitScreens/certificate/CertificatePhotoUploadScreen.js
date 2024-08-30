@@ -6,7 +6,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Platform,
   Image,
 } from 'react-native'
 import { Camera } from 'expo-camera'
@@ -43,6 +42,20 @@ const CertificatePhotoUploadScreen = () => {
     }
   }, [uploadSignature])
 
+  const handleCertificateCreate = (data) => {
+    createCertificate({
+      title: title,
+      photoUrl: data.url,
+      publicId: data.public_id,
+    })
+    setImageUploading(false)
+    setModal(false)
+    setTitle(null)
+    setImageFile(null)
+    clearUploadSignature()
+    setCVBitScreenSelected('certificate')
+  }
+
   const randomFileName =
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15) +
@@ -51,45 +64,35 @@ const CertificatePhotoUploadScreen = () => {
   const imageUpload = () => {
     const { apiKey, signature, timestamp } = uploadSignature
     const data = new FormData()
-    data.append('file', {
-      uri: imageFile.uri,
-      type: `documents/${imageFile.uri.split('.')[1]}`,
-      name: imageFile.name,
-    })
-    data.append('api_key', apiKey)
-    data.append('timestamp', timestamp)
-    data.append('signature', signature)
-    fetch(keys.cloudinary.uploadImageUrl, {
-      method: 'post',
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          setImageUploading(false)
-          clearUploadSignature()
-          Alert.alert('Unable to upload image, please try again later')
-          setCVBitScreenSelected('')
-          return
-        }
-        createCertificate(
-          {
-            title: title,
-            photoUrl: data.url,
-            publicId: data.public_id,
-          },
-          () => {
+    if (imageFile) {
+      data.append('file', {
+        uri: imageFile.uri,
+        type: `documents/${imageFile.uri.split('.')[1]}`,
+        name: imageFile.name,
+      })
+      data.append('api_key', apiKey)
+      data.append('timestamp', timestamp)
+      data.append('signature', signature)
+      fetch(keys.cloudinary.uploadImageUrl, {
+        method: 'post',
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
             setImageUploading(false)
             clearUploadSignature()
-            setCVBitScreenSelected('certificate')
+            Alert.alert('Unable to upload image, please try again later')
+            setCVBitScreenSelected('')
+            return
           }
-        )
-        setImageUploading(false)
-      })
-      .catch((err) => {
-        Alert.alert('Unable to upload image, please try again later')
-        return
-      })
+          handleCertificateCreate(data)
+        })
+        .catch((err) => {
+          Alert.alert('Unable to upload image, please try again later')
+          return
+        })
+    }
   }
 
   const pickFromGallery = async () => {
@@ -101,11 +104,12 @@ const CertificatePhotoUploadScreen = () => {
         aspect: [1, 1],
         quality: 0.15,
       })
-      if (!data.cancelled) {
+      if (!data.canceled) {
+        const { uri } = data.assets[0]
         let newFile = {
-          uri: data.uri,
-          type: `certificate/${data.uri.split('.')[1]}`,
-          name: `${randomFileName}.${data.uri.split('.')[1]}`,
+          uri: uri,
+          type: `certificate/${uri.split('.')[1]}`,
+          name: `${randomFileName}.${uri.split('.')[1]}`,
         }
         setImageUri(newFile.uri)
         setImageFile(newFile)
@@ -125,11 +129,12 @@ const CertificatePhotoUploadScreen = () => {
         aspect: [1, 1],
         quality: 0.5,
       })
-      if (!data.cancelled) {
+      if (!data.canceled) {
+        const { uri } = data.assets[0]
         let newFile = {
-          uri: data.uri,
-          type: `certificate/${data.uri.split('.')[1]}`,
-          name: `${randomFileName}.${data.uri.split('.')[1]}`,
+          uri: uri,
+          type: `certificate/${uri.split('.')[1]}`,
+          name: `${randomFileName}.${uri.split('.')[1]}`,
         }
         setImageUri(newFile.uri)
         setImageFile(newFile)
@@ -285,7 +290,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     borderRadius: 7,
-    margin: 5,
+    marginVertical: 10,
   },
   addButtonContainer: {
     backgroundColor: '#278ACD',
@@ -308,6 +313,7 @@ const styles = StyleSheet.create({
   addButtonText: {
     color: '#ffff',
     fontSize: 18,
+    marginBottom: 5,
   },
 })
 

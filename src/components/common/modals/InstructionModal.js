@@ -4,9 +4,9 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Overlay,
   ScrollView,
 } from 'react-native'
+import { Overlay } from 'react-native-elements'
 import AppLink from 'react-native-app-link'
 import { Ionicons, Octicons, AntDesign } from '@expo/vector-icons'
 

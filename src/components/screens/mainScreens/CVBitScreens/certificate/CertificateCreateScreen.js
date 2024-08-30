@@ -8,7 +8,7 @@ import { Context as UniversalContext } from '../../../../../context/UniversalCon
 import { Context as NavContext } from '../../../../../context/NavContext'
 import InstructionModal from '../../../../common/modals/InstructionModal'
 
-const CertificateCreateScreen = ({ navigation }) => {
+const CertificateCreateScreen = () => {
   const {
     state: { loading },
   } = useContext(CertificateContext)
@@ -28,10 +28,7 @@ const CertificateCreateScreen = ({ navigation }) => {
           onPress={() => setCVBitScreenSelected('certificatePdfUpload')}
         >
           <View style={styles.documentSelectButtonsBed}>
-            <Ionicons
-              style={styles.documentSelectButtonIcon}
-              name="md-document"
-            />
+            <Ionicons style={styles.documentSelectButtonIcon} name="document" />
             <Text style={styles.documentSelectButtonText}>select PDF file</Text>
           </View>
         </TouchableOpacity>
@@ -60,13 +57,10 @@ const CertificateCreateScreen = ({ navigation }) => {
         </Text>
         <TouchableOpacity
           style={styles.documentSelectButton}
-          onPress={() => navigation.navigate('CertificatePhotoUpload')}
+          onPress={() => setCVBitScreenSelected('certificatePhotoUpload')}
         >
           <View style={styles.documentSelectButtonsBed}>
-            <Ionicons
-              style={styles.documentSelectButtonIcon}
-              name="md-document"
-            />
+            <Ionicons style={styles.documentSelectButtonIcon} name="document" />
             <Text style={styles.documentSelectButtonText}>
               select or take photo
             </Text>
