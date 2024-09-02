@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native'
 import { Camera } from 'expo-camera'
 import * as ImagePicker from 'expo-image-picker'
@@ -26,6 +27,7 @@ const CertificatePhotoUploadScreen = () => {
   const [imageUploading, setImageUploading] = useState(false)
   const [cameraPermissionStatus, setCameraPermissionStatus] = useState(null)
   const [galleryPermissionStatus, setGalleryPermissionStatus] = useState(null)
+  const [isPickerLoading, setIsPickerLoading] = useState(false) // New loading state for picker
 
   const {
     state: { loading, uploadSignature },
@@ -96,6 +98,7 @@ const CertificatePhotoUploadScreen = () => {
   }
 
   const pickFromGallery = async () => {
+    setIsPickerLoading(true) // Start loading
     const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (granted) {
       let data = await ImagePicker.launchImageLibraryAsync({
@@ -104,6 +107,7 @@ const CertificatePhotoUploadScreen = () => {
         aspect: [1, 1],
         quality: 0.15,
       })
+      setIsPickerLoading(false) // Stop loading
       if (!data.canceled) {
         const { uri } = data.assets[0]
         let newFile = {
@@ -116,11 +120,13 @@ const CertificatePhotoUploadScreen = () => {
         setModal(false)
       }
     } else {
+      setIsPickerLoading(false) // Stop loading
       setGalleryPermissionStatus(false)
     }
   }
 
   const pickFromCamera = async () => {
+    setIsPickerLoading(true) // Start loading
     const { granted } = await Camera.requestCameraPermissionsAsync()
     if (granted) {
       let data = await ImagePicker.launchCameraAsync({
@@ -129,6 +135,7 @@ const CertificatePhotoUploadScreen = () => {
         aspect: [1, 1],
         quality: 0.5,
       })
+      setIsPickerLoading(false) // Stop loading
       if (!data.canceled) {
         const { uri } = data.assets[0]
         let newFile = {
@@ -141,6 +148,7 @@ const CertificatePhotoUploadScreen = () => {
         setModal(false)
       }
     } else {
+      setIsPickerLoading(false) // Stop loading
       setCameraPermissionStatus(false)
     }
   }
@@ -198,7 +206,7 @@ const CertificatePhotoUploadScreen = () => {
   }
 
   const renderContent = () => {
-    if (loading) return <LoaderFullScreen />
+    if (loading || isPickerLoading) return <LoaderFullScreen /> // Show loader if picker or general loading is active
     if (cameraPermissionStatus === false)
       return <PhotoPermissions bit="camera" />
     if (galleryPermissionStatus === false)
@@ -316,5 +324,4 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 })
-
 export default CertificatePhotoUploadScreen
