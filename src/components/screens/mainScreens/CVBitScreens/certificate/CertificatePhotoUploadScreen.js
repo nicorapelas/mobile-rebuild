@@ -175,6 +175,7 @@ const CertificatePhotoUploadScreen = () => {
           value={title}
           onChangeText={setTitle}
           autoCorrect={false}
+          autoFocus={true}
         />
         <View style={styles.donePlusButtonBed}>
           <FormCancelButton route="certificate" />
