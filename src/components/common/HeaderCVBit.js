@@ -50,6 +50,9 @@ const HeaderCVBit = () => {
       case 'reference':
         setLabel('references')
         break
+      case 'photo':
+        setLabel('photo')
+        break
       case 'certificate':
         setLabel('certificates')
         break

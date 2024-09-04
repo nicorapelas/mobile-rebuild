@@ -86,7 +86,6 @@ const CertificatePhotoUploadScreen = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(`datadata`, data)
           if (data.error) {
             setImageUploading(false)
             clearUploadSignature()

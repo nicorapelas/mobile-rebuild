@@ -112,7 +112,6 @@ const createUploadSignature = (dispatch) => async () => {
     const response = await ngrokApi.post(
       '/api/cloudinary/signature-request-no-preset'
     )
-    console.log(`response:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
