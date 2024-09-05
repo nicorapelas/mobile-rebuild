@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -14,6 +14,7 @@ import BitNoData from '../../../../common/BitNoData'
 import AddContentButtonLink from '../../../../links/AddContentButtonLink'
 import DoneButton from '../../../../links/DoneButton'
 import DeleteModal from '../../../../common/modals/DeleteModal'
+import PDFViewer from './PDFViewer'
 import { Context as CertificateContext } from '../../../../../context/CertificateContext'
 import { Context as UniversalContext } from '../../../../../context/UniversalContext'
 import { Context as NavContext } from '../../../../../context/NavContext'
@@ -30,13 +31,6 @@ const CertificateScreen = () => {
   } = useContext(CertificateContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
-
-  // navigation.navigate('CertificateEdit', {
-  //   id: item._id,
-  //   title: item.title,
-  //   fileName: item.fileName,
-  //   photoUrl: item.photoUrl,
-  // })
 
   const handlePressEdit = (data) => {
     setCertificateToEdit(data)
