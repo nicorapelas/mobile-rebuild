@@ -1,41 +1,19 @@
+import { Linking, Button } from 'react-native'
 import React from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
-import Pdf from 'react-native-pdf'
+import { View } from 'react-native'
 
-const PDFViewer = ({ pdfUrl }) => {
-  const source = { uri: pdfUrl, cache: true }
+const OpenPDF = ({ pdfUrl }) => {
+  const openPDF = () => {
+    Linking.openURL(pdfUrl).catch((err) =>
+      console.error('Failed to open PDF', err)
+    )
+  }
 
   return (
-    <View style={styles.container}>
-      <Pdf
-        source={source}
-        onLoadComplete={(numberOfPages, filePath) => {
-          console.log(`Number of pages: ${numberOfPages}`)
-        }}
-        onPageChanged={(page, numberOfPages) => {
-          console.log(`Current page: ${page}`)
-        }}
-        onError={(error) => {
-          console.log(error)
-        }}
-        style={styles.pdf}
-      />
+    <View>
+      <Button title="Open PDF" onPress={openPDF} />
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 25,
-  },
-  pdf: {
-    flex: 1,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-})
-
-export default PDFViewer
+export default OpenPDF
