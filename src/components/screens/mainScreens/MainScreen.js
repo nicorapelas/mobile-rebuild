@@ -12,6 +12,7 @@ import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext
 import { Context as AuthContext } from '../../../context/AuthContext'
 import { Context as AdvertisementContext } from '../../../context/AdvertisementContext'
 import { Context as NavContext } from '../../../context/NavContext'
+import { Context as UniversalContext } from '../../../context/UniversalContext'
 
 const Main = () => {
   const [showHeader, setShowHeader] = useState(true)
@@ -34,6 +35,10 @@ const Main = () => {
   const {
     state: { navTabSelected, CVBitScreenSelected },
   } = useContext(NavContext)
+
+  const {
+    state: { imageToViewUrl },
+  } = useContext(UniversalContext)
 
   useEffect(() => {
     if (!user) {
@@ -63,7 +68,6 @@ const Main = () => {
   }, [bannerAdFullShow])
 
   useEffect(() => {
-    console.log('CVBitScreenSelected:', CVBitScreenSelected)
     if (
       CVBitScreenSelected === 'attributeCreate' ||
       CVBitScreenSelected === 'attributeEdit' ||
@@ -92,13 +96,14 @@ const Main = () => {
       CVBitScreenSelected === 'photoEdit' ||
       CVBitScreenSelected === 'certificatePhotoUpload' ||
       CVBitScreenSelected === 'certificateCreate' ||
-      navTabSelected === 'viewCV'
+      navTabSelected === 'viewCV' ||
+      imageToViewUrl
     ) {
       setShowHeader(false)
     } else {
       setShowHeader(true)
     }
-  }, [CVBitScreenSelected, navTabSelected])
+  }, [CVBitScreenSelected, navTabSelected, imageToViewUrl])
 
   useEffect(() => {
     console.log(`navTabSelected`, navTabSelected)

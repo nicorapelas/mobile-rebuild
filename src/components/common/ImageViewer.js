@@ -1,48 +1,61 @@
 import React, { useContext } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import {
   GestureHandlerRootView,
-  PinchGestureHandler,
+  Gesture,
+  GestureDetector,
 } from 'react-native-gesture-handler'
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  useAnimatedGestureHandler,
 } from 'react-native-reanimated'
 import { AntDesign } from '@expo/vector-icons'
+
 import { Context as UniversalContext } from '../../context/UniversalContext'
 
 const { width, height } = Dimensions.get('window')
 
-const ZoomableImage = () => {
+const ImageViewer = () => {
   const {
     state: { imageToViewUrl },
+    setImageToViewUrl,
   } = useContext(UniversalContext)
 
   const scale = useSharedValue(1)
 
-  const pinchGestureHandler = useAnimatedGestureHandler({
-    onActive: (event) => {
+  const pinchGesture = Gesture.Pinch()
+    .onUpdate((event) => {
       scale.value = event.scale
-    },
-    onEnd: () => {
-      // Optional: Add an effect to reset scale back to default smoothly after pinch ends
+    })
+    .onEnd(() => {
+      // Smoothly reset the scale back to 1 when the gesture ends
       scale.value = withTiming(1, { duration: 300 })
-    },
-  })
+    })
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }))
 
+  const handlePressClose = () => {
+    setImageToViewUrl(null)
+  }
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.imageBed}>
         <View style={styles.closeButtonContainer}>
-          <AntDesign name="closecircle" size={24} color="red" />
+          <TouchableOpacity
+            onPress={handlePressClose}
+            style={{
+              padding: 10,
+              marginTop: '20%',
+            }}
+          >
+            <AntDesign name="closecircle" style={styles.closeButton} />
+          </TouchableOpacity>
         </View>
-        <PinchGestureHandler onGestureEvent={pinchGestureHandler}>
+        <GestureDetector gesture={pinchGesture}>
           <Animated.View style={{ flex: 1 }}>
             <Animated.Image
               source={{ uri: imageToViewUrl }}
@@ -50,7 +63,7 @@ const ZoomableImage = () => {
               resizeMode="contain"
             />
           </Animated.View>
-        </PinchGestureHandler>
+        </GestureDetector>
       </View>
     </GestureHandlerRootView>
   )
@@ -59,13 +72,17 @@ const ZoomableImage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
-  },
-  imageBed: {
-    marginTop: '-20%',
+    backgroundColor: '#232936',
   },
   closeButtonContainer: {
-    justifyContent: 'flex-end',
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    zIndex: 1,
+  },
+  closeButton: {
+    color: '#ffff',
+    fontSize: 24,
   },
   image: {
     width: width,
@@ -73,4 +90,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ZoomableImage
+export default ImageViewer

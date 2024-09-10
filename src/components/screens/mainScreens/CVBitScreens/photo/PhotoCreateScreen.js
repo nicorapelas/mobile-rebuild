@@ -219,7 +219,9 @@ const PhotoCreateScreen = () => {
           {cameraOrGallery()}
           {titleField()}
         </View>
-        <DoneButton text="Cancel" routeName="photo" />
+        {imageUri !== null ? null : (
+          <DoneButton text="Cancel" routeName="photo" />
+        )}
       </>
     )
   }

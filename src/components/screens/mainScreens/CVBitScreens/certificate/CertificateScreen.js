@@ -106,7 +106,7 @@ const CertificateScreen = () => {
                   </View>
                   <View style={styles.buttonBed}>
                     <TouchableOpacity
-                      style={styles.editButtonBed}
+                      style={styles.expandButtonBed}
                       onPress={() => handlePressExpand(item)}
                     >
                       <FontAwesome style={styles.actionButton} name="expand" />
@@ -207,9 +207,14 @@ const styles = StyleSheet.create({
     width: 120,
     paddingTop: 5,
   },
+  expandButtonBed: {
+    backgroundColor: '#558dd8',
+    borderRadius: 25,
+  },
   editButtonBed: {
     backgroundColor: '#558dd8',
     borderRadius: 25,
+    marginHorizontal: 10,
   },
   deleteButtonBed: {
     backgroundColor: '#c35a44',
