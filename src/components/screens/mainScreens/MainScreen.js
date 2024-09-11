@@ -68,6 +68,7 @@ const Main = () => {
   }, [bannerAdFullShow])
 
   useEffect(() => {
+    console.log(`CVBitScreenSelected:`, CVBitScreenSelected)
     if (
       CVBitScreenSelected === 'attributeCreate' ||
       CVBitScreenSelected === 'attributeEdit' ||
@@ -96,6 +97,7 @@ const Main = () => {
       CVBitScreenSelected === 'photoEdit' ||
       CVBitScreenSelected === 'certificatePhotoUpload' ||
       CVBitScreenSelected === 'certificateCreate' ||
+      CVBitScreenSelected === 'certificateEdit' ||
       navTabSelected === 'viewCV' ||
       imageToViewUrl
     ) {

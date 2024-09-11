@@ -37,6 +37,7 @@ const CertificateScreen = () => {
 
   const {
     state: { loading, certificates },
+    setCertificateToEdit,
   } = useContext(CertificateContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
