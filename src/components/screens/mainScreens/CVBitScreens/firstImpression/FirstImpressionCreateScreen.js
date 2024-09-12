@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native'
-import { Camera } from 'expo-camera'
+import { Camera, CameraType } from 'expo-camera/legacy'
 import { Audio } from 'expo-av'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -25,7 +25,7 @@ const FirstImpressionCreateScreen = () => {
   const [cameraPermission, setCameraPermission] = useState(null)
   const [audioPermission, setAudioPermission] = useState(null)
   const [cameraRef, setCameraRef] = useState(null)
-  const [type, setType] = useState(null) // Initialize as null for safety
+  const [type, setType] = useState(CameraType.back)
   const [view, setView] = useState(null)
 
   const {
@@ -77,7 +77,7 @@ const FirstImpressionCreateScreen = () => {
     setCameraPermission(status === 'granted')
     if (status === 'granted') {
       console.log(`Camera:`, Camera)
-      setType(Camera.Constants.Type.back) // Set type only after permissions are granted
+      setType(CameraType.back) // Set type only after permissions are granted
     }
   }
 
@@ -125,9 +125,9 @@ const FirstImpressionCreateScreen = () => {
                     style={styles.cameraSelectButton}
                     onPress={() => {
                       setType(
-                        type === Camera.Constants.Type.back
-                          ? Camera.Constants.Type.front
-                          : Camera.Constants.Type.back
+                        type === CameraType.back
+                          ? CameraType.front
+                          : CameraType.back
                       )
                     }}
                   >

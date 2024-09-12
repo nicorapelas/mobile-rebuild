@@ -18,7 +18,6 @@ const FirstImpressionBitButton = () => {
     state: { loading, firstImpressionStatus, firstImpression },
     fetchFirstImpression,
     fetchFirsImpressionStatus,
-    assignPhoto,
   } = useContext(FirstImpressionContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
@@ -33,30 +32,6 @@ const FirstImpressionBitButton = () => {
       setCounter(counter + 1)
     }
   }, [firstImpression])
-
-  useEffect(() => {
-    if (counter === 1) {
-      autoAssignPhoto()
-    }
-  }, [counter])
-
-  const autoAssignPhoto = () => {
-    if (!firstImpression || firstImpression.length < 1) {
-      return null
-    }
-    if (firstImpression.length === 1) {
-      assignPhoto(firstImpression[0]._id)
-      return
-    }
-    const previousAssignedPhoto = firstImpression.filter((photo) => {
-      return photo.assigned === true
-    })
-    if (previousAssignedPhoto.length < 1) {
-      return null
-    } else {
-      assignPhoto(previousAssignedPhoto[0]._id)
-    }
-  }
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

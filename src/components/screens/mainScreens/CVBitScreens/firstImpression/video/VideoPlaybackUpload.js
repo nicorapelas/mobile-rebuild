@@ -7,6 +7,7 @@ import { keys } from '../../../../../../../config/keys_dev'
 import LoaderWithText from '../../../../../common/LoaderWithText'
 import LoaderFullScreen from '../../../../../common/LoaderFullScreen'
 import { Context as FirstImpressionContext } from '../../../../../../context/FirstImpressionContext'
+import { Context as NavContext } from '../../../../../../context/NavContext'
 
 const VideoPlaybackUpload = ({ videoObject }) => {
   VideoPlaybackUpload
@@ -22,7 +23,10 @@ const VideoPlaybackUpload = ({ videoObject }) => {
     createFirstImpression,
     createUploadSignature,
     clearUploadSignature,
+    fetchFirstImpression,
   } = useContext(FirstImpressionContext)
+
+  const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
     setVideoFileName(`${randomFileName}.${videoObject.uri.split('.')[1]}`)
@@ -74,7 +78,7 @@ const VideoPlaybackUpload = ({ videoObject }) => {
           setLoaderSubText(0)
           clearUploadSignature()
           Alert.alert('Unable to upload video, please try again later')
-          // navigation.navigate('Dashboard')
+          setCVBitScreenSelected('')
           return
         }
         createFirstImpression(
@@ -87,14 +91,15 @@ const VideoPlaybackUpload = ({ videoObject }) => {
             clearVideoObject()
             setLoaderSubText(0)
             clearUploadSignature()
-            // navigation.navigate('Dashboard')
+            // fetchFirstImpression()
+            setCVBitScreenSelected('')
           }
         )
         setVideoUploading(false)
       })
       .catch((err) => {
         Alert.alert('Unable to upload video, please try again later')
-        // navigation.navigate('Dashboard')
+        setCVBitScreenSelected('')
       })
   }
 

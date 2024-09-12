@@ -68,8 +68,12 @@ const DeleteModal = ({ id, documentSelected, bit, publicId }) => {
         break
       case 'personal information':
         setCancelRoute('personalInfo')
+        break
       case 'employment history':
         setCancelRoute('employHistory')
+        break
+      case 'first impression':
+        setCancelRoute('firstImpression')
         break
       default:
         setCancelRoute(bit)
