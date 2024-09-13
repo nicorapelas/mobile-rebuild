@@ -61,7 +61,6 @@ const CertificatePdfUploadScreen = () => {
 
   const createFileName = () => {
     if (!pdfUrl || pdfUrl.type === 'canceled') return
-    console.log('pdfUrl', pdfUrl)
     const fileType = pdfUrl.split('.').pop()
     setDocumentName(`${randomFileName}.${fileType}`)
   }
@@ -120,7 +119,6 @@ const CertificatePdfUploadScreen = () => {
     let result = await DocumentPicker.getDocumentAsync({
       type: 'application/pdf',
     })
-    console.log('Document Picker Result:', result)
     if (!result || result.canceled) {
       setCVBitScreenSelected('certificateCreate')
     } else {

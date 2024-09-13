@@ -31,6 +31,8 @@ const FirstImpressionReducer = (state, action) => {
       return { ...state, videoDemoShow: action.payload }
     case 'FETCH_DEMO_URL':
       return { ...state, videoDemoUrl: action.payload, loading: false }
+    case 'SET_VIDEO_UPLOADING':
+      return { ...state, videoUploading: action.payload }
     default:
       return state
   }
@@ -142,6 +144,10 @@ const fetchDemoVideoUrl = (dispatch) => async () => {
   }
 }
 
+const setVideoUploading = (dispatch) => (value) => {
+  dispatch({ type: 'SET_VIDEO_UPLOADING', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   FirstImpressionReducer,
   {
@@ -156,6 +162,7 @@ export const { Context, Provider } = createDataContext(
     setLoadingForUploading,
     setVideoDemoShow,
     fetchDemoVideoUrl,
+    setVideoUploading,
   },
   // Initial state
   {
@@ -167,5 +174,6 @@ export const { Context, Provider } = createDataContext(
     videoDemoShow: false,
     videoDemoUrl: null,
     error: null,
+    videoUploading: false,
   }
 )

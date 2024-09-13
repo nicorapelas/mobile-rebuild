@@ -128,7 +128,6 @@ const PhotoCreateScreen = () => {
       })
       if (!data.canceled) {
         const { uri } = data.assets[0]
-        console.log(`uri:`, uri)
         let newFile = {
           uri: uri,
           type: `image/${uri.split('.')[1]}`,

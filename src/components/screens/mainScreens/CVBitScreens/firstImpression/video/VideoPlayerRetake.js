@@ -32,7 +32,7 @@ const VideoPlayerRetake = ({ firstImpression }) => {
           useNativeControls
           resizeMode="contain"
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-          isLooping="true"
+          isLooping={true}
         />
         <View style={styles.buttonsBed}>
           <TouchableOpacity

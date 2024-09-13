@@ -76,7 +76,6 @@ const FirstImpressionCreateScreen = () => {
     const { status } = await Camera.requestCameraPermissionsAsync()
     setCameraPermission(status === 'granted')
     if (status === 'granted') {
-      console.log(`Camera:`, Camera)
       setType(CameraType.back) // Set type only after permissions are granted
     }
   }

@@ -96,7 +96,6 @@ const CertificatePhotoUploadScreen = () => {
           handleCertificateCreate(data)
         })
         .catch((err) => {
-          console.log(`errerr`, err)
           Alert.alert('Unable to upload image, please try again later')
           setCVBitScreenSelected('')
           return

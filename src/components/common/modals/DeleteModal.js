@@ -52,7 +52,6 @@ const DeleteModal = ({ id, documentSelected, bit, publicId }) => {
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    console.log(`bit:`, bit)
     switch (bit) {
       case 'contact information':
         setCancelRoute('contactInfo')

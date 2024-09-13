@@ -106,7 +106,6 @@ const deleteCertificate = (dispatch) => async (data) => {
 }
 
 const createUploadSignature = (dispatch) => async () => {
-  console.log(`at createUploadSignature`)
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post(

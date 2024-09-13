@@ -13,17 +13,16 @@ const VideoPlaybackUpload = ({ videoObject }) => {
   VideoPlaybackUpload
   const video = React.useRef(null)
   const [status, setStatus] = React.useState({})
-  const [videoUploading, setVideoUploading] = useState(false)
   const [videoFileName, setVideoFileName] = useState(null)
   const [loaderSubText, setLoaderSubText] = useState(0)
 
   const {
-    state: { loading, uploadSignature },
+    state: { loading, uploadSignature, videoUploading },
     clearVideoObject,
     createFirstImpression,
     createUploadSignature,
     clearUploadSignature,
-    fetchFirstImpression,
+    setVideoUploading,
   } = useContext(FirstImpressionContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
@@ -91,7 +90,6 @@ const VideoPlaybackUpload = ({ videoObject }) => {
             clearVideoObject()
             setLoaderSubText(0)
             clearUploadSignature()
-            // fetchFirstImpression()
             setCVBitScreenSelected('')
           }
         )
@@ -132,7 +130,7 @@ const VideoPlaybackUpload = ({ videoObject }) => {
           useNativeControls
           resizeMode="contain"
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-          isLooping="true"
+          isLooping={true}
         />
         <View style={styles.buttonsBed}>
           <TouchableOpacity
