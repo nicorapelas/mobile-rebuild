@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import {
   View,
+  KeyboardAvoidingView,
   Text,
   TextInput,
   ScrollView,
@@ -15,9 +16,9 @@ import { useKeyboard } from '@react-native-community/hooks'
 import { MaterialCommunityIcons, AntDesign, Ionicons } from '@expo/vector-icons'
 import uuid from 'uuid/v4'
 
-import LoaderFullScreen from '../../../common/LoaderFullScreen'
 import FormHintModal from '../../../common/modals/FormHintModal'
 import validateEmailInput from '../../../../validation/email'
+import FormCancelButton from '../../../common/FormCancelButton'
 import { Context as ShareCVContext } from '../../../../context/ShareCVContext'
 import { Context as PhotoContext } from '../../../../context/PhotoContext'
 import { Context as UniversalContext } from '../../../../context/UniversalContext'
@@ -45,6 +46,7 @@ const ShareCVForm = () => {
 
   const {
     state: { assignedPhotoUrl, assignedPhotoId, photos },
+    fetchAssignedPhoto,
   } = useContext(PhotoContext)
 
   const {
@@ -57,6 +59,7 @@ const ShareCVForm = () => {
   const { setNavTabSelected, setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
+    fetchAssignedPhoto()
     fetchCV_ID()
   }, [])
 
@@ -67,6 +70,20 @@ const ShareCVForm = () => {
       setIncludePhoto(true)
     }
   }, [photos])
+
+  useEffect(() => {
+    if (sentMessage) {
+      const timer = setTimeout(() => {
+        setSentMessage(false)
+        setSubject(null)
+        setMessage(null)
+        setEmail(null)
+        setCVBitScreenSelected('')
+        setNavTabSelected('dashboard')
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [sentMessage])
 
   const keyboard = useKeyboard()
 
@@ -156,6 +173,7 @@ const ShareCVForm = () => {
           </>
         )}
         <View style={styles.nextBackButtonsBed}>
+          <FormCancelButton route="dashboard" />
           <TouchableOpacity
             style={styles.addButtonContainer}
             onPress={() => subjectInputNext()}
@@ -397,7 +415,7 @@ const ShareCVForm = () => {
             )}
           </View>
         ) : (
-          <View style={styles.donePlusButtonBed}>
+          <View style={styles.nextBackButtonsBed}>
             <TouchableOpacity
               style={styles.addButtonContainer}
               onPress={() => {
@@ -644,47 +662,39 @@ const ShareCVForm = () => {
 
   const renderContent = () => {
     return (
-      <>
-        {sentMessage ? null : (
-          <TouchableOpacity
-            style={styles.cancelButton}
-            onPress={() => {
-              setCVBitScreenSelected('')
-              setNavTabSelected('dashboard')
-            }}
-          >
-            <Ionicons
-              style={
-                Platform.OS === 'ios'
-                  ? styles.cancelButtonIconIos
-                  : styles.cancelButtonIcon
-              }
-              name="arrow-back"
-            />
-            <Text style={styles.cancelButtonText}>cancel</Text>
-          </TouchableOpacity>
-        )}
-        <View View style={styles.bed}>
-          {renderSentMessage()}
-          {errorHeading()}
-          <ScrollView
-            contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-            keyboardShouldPersistTaps="always"
-          >
-            {renderForm()}
-          </ScrollView>
-        </View>
-      </>
+      <KeyboardAvoidingView
+        style={
+          Platform.OS === 'ios' && keyboard.keyboardShown === false
+            ? styles.bedIos
+            : styles.bedAndroid
+        }
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        {renderSentMessage()}
+        {errorHeading()}
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+          keyboardShouldPersistTaps="always"
+        >
+          {renderForm()}
+        </ScrollView>
+      </KeyboardAvoidingView>
     )
   }
   return renderContent()
 }
 
 const styles = StyleSheet.create({
-  bed: {
+  bedIos: {
     backgroundColor: '#232936',
-    flex: 1,
     width: '100%',
+    flex: 1,
+    marginTop: -100,
+  },
+  bedAndroid: {
+    backgroundColor: '#232936',
+    width: '100%',
+    flex: 1,
   },
   cancelButton: {
     flexDirection: 'row',
@@ -803,14 +813,10 @@ const styles = StyleSheet.create({
   hintModalBed: {
     paddingBottom: 10,
   },
-  donePlusButtonBed: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
   nextBackButtonsBed: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginVertical: 10,
+    marginVertical: 15,
   },
   nextButtonIcon: {
     color: '#ffff',
@@ -827,8 +833,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 5,
     width: 90,
-    marginTop: 5,
-    marginBottom: 20,
     height: 40,
     marginHorizontal: 5,
   },
@@ -856,8 +860,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 5,
     width: 120,
-    marginTop: 5,
-    marginBottom: 20,
     height: 40,
     marginHorizontal: 5,
   },
