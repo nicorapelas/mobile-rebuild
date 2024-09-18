@@ -46,11 +46,15 @@ const fetchUser = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/auth/user/fetch-user')
+    console.log(`fetchUser:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
+    } else {
+      console.log(`fetchUser:`, response.data)
     }
-    dispatch({ type: 'FETCH_USER', payload: response.data })
+
+    // dispatch({ type: 'FETCH_USER', payload: response.data })
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
@@ -120,17 +124,24 @@ const login =
         email,
         password,
       })
+      console.log(`response:`, response.data)
       if (response.data.error) {
-        dispatch({ type: 'ADD_ERROR', payload: response.data.error })
+        console.log(`response.data.error:`, response.data.error)
+        // dispatch({
+        //   type: 'ADD_ERROR',
+        //   payload: response.data.error,
+        // })
       } else {
         await AsyncStorage.setItem('token', response.data.token)
         dispatch({ type: 'SIGN_IN', payload: response.data.token })
         dispatch({ type: 'STOP_LOADING' })
       }
     } catch (err) {
+      console.log(`ERROR_2`)
+      console.log(`err`, err)
       dispatch({
         type: 'ADD_ERROR',
-        payload: err.response.data,
+        payload: response.data.error,
       })
     }
   }
