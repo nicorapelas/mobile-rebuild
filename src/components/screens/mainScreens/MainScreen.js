@@ -45,23 +45,23 @@ const Main = () => {
     state: { videoUploading },
   } = useContext(FirstImpressionContext)
 
-  useEffect(() => {
-    if (!user) {
-      const timer = setTimeout(() => {
-        signout()
-      }, 10000)
-      return () => clearTimeout(timer)
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (!user) {
+  //     const timer = setTimeout(() => {
+  //       signout()
+  //     }, 10000)
+  //     return () => clearTimeout(timer)
+  //   }
+  // }, [user])
 
-  useEffect(() => {
-    if (user) {
-      const { termsAndConditionsAccepted } = user
-      if (!termsAndConditionsAccepted) {
-        setInfoToShow('initTerms')
-      }
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user) {
+  //     const { termsAndConditionsAccepted } = user
+  //     if (!termsAndConditionsAccepted) {
+  //       setInfoToShow('initTerms')
+  //     }
+  //   }
+  // }, [user])
 
   useEffect(() => {
     if (bannerAdFullShow) {

@@ -33,24 +33,26 @@ const TermsAndConditionsModal = () => {
     })
   }, [])
 
-  useEffect(() => {
-    toggleVisible()
-  }, [user])
+  // useEffect(() => {
+  //   if (user) {
+  //     toggleVisible()
+  //   }
+  // }, [user])
 
   useEffect(() => {
     increaseUserVisitCount()
   }, [])
 
-  const toggleVisible = () => {
-    if (!user) return null
-    const { termsAndConditionsAccepted } = user
-    if (termsAndConditionsAccepted === false) {
-      setVisible(true)
-    }
-    if (termsAndConditionsAccepted === true) {
-      setVisible(false)
-    }
-  }
+  // const toggleVisible = () => {
+  //   if (!user) return null
+  //   const { termsAndConditionsAccepted } = user
+  //   if (termsAndConditionsAccepted === false) {
+  //     setVisible(true)
+  //   }
+  //   if (termsAndConditionsAccepted === true) {
+  //     setVisible(false)
+  //   }
+  // }
 
   const renderModal = () => {
     return (

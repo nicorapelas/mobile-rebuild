@@ -37,6 +37,7 @@ const AppScreens = () => {
   }, [])
 
   useEffect(() => {
+    console.log(`token:`, token)
     if (token) {
       fetchUser()
     }

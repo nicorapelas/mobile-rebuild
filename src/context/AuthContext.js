@@ -20,7 +20,13 @@ const authReducer = (state, action) => {
     case 'SIGN_IN':
       return { errorMessage: '', token: action.payload, loading: false }
     case 'SIGN_OUT':
-      return { token: null, errorMessage: '', loading: false }
+      return {
+        ...state,
+        token: null,
+        user: null,
+        errorMessage: '',
+        loading: false,
+      }
     case 'FETCH_USER':
       return { ...state, user: action.payload, loading: false }
     case 'CREATE_USERS_DEVICE':
@@ -46,18 +52,17 @@ const fetchUser = (dispatch) => async () => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.get('/auth/user/fetch-user')
-    console.log(`fetchUser:`, response.data)
     if (response.data.error) {
       dispatch({ type: 'ADD_ERROR', payload: response.data.error })
       return
     } else {
       console.log(`fetchUser:`, response.data)
+      dispatch({ type: 'FETCH_USER', payload: response.data })
+      return
     }
-
-    // dispatch({ type: 'FETCH_USER', payload: response.data })
-    return
   } catch (error) {
-    await ngrokApi.post('/error', { error: error })
+    console.log(`error!:`, error)
+    // await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -124,21 +129,17 @@ const login =
         email,
         password,
       })
-      console.log(`response:`, response.data)
       if (response.data.error) {
-        console.log(`response.data.error:`, response.data.error)
-        // dispatch({
-        //   type: 'ADD_ERROR',
-        //   payload: response.data.error,
-        // })
+        dispatch({
+          type: 'ADD_ERROR',
+          payload: response.data.error,
+        })
       } else {
         await AsyncStorage.setItem('token', response.data.token)
         dispatch({ type: 'SIGN_IN', payload: response.data.token })
         dispatch({ type: 'STOP_LOADING' })
       }
     } catch (err) {
-      console.log(`ERROR_2`)
-      console.log(`err`, err)
       dispatch({
         type: 'ADD_ERROR',
         payload: response.data.error,
@@ -170,13 +171,13 @@ const forgotPassword =
   }
 
 // NOTE
-const acceptTermsAndConditions = (dispatch) => async (value, callback) => {
+const acceptTermsAndConditions = (dispatch) => async (value) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/auth/user/term-conditions', {
       accepted: value,
     })
-    // dispatch({ type: 'FETCH_USER', payload: response.data })
+    dispatch({ type: 'FETCH_USER', payload: response.data })
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
