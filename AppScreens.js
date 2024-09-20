@@ -19,7 +19,7 @@ const AppScreens = () => {
   } = useContext(NavContext)
 
   const {
-    state: { token },
+    state: { token, user },
     tryLocalSignin,
     fetchUser,
   } = useContext(AuthContext)
@@ -30,6 +30,7 @@ const AppScreens = () => {
   const [nextScreen, setNextScreen] = useState(null)
   const [slideDirection, setSlideDirection] = useState('left')
   const animatedValue = useRef(new Animated.Value(0)).current
+  const [fetchUserCount, setFetchUserCount] = useState(0)
 
   useEffect(() => {
     tryLocalSignin()
@@ -38,10 +39,13 @@ const AppScreens = () => {
 
   useEffect(() => {
     console.log(`token:`, token)
-    if (token) {
+    console.log(`fetchUserCount:`, fetchUserCount)
+    console.log('user:', user)
+    if (token && fetchUserCount < 1) {
       fetchUser()
+      setFetchUserCount(fetchUser + 1)
     }
-  }, [token])
+  }, [token, fetchUserCount, user])
 
   useEffect(() => {
     if (screenSelected !== currentScreen) {

@@ -19,8 +19,6 @@ const TermsAndConditionsModal = () => {
     applyToIntro,
   } = useContext(AuthContext)
 
-  const { buildCV } = useContext(UniversalContext)
-
   useEffect(() => {
     createDeviceInfo({
       isDevice: Device.isDevice,
