@@ -20,7 +20,6 @@ const Main = () => {
 
   const {
     state: { user },
-    signout,
   } = useContext(AuthContext)
 
   const {
@@ -54,14 +53,14 @@ const Main = () => {
   //   }
   // }, [user])
 
-  // useEffect(() => {
-  //   if (user) {
-  //     const { termsAndConditionsAccepted } = user
-  //     if (!termsAndConditionsAccepted) {
-  //       setInfoToShow('initTerms')
-  //     }
-  //   }
-  // }, [user])
+  useEffect(() => {
+    if (user) {
+      const { termsAndConditionsAccepted } = user
+      if (!termsAndConditionsAccepted) {
+        setInfoToShow('initTerms')
+      }
+    }
+  }, [user])
 
   useEffect(() => {
     if (bannerAdFullShow) {

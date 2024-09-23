@@ -38,12 +38,9 @@ const AppScreens = () => {
   }, [])
 
   useEffect(() => {
-    console.log(`token:`, token)
-    console.log(`fetchUserCount:`, fetchUserCount)
-    console.log('user:', user)
     if (token && fetchUserCount < 1) {
       fetchUser()
-      setFetchUserCount(fetchUser + 1)
+      setFetchUserCount(fetchUserCount + 1)
     }
   }, [token, fetchUserCount, user])
 
