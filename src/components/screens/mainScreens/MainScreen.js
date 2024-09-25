@@ -20,6 +20,7 @@ const Main = () => {
 
   const {
     state: { user },
+    signout,
   } = useContext(AuthContext)
 
   const {
@@ -44,14 +45,14 @@ const Main = () => {
     state: { videoUploading },
   } = useContext(FirstImpressionContext)
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     const timer = setTimeout(() => {
-  //       signout()
-  //     }, 10000)
-  //     return () => clearTimeout(timer)
-  //   }
-  // }, [user])
+  useEffect(() => {
+    if (!user) {
+      const timer = setTimeout(() => {
+        signout()
+      }, 10000)
+      return () => clearTimeout(timer)
+    }
+  }, [user])
 
   useEffect(() => {
     if (user) {

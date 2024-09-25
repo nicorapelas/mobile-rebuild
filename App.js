@@ -1,5 +1,4 @@
 import React from 'react'
-import { LogBox } from 'react-native'
 import { useFonts } from '@use-expo/font'
 import {
   FontAwesome,
@@ -37,10 +36,6 @@ import { Provider as AffiliateProvider } from './src/context/AffiliateContext'
 import { Provider as ConfigProvider } from './src/context/ConfigContext'
 import { Provider as AdvertisementReducer } from './src/context/AdvertisementContext'
 import AppScreens from './AppScreens'
-
-LogBox.ignoreLogs([
-  'Warning: Overlay: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
-])
 
 const customFonts = {
   oswaldBold: require('./assets/fonts/oswald/Oswald-Bold.ttf'),
