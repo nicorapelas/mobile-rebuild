@@ -506,6 +506,10 @@ const styles = StyleSheet.create({
   hitBed: {
     paddingBottom: 7,
   },
+  paragraph: {
+    color: '#7ac6fa',
+    paddingVertical: 2,
+  },
   dotHintBed: {
     flexDirection: 'row',
     marginTop: 7,

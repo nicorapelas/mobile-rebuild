@@ -120,6 +120,7 @@ const PhotoCreateScreen = () => {
   const pickFromCamera = async () => {
     const { granted } = await Camera.requestCameraPermissionsAsync()
     if (granted) {
+      console.log(`granted:`, granted)
       let data = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
