@@ -8,7 +8,7 @@ import {
   Modal,
 } from 'react-native'
 import AppLink from 'react-native-app-link'
-import { Ionicons, Octicons, AntDesign } from '@expo/vector-icons'
+import { Octicons, AntDesign } from '@expo/vector-icons'
 import { Context as UniversalContext } from '../../context/UniversalContext'
 import { Context as FirstImpressionContext } from '../../context/FirstImpressionContext'
 
@@ -149,10 +149,7 @@ const InstructionModal = ({ bit }) => {
                 style={styles.backButton}
                 onPress={() => toggleInstructionModal(false)}
               >
-                <Ionicons
-                  style={styles.backButtonIcon}
-                  name="close-circle-outline"
-                />
+                <AntDesign style={styles.backButtonIcon} name="closecircle" />
                 <Text style={styles.backButtonText}>close</Text>
               </TouchableOpacity>
             </ScrollView>

@@ -101,7 +101,7 @@ const CVBitScreenRender = () => {
         return <SecondEduScreen />
       case 'secondEduCreate':
         return <SecondEduCreateScreen />
-      case 'secondEditEdit':
+      case 'secondEduEdit':
         return <SecondEduEditScreen />
       case 'tertEdu':
         return <TertEduScreen />

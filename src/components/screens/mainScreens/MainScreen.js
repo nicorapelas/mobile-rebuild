@@ -14,6 +14,7 @@ import { Context as AdvertisementContext } from '../../../context/AdvertisementC
 import { Context as NavContext } from '../../../context/NavContext'
 import { Context as UniversalContext } from '../../../context/UniversalContext'
 import { Context as FirstImpressionContext } from '../../../context/FirstImpressionContext'
+import { Context as PersonalSummaryContext } from '../../../context/PersonalSummaryContext'
 
 const Main = () => {
   const [showHeader, setShowHeader] = useState(true)
@@ -42,7 +43,7 @@ const Main = () => {
   } = useContext(UniversalContext)
 
   const {
-    state: { videoUploading },
+    state: { firstImpression, videoUploading },
   } = useContext(FirstImpressionContext)
 
   useEffect(() => {
@@ -73,6 +74,7 @@ const Main = () => {
   }, [bannerAdFullShow])
 
   useEffect(() => {
+    console.log(`CVBitScreenSelected:`, CVBitScreenSelected)
     if (
       CVBitScreenSelected === 'attributeCreate' ||
       CVBitScreenSelected === 'attributeEdit' ||
@@ -102,6 +104,7 @@ const Main = () => {
       CVBitScreenSelected === 'certificatePhotoUpload' ||
       CVBitScreenSelected === 'certificateCreate' ||
       CVBitScreenSelected === 'certificateEdit' ||
+      (CVBitScreenSelected === 'firstImpression' && !firstImpression) ||
       navTabSelected === 'viewCV' ||
       imageToViewUrl ||
       videoUploading
@@ -110,7 +113,13 @@ const Main = () => {
     } else {
       setShowHeader(true)
     }
-  }, [CVBitScreenSelected, navTabSelected, imageToViewUrl, videoUploading])
+  }, [
+    CVBitScreenSelected,
+    navTabSelected,
+    imageToViewUrl,
+    videoUploading,
+    firstImpression,
+  ])
 
   const renderHeader = () => {
     if (!showHeader) return null

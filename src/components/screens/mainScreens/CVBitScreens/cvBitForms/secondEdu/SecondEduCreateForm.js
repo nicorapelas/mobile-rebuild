@@ -41,7 +41,8 @@ const SecondEduCreateForm = () => {
 
   const {
     state: { yearPickerProps, yearPickerShow, startYear, endYear },
-    toggleHideNavLinks,
+    setStartYear,
+    setEndYear,
   } = useContext(UniversalContext)
 
   const {
@@ -52,10 +53,6 @@ const SecondEduCreateForm = () => {
   } = useContext(SecondEduContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
-
-  useEffect(() => {
-    if (error) toggleHideNavLinks(false)
-  }, [error])
 
   useEffect(() => {
     if (error) {

@@ -67,6 +67,7 @@ const fetchSecondEdu = (dispatch) => async () => {
 }
 
 const createSecondEdu = (dispatch) => async (formValues) => {
+  console.log(`formValues:`, formValues)
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/secondary-education', formValues)

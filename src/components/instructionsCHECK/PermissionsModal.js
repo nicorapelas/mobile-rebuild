@@ -54,10 +54,7 @@ const PermissionsModal = ({ bit }) => {
               style={styles.backButton}
               onPress={() => togglePermissionsModal(false)}
             >
-              <Ionicons
-                style={styles.backButtonIcon}
-                name="close-circle-outline"
-              />
+              <AntDesign style={styles.backButtonIcon} name="closecircle" />
               <Text style={styles.backButtonText}>close</Text>
             </TouchableOpacity>
           </View>
