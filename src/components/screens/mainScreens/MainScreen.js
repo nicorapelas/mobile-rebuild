@@ -14,7 +14,6 @@ import { Context as AdvertisementContext } from '../../../context/AdvertisementC
 import { Context as NavContext } from '../../../context/NavContext'
 import { Context as UniversalContext } from '../../../context/UniversalContext'
 import { Context as FirstImpressionContext } from '../../../context/FirstImpressionContext'
-import { Context as PersonalSummaryContext } from '../../../context/PersonalSummaryContext'
 
 const Main = () => {
   const [showHeader, setShowHeader] = useState(true)
@@ -104,7 +103,6 @@ const Main = () => {
       CVBitScreenSelected === 'certificatePhotoUpload' ||
       CVBitScreenSelected === 'certificateCreate' ||
       CVBitScreenSelected === 'certificateEdit' ||
-      (CVBitScreenSelected === 'firstImpression' && !firstImpression) ||
       navTabSelected === 'viewCV' ||
       imageToViewUrl ||
       videoUploading

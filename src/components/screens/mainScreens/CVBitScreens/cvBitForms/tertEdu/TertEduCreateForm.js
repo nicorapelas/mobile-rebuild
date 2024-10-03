@@ -43,6 +43,8 @@ const TertEduCreateEditForm = ({ incomingCertificationType }) => {
       startYear,
       endYear,
     },
+    setStartYear,
+    setEndYear,
   } = useContext(UniversalContext)
 
   const {
