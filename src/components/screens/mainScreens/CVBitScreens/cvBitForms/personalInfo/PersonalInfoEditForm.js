@@ -755,7 +755,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 90,
     margin: 5,
-    marginBottom: 20,
     height: 40,
   },
   doneButtonContainer: {

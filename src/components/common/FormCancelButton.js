@@ -10,12 +10,40 @@ import { AntDesign } from '@expo/vector-icons'
 
 import { Context as NavContext } from '../../context/NavContext'
 import { Context as UniversalContext } from '../../context/UniversalContext'
+import { Context as AttributeContext } from '../../context/AttributeContext'
+import { Context as ContactInfoContext } from '../../context/ContactInfoContext'
+import { Context as EmployHistoryContext } from '../../context/EmployHistoryContext'
+import { Context as ExperienceContext } from '../../context/ExperienceContext'
+import { Context as InterestContext } from '../../context/InterestContext'
+import { Context as LanguageContext } from '../../context/LanguageContext'
+import { Context as PersonalInfoContext } from '../../context/PersonalInfoContext'
+import { Context as PersonalSummaryContext } from '../../context/PersonalSummaryContext'
+import { Context as ReferenceContext } from '../../context/ReferenceContext'
+import { Context as SecondEduContext } from '../../context/SecondEduContext'
+import { Context as ShareCVContext } from '../../context/ShareCVContext'
+import { Context as SkillContext } from '../../context/SkillContext'
+import { Context as TertEduContext } from '../../context/TertEduContext'
 
 const FormCancelButton = ({ route }) => {
   const { setCVBitScreenSelected, setNavTabSelected } = useContext(NavContext)
 
   const { setStartYear, setEndYear, setStartMonth, setEndMonth } =
     useContext(UniversalContext)
+
+  const { clearAttributeErrors } = useContext(AttributeContext)
+  const { clearErrors: clearContactInfoErrors } = useContext(ContactInfoContext)
+  const { clearEmployHistoryErrors } = useContext(EmployHistoryContext)
+  const { clearExperienceErrors } = useContext(ExperienceContext)
+  const { clearInterestErrors } = useContext(InterestContext)
+  const { clearLanguageErrors } = useContext(LanguageContext)
+  const { clearErrors: clearPersonalInfoErrors } =
+    useContext(PersonalInfoContext)
+  const { clearPersonalSummaryErrors } = useContext(PersonalSummaryContext)
+  const { clearReferenceErrors } = useContext(ReferenceContext)
+  const { clearSecondEduErrors } = useContext(SecondEduContext)
+  const { clearShareCVErrors } = useContext(ShareCVContext)
+  const { clearSkillErrors } = useContext(SkillContext)
+  const { clearTertEduErrors } = useContext(TertEduContext)
 
   const handlePressCancel = () => {
     if (route === 'dashboard') {

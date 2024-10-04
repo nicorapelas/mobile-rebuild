@@ -9,7 +9,6 @@ import {
   Switch,
   Platform,
   ScrollView,
-  Keyboard,
 } from 'react-native'
 import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons'
 import { useKeyboard } from '@react-native-community/hooks'
@@ -358,7 +357,7 @@ const PersonalInfoCreateForm = ({
           <Text style={styles.error}>{error}</Text>
         )}
         <View style={styles.nextBackButtonsBed}>
-          <FormCancelButton route="personalInfo" />
+          <FormCancelButton route="personalInformation" />
           <TouchableOpacity
             style={styles.addButtonContainer}
             onPress={() => fullNameInputNext()}
@@ -802,7 +801,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 90,
     margin: 5,
-    marginBottom: 20,
     height: 40,
   },
   doneButtonContainer: {

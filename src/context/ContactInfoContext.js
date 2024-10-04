@@ -113,16 +113,14 @@ const editContactInfo = (dispatch) => async (id, formValues) => {
   }
 }
 
-const deleteContactInfo = (dispatch) => async (id, callback) => {
+const deleteContactInfo = (dispatch) => async (id) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.delete(`/api/contact-info/${id}`)
     dispatch({ type: 'DELETE', payload: response.data })
-    callback()
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
-    callback()
     return
   }
 }

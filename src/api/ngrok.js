@@ -2,7 +2,7 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const instance = axios.create({
-  baseURL: 'https://4af6-105-184-75-166.ngrok-free.app',
+  baseURL: 'https://828f-105-184-75-166.ngrok-free.app',
   // baseURL: 'https://cv-cloud-api.herokuapp.com',
 })
 
