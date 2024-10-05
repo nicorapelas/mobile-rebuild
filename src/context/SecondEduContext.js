@@ -67,7 +67,6 @@ const fetchSecondEdu = (dispatch) => async () => {
 }
 
 const createSecondEdu = (dispatch) => async (formValues) => {
-  console.log(`formValues:`, formValues)
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/secondary-education', formValues)
@@ -88,7 +87,6 @@ const setSecondEduToEdit = (dispatch) => (data) => {
 }
 
 const editSecondEdu = (dispatch) => async (id, formValues) => {
-  console.log(`AT ACTION:`, formValues)
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.patch(

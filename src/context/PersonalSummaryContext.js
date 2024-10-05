@@ -109,7 +109,6 @@ const deletePersonalSummary = (dispatch) => async (id) => {
     dispatch({ type: 'DELETE', payload: response.data })
     return
   } catch (error) {
-    console.log(`error:`, error)
     await ngrokApi.post('/error', { error: error })
     return
   }

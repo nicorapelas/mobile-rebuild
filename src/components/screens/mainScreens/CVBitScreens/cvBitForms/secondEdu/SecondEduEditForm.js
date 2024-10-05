@@ -56,12 +56,6 @@ const SecondEduEditForm = () => {
 
   useEffect(() => {
     if (error) {
-      console.log(`ERROR:`, error)
-    }
-  }, [error])
-
-  useEffect(() => {
-    if (error) {
       if (error.schoolName) setSchoolNameInputShow(true)
       if (error.dates) setDatesInputShow(true)
     }

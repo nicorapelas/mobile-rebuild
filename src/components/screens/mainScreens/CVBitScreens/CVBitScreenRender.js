@@ -79,7 +79,7 @@ const CVBitScreenRender = () => {
         return <LanguageCreateScreen />
       case 'languageEdit':
         return <LanguageEditScreen />
-      case 'personalInformation':
+      case 'personalInfo':
         return <PersonalInfoScreen />
       case 'personalInfoCreate':
         return <PersonalInfoCreateScreen />

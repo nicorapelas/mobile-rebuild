@@ -24,7 +24,7 @@ const ContactInfoReducer = (state, action) => {
     case 'SET_CONTACT_INFO_TO_EDIT':
       return { ...state, contactInfoToEdit: action.payload }
     case 'DELETE':
-      return _.omit(state, action.payload)
+      return { ...state, contactInfo: action.payload, loading: false }
     default:
       return state
   }

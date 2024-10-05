@@ -357,7 +357,7 @@ const PersonalInfoCreateForm = ({
           <Text style={styles.error}>{error}</Text>
         )}
         <View style={styles.nextBackButtonsBed}>
-          <FormCancelButton route="personalInformation" />
+          <FormCancelButton route="personalInfo" />
           <TouchableOpacity
             style={styles.addButtonContainer}
             onPress={() => fullNameInputNext()}
@@ -468,7 +468,7 @@ const PersonalInfoCreateForm = ({
 
   const handlePressSave = (data) => {
     createPersonalInfo(data)
-    setCVBitScreenSelected('personalInformation')
+    setCVBitScreenSelected('personalInfo')
   }
 
   const saveButton = () => {

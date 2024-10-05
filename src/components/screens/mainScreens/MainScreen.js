@@ -82,6 +82,7 @@ const Main = () => {
       CVBitScreenSelected === 'skillCreate' ||
       CVBitScreenSelected === 'skillEdit' ||
       CVBitScreenSelected === 'languageCreate' ||
+      CVBitScreenSelected === 'languageEdit' ||
       CVBitScreenSelected === 'personalInfoCreate' ||
       CVBitScreenSelected === 'personalInfoEdit' ||
       CVBitScreenSelected === 'personalSummaryCreate' ||

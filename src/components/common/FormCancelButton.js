@@ -20,7 +20,6 @@ import { Context as PersonalInfoContext } from '../../context/PersonalInfoContex
 import { Context as PersonalSummaryContext } from '../../context/PersonalSummaryContext'
 import { Context as ReferenceContext } from '../../context/ReferenceContext'
 import { Context as SecondEduContext } from '../../context/SecondEduContext'
-import { Context as ShareCVContext } from '../../context/ShareCVContext'
 import { Context as SkillContext } from '../../context/SkillContext'
 import { Context as TertEduContext } from '../../context/TertEduContext'
 
@@ -41,9 +40,52 @@ const FormCancelButton = ({ route }) => {
   const { clearPersonalSummaryErrors } = useContext(PersonalSummaryContext)
   const { clearReferenceErrors } = useContext(ReferenceContext)
   const { clearSecondEduErrors } = useContext(SecondEduContext)
-  const { clearShareCVErrors } = useContext(ShareCVContext)
   const { clearSkillErrors } = useContext(SkillContext)
   const { clearTertEduErrors } = useContext(TertEduContext)
+
+  const clearErrors = () => {
+    console.log(`route`, route)
+    switch (route) {
+      case 'attribute':
+        clearAttributeErrors()
+        break
+      case 'interest':
+        clearInterestErrors()
+        break
+      case 'skill':
+        clearSkillErrors()
+        break
+      case 'language':
+        clearLanguageErrors()
+        break
+      case 'personalInfo':
+        clearPersonalInfoErrors()
+        break
+      case 'personalSummary':
+        clearPersonalSummaryErrors()
+        break
+      case 'contactInfo':
+        clearContactInfoErrors()
+        break
+      case 'secondEdu':
+        clearSecondEduErrors()
+        break
+      case 'tertEdu':
+        clearTertEduErrors()
+        break
+      case 'employHistory':
+        clearEmployHistoryErrors()
+        break
+      case 'experience':
+        clearExperienceErrors()
+        break
+      case 'reference':
+        clearReferenceErrors()
+        break
+      default:
+        break
+    }
+  }
 
   const handlePressCancel = () => {
     if (route === 'dashboard') {
@@ -51,6 +93,7 @@ const FormCancelButton = ({ route }) => {
       setNavTabSelected('dashboard')
     } else {
       setCVBitScreenSelected(route)
+      clearErrors()
       setStartYear(null)
       setEndYear(null)
       setStartMonth(null)

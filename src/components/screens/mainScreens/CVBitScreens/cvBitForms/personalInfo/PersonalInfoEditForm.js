@@ -422,7 +422,7 @@ const PersonalInfoEditForm = () => {
   const handlePressSave = (data) => {
     const { _id } = personalInfoToEdit
     editPersonalInfo({ id: _id }, data)
-    setCVBitScreenSelected('personalInformation')
+    setCVBitScreenSelected('personalInfo')
   }
 
   const saveButton = () => {
