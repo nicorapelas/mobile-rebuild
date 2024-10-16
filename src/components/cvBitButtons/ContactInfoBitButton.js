@@ -6,24 +6,28 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native'
-import { Feather, Octicons } from '@expo/vector-icons'
+import { Octicons } from '@expo/vector-icons'
 
 import { Context as ContactInfoContext } from '../../context/ContactInfoContext'
 import { Context as NavContext } from '../../context/NavContext'
 
 const ContactInfoBitButton = () => {
   const {
-    state: { loading, contactInfoStatus },
+    state: { loading, contactInfoStatus, contactInfoInitFetchDone },
     fetchContactInfoStatus,
     fetchContactInfo,
+    setContactInfoInitFetchDone,
   } = useContext(ContactInfoContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchContactInfoStatus()
-    fetchContactInfo()
-  }, [])
+    if (!contactInfoInitFetchDone) {
+      fetchContactInfoStatus()
+      fetchContactInfo()
+      setContactInfoInitFetchDone(true)
+    }
+  }, [contactInfoInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

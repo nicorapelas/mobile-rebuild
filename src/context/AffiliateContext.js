@@ -32,8 +32,7 @@ const fetchAffiliateInfo = (dispatch) => async () => {
     dispatch({ type: 'FETCH_AFFILIATE_INFO', payload: response.data[0] })
     return
   } catch (error) {
-    console.log(`fetchAffiliateInfo ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -54,8 +53,7 @@ const fetchAffiliatesIntros = (dispatch) => async () => {
     dispatch({ type: 'FETCH_AFFILIATES_INTROS', payload: response.data })
     return
   } catch (error) {
-    console.log(`fetchAffiliatesIntros ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }

@@ -61,8 +61,7 @@ const fetchUser = (dispatch) => async () => {
       return
     }
   } catch (error) {
-    console.log(`fetchUser ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -171,8 +170,7 @@ const forgotPassword =
         dispatch({ type: 'ADD_API_MESSAGE', payload: response.data })
       }
     } catch (error) {
-      console.log(`forgotPassword ERROR:`, error)
-      // await ngrokApi.post('/error', { error: error })
+      await ngrokApi.post('/error', { error: error })
     }
   }
 
@@ -186,8 +184,7 @@ const acceptTermsAndConditions = (dispatch) => async (value) => {
     dispatch({ type: 'FETCH_USER', payload: response.data })
     return
   } catch (error) {
-    console.log(`acceptTermsAndConditions ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -206,8 +203,7 @@ const createDeviceInfo = (dispatch) => async (data) => {
     dispatch({ type: 'CREATE_USERS_DEVICE', payload: response.data })
     return
   } catch (error) {
-    console.log(`createDeviceInfo ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -217,8 +213,7 @@ const increaseUserVisitCount = (dispatch) => async () => {
     await ngrokApi.patch('/auth/user/visit-count')
     return
   } catch (error) {
-    console.log(`increaseUserVisitCount ERROR:`)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -240,8 +235,7 @@ const createAffiliate = (dispatch) => async (email) => {
     }
     return
   } catch (error) {
-    console.log(`createAffiliate ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -261,8 +255,7 @@ const fetchAffiliateInfo = (dispatch) => async (email) => {
     dispatch({ type: 'ADD_AFFILIATE_INFO', payload: response.data })
     return
   } catch (error) {
-    console.log(`fetchAffiliateInfo ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -280,8 +273,7 @@ const fetchAllAffiliates = (dispatch) => async () => {
     }
     dispatch({ type: 'ADD_AFFILIATES', payload: response.data })
   } catch (error) {
-    console.log(`fetchAllAffiliates ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -295,8 +287,7 @@ const applyToIntro = (dispatch) => async () => {
     await ngrokApi.patch('/auth/user/apply-to-intro')
     return
   } catch (error) {
-    console.log(`applyToIntro ERROR:` error, );
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -308,8 +299,7 @@ const deleteAccount = (dispatch) => async () => {
     dispatch({ type: 'ADD_API_MESSAGE', payload: response.data })
     return
   } catch (error) {
-    console.log(`deleteAccount ERROR:`, error);
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -325,8 +315,7 @@ const fetchUsersInfoContent = (dispatch) => async () => {
     dispatch({ type: 'ADD_USERS_INFO_CONTENT', payload: response.data })
     return
   } catch (error) {
-    console.log(`fetchUsersInfoContent ERROR:`, error);
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }

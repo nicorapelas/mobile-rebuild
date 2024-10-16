@@ -22,13 +22,15 @@ const ExperienceReducer = (state, action) => {
     case 'FETCH_EXPERIENCES':
       return { ...state, experiences: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, experiences: action.payload, loading: false }
+      return { ...state, experiences: action.payload, experienceInitFetchDone: false, loading: false }
     case 'SET_EXPERIENCE_TO_EDIT':
       return { ...state, experienceToEdit: action.payload }
     case 'EDIT':
-      return { ...state, experiences: action.payload, loading: false }
+      return { ...state, experiences: action.payload, experienceInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, experiences: action.payload, loading: false }
+      return { ...state, experiences: action.payload, experienceInitFetchDone: false, loading: false }
+    case 'SET_EXPERIENCE_INIT_FETCH_DONE':
+      return { ...state, experienceInitFetchDone: action.payload }
     default:
       return state
   }
@@ -131,6 +133,12 @@ const clearExperienceErrors = (dispatch) => () => {
   return
 }
 
+
+const setExperienceInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_EXPERIENCE_INIT_FETCH_DONE', payload: value })
+}
+
+
 export const { Context, Provider } = createDataContext(
   ExperienceReducer,
   {
@@ -143,6 +151,7 @@ export const { Context, Provider } = createDataContext(
     deleteExperience,
     addError,
     clearExperienceErrors,
+    setExperienceInitFetchDone,
   },
   // Initial state
   {
@@ -153,5 +162,6 @@ export const { Context, Provider } = createDataContext(
     experienceToEdit: null,
     loading: null,
     error: null,
+    experienceInitFetchDone: false,
   }
 )

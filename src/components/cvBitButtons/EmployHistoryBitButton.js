@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const EmployHistoryBitButton = () => {
   const {
-    state: { loading, employHistoryStatus },
+    state: { loading, employHistoryStatus, employHistoryInitFetchDone },
     fetchEmployHistoryStatus,
     fetchEmployHistorys,
+    setEmployHistoryInitFetchDone,
   } = useContext(EmployHistoryContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchEmployHistoryStatus()
-    fetchEmployHistorys()
-  }, [])
+    if (!employHistoryInitFetchDone) {
+      fetchEmployHistoryStatus()
+      fetchEmployHistorys()
+      setEmployHistoryInitFetchDone(true)
+    }
+  }, [employHistoryInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

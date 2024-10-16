@@ -18,13 +18,15 @@ const CertificateReducer = (state, action) => {
     case 'FETCH_CERTIFICATES':
       return { ...state, certificates: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, certificates: action.payload, loading: false }
+      return { ...state, certificates: action.payload, certificateInitFetchDone: false, loading: false }
     case 'SET_CERTIFICATE_TO_EDIT':
       return { ...state, certificateToEdit: action.payload }
     case 'EDIT':
-      return { ...state, certificates: action.payload, loading: false }
+      return { ...state, certificates: action.payload, certificateInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, certificates: action.payload, loading: false }
+      return { ...state, certificates: action.payload, certificateInitFetchDone: false, loading: false }
+    case 'SET_CERTIFICATE_INIT_FETCH_DONE':
+      return { ...state, certificateInitFetchDone: action.payload }
     default:
       return state
   }
@@ -38,8 +40,7 @@ const fetchCertificateStatus = (dispatch) => async () => {
     dispatch({ type: 'FETCH_STATUS', payload: response.data })
     return
   } catch (error) {
-    console.log(`fetchCertificateStatus ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -142,6 +143,10 @@ const clearUploadSignature = (dispatch) => () => {
   dispatch({ type: 'CLEAR_UPLOAD_SIGNATURE', payload: null })
 }
 
+const setCertificateInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_CERTIFICATE_INIT_FETCH_DONE', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   CertificateReducer,
   {
@@ -155,6 +160,7 @@ export const { Context, Provider } = createDataContext(
     certificatePhotoUpload,
     createUploadSignature,
     clearUploadSignature,
+    setCertificateInitFetchDone,
   },
   // Initial state
   {
@@ -165,5 +171,6 @@ export const { Context, Provider } = createDataContext(
     uploadSignature: null,
     loading: null,
     photoError: null,
+    certificateInitFetchDone: false,
   }
 )

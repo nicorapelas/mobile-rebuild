@@ -18,13 +18,15 @@ const AttributeReducer = (state, action) => {
     case 'FETCH_ALL':
       return { ...state, attributes: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, attributes: action.payload, loading: false }
+      return { ...state, attributes: action.payload, attributeInitFetchDone: false, loading: false }
     case 'SET_ATTRIBUTE_TO_EDIT':
       return { ...state, attributeToEdit: action.payload }
     case 'EDIT':
-      return { ...state, attributes: action.payload, loading: false }
+      return { ...state, attributes: action.payload, attributeInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, attributes: action.payload, loading: false }
+      return { ...state, attributes: action.payload, attributeInitFetchDone: false, loading: false }
+    case 'SET_ATTRIBUTE_INIT_FETCH_DONE':
+      return { ...state, attributeInitFetchDone: action.payload }
     default:
       return state
   }
@@ -37,8 +39,7 @@ const fetchAttributeSample = (dispatch) => async () => {
     dispatch({ type: 'FETCH_SAMPLE', payload: response.data })
     return
   } catch (error) {
-    console.log(`fetchAttributeSample ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -50,8 +51,7 @@ const fetchAttributeStatus = (dispatch) => async () => {
     dispatch({ type: 'FETCH_STATUS', payload: response.data })
     return
   } catch (error) {
-    console.log(`fetchAttributeStatus ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -63,8 +63,7 @@ const fetchAttributes = (dispatch) => async () => {
     dispatch({ type: 'FETCH_ALL', payload: response.data })
     return
   } catch (error) {
-    console.log(`fetchAttributes ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -80,8 +79,7 @@ const createAttribute = (dispatch) => async (formValues) => {
     dispatch({ type: 'CREATE', payload: response.data })
     return
   } catch (error) {
-    console.log(`createAttribute ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -98,8 +96,7 @@ const editAttribute = (dispatch) => async (data) => {
     dispatch({ type: 'EDIT', payload: response.data })
     return
   } catch (error) {
-    console.log(`editAttribute ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
@@ -111,15 +108,18 @@ const deleteAttribute = (dispatch) => async (id) => {
     dispatch({ type: 'DELETE', payload: response.data })
     return
   } catch (error) {
-    console.log(`deleteAttribute ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
 
-const clearAttributeErrors = (dispatch) => async () => {
+const clearAttributeErrors = (dispatch) =>  () => {
   dispatch({ type: 'CLEAR_ERRORS', payload: null })
   return
+}
+
+const setAttributeInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_ATTRIBUTE_INIT_FETCH_DONE', payload: value})
 }
 
 export const { Context, Provider } = createDataContext(
@@ -133,6 +133,7 @@ export const { Context, Provider } = createDataContext(
     setAttributeToEdit,
     deleteAttribute,
     clearAttributeErrors,
+    setAttributeInitFetchDone,
   },
   // Initial state
   {
@@ -143,5 +144,6 @@ export const { Context, Provider } = createDataContext(
     attributeStatus: null,
     loading: null,
     error: null,
+    attributeInitFetchDone: false,
   }
 )

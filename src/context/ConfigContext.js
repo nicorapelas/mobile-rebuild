@@ -16,7 +16,7 @@ const ConfigReducer = (state, action) => {
 }
 
 // Actions
-const fetchConfigInfo = dispatch => async info => {
+const fetchConfigInfo = (dispatch) => async (info) => {
   dispatch({ type: 'LOADING' })
   try {
     const response = await ngrokApi.post('/api/config/info', info)
@@ -28,7 +28,7 @@ const fetchConfigInfo = dispatch => async info => {
   }
 }
 
-const clearConfigData = dispatch => () => {
+const clearConfigData = (dispatch) => () => {
   dispatch({ type: 'CLEAR_CONFIG_DATA', payload: null })
 }
 
@@ -36,11 +36,11 @@ export const { Context, Provider } = createDataContext(
   ConfigReducer,
   {
     fetchConfigInfo,
-    clearConfigData
+    clearConfigData,
   },
   // Initial state
   {
     loading: false,
-    configData: ''
+    configData: '',
   }
 )

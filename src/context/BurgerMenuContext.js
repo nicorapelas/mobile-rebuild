@@ -34,8 +34,7 @@ const getLatestAppVersion = (dispatch) => async () => {
     dispatch({ type: 'GET_LATEST_APP_VERSION', payload: response.data })
     return
   } catch (error) {
-    console.log(`getLatestAppVersion ERROR:`, error)
-    // await ngrokApi.post('/error', { error: error })
+    await ngrokApi.post('/error', { error: error })
     return
   }
 }
