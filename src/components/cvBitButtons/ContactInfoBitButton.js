@@ -16,7 +16,7 @@ const ContactInfoBitButton = () => {
     state: { loading, contactInfoStatus, contactInfoInitFetchDone },
     fetchContactInfoStatus,
     fetchContactInfo,
-    setContactInfoInitFetchDone,
+    setContactInfoInitStatusFetchDone,
   } = useContext(ContactInfoContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
@@ -25,7 +25,7 @@ const ContactInfoBitButton = () => {
     if (!contactInfoInitFetchDone) {
       fetchContactInfoStatus()
       fetchContactInfo()
-      setContactInfoInitFetchDone(true)
+      setContactInfoInitStatusFetchDone(true)
     }
   }, [contactInfoInitFetchDone])
 

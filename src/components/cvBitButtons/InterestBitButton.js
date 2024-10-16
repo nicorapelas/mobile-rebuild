@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const InterestBitButton = () => {
   const {
-    state: { loading, interestStatus },
+    state: { loading, interestStatus, interestStatusInitFetchDone },
     fetchInterestStatus,
     fetchInterests,
+    setInterestStatusInitFetchDone,
   } = useContext(InterestContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchInterestStatus()
-    fetchInterests()
-  }, [])
+    if (!interestStatusInitFetchDone) {
+      fetchInterestStatus()
+      fetchInterests()
+      setInterestStatusInitFetchDone(true)
+    }
+  }, [interestStatusInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

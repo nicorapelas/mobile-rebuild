@@ -18,13 +18,15 @@ const SkillReducer = (state, action) => {
     case 'FETCH_ALL':
       return { ...state, skills: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, skills: action.payload, loading: false }
+      return { ...state, skills: action.payload, skillStatusInitFetchDone: false, loading: false }
     case 'SET_SKILL_TO_EDIT':
       return { ...state, skillToEdit: action.payload }
     case 'EDIT':
-      return { ...state, skills: action.payload, loading: false }
+      return { ...state, skills: action.payload, loading: false, skillStatusInitFetchDone: false, }
     case 'DELETE':
-      return { ...state, skills: action.payload, loading: false }
+      return { ...state, skills: action.payload, loading: false, skillStatusInitFetchDone: false, }
+    case 'SET_SKILL_STATUS_INIT_FETCH_DONE':
+      return { ...state, skillStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -121,6 +123,11 @@ const clearSkillErrors = (dispatch) => async () => {
   return
 }
 
+const setSkillStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_SKILL_STATUS_INIT_FETCH_DONE', payload: value })
+  return
+}
+
 export const { Context, Provider } = createDataContext(
   SkillReducer,
   {
@@ -133,6 +140,7 @@ export const { Context, Provider } = createDataContext(
     deleteSkill,
     addError,
     clearSkillErrors,
+    setSkillStatusInitFetchDone,
   },
   // Initial state
   {
@@ -143,5 +151,6 @@ export const { Context, Provider } = createDataContext(
     skillToEdit: null,
     loading: null,
     error: null,
+    skillStatusInitFetchDone: false,
   }
 )

@@ -18,13 +18,15 @@ const LanguageReducer = (state, action) => {
     case 'FETCH_ALL':
       return { ...state, languages: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, languages: action.payload, loading: false }
+      return { ...state, languages: action.payload, languageStatusInitFetchDone: false, loading: false }
     case 'SET_LANGUAGE_TO_EDIT':
       return { ...state, languageToEdit: action.payload }
     case 'EDIT':
-      return { ...state, languages: action.payload, loading: false }
+      return { ...state, languages: action.payload, languageStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, languages: action.payload, loading: false }
+      return { ...state, languages: action.payload, languageStatusInitFetchDone: false, loading: false }
+    case 'SET_LANGUAGE_STATUS_INIT_FETCH_DONE':
+      return { ...state, languageStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -121,6 +123,11 @@ const clearLanguageErrors = (dispatch) => async () => {
   return
 }
 
+const setLanguageStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_LANGUAGE_STATUS_INIT_FETCH_DONE', payload: value })
+}
+
+
 export const { Context, Provider } = createDataContext(
   LanguageReducer,
   {
@@ -133,6 +140,7 @@ export const { Context, Provider } = createDataContext(
     deleteLanguage,
     addError,
     clearLanguageErrors,
+    setLanguageStatusInitFetchDone,
   },
   // Initial state
   {
@@ -143,5 +151,6 @@ export const { Context, Provider } = createDataContext(
     languageToEdit: null,
     loading: null,
     error: null,
+    languageStatusInitFetchDone: false,
   }
 )

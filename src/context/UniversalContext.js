@@ -84,6 +84,8 @@ const UniversalReducer = (state, action) => {
       return { ...state, yearSelected: action.payload }
     case 'SET_IMAGE_TO_VIEW_URL':
       return { ...state, imageToViewUrl: action.payload }
+    case 'SET_INIT_DATA_FETCH_DONE':
+      return { ...state, initDataFetchDone: action.payload }
     default:
       return state
   }
@@ -275,6 +277,10 @@ const setImageToViewUrl = (dispatch) => (data) => {
   dispatch({ type: 'SET_IMAGE_TO_VIEW_URL', payload: data })
 }
 
+const setInitDataFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_INIT_DATA_FETCH_DONE', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   UniversalReducer,
   {
@@ -312,6 +318,7 @@ export const { Context, Provider } = createDataContext(
     setUserPlatformOS,
     setYearSelected,
     setImageToViewUrl,
+    setInitDataFetchDone,
   },
   // Initial state
   {
@@ -344,5 +351,6 @@ export const { Context, Provider } = createDataContext(
     userPlanformOS: 'android',
     yearSelected: null,
     imageToViewUrl: null,
+    initDataFetchDone: false,
   }
 )

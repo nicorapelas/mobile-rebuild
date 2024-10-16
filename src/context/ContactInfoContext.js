@@ -25,7 +25,7 @@ const ContactInfoReducer = (state, action) => {
       return { ...state, contactInfoToEdit: action.payload }
     case 'DELETE':
       return { ...state, contactInfo: action.payload, contactInfoInitFetchDone: false, loading: false }
-    case 'SET_CONTACT_INFO_INIT_FETCH_DONE':
+    case 'SET_CONTACT_INFO_STATUS_INIT_FETCH_DONE':
       return { ...state, contactInfoInitFetchDone: action.payload }
     default:
       return state
@@ -137,8 +137,8 @@ const clearErrors = (dispatch) => () => {
   return
 }
 
-const setContactInfoInitFetchDone = (dispatch) => (value) => {
-  dispatch({ type: 'SET_CONTACT_INFO_INIT_FETCH_DONE', payload: value })
+const setContactInfoInitStatusFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_CONTACT_INFO_STATUS_INIT_FETCH_DONE', payload: value })
 }
 
 export const { Context, Provider } = createDataContext(
@@ -154,7 +154,7 @@ export const { Context, Provider } = createDataContext(
     deleteContactInfo,
     addError,
     clearErrors,
-    setContactInfoInitFetchDone,
+    setContactInfoInitStatusFetchDone,
   },
   // Initial state
   {

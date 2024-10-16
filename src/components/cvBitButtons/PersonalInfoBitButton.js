@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const PersonalInfoBitButton = () => {
   const {
-    state: { loading, personalInfoStatus },
+    state: { loading, personalInfoStatus, personalInfoStatusFetchDone },
     fetchPersonalInfoStatus,
     fetchPersonalInfo,
+    setPersonalInfoStatusFetchDone,
   } = useContext(PersonalInfoContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchPersonalInfoStatus()
-    fetchPersonalInfo()
-  }, [])
+    if (!personalInfoStatusFetchDone) {
+      fetchPersonalInfoStatus()
+      fetchPersonalInfo()
+      setPersonalInfoStatusFetchDone(true)
+    }
+  }, [personalInfoStatusFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

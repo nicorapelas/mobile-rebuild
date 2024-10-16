@@ -15,17 +15,21 @@ const FirstImpressionBitButton = () => {
   const [counter, setCounter] = useState(0)
 
   const {
-    state: { loading, firstImpressionStatus, firstImpression },
+    state: { loading, firstImpressionStatus, firstImpression, firstImpressionStatusInitFetchDone },
     fetchFirstImpression,
     fetchFirsImpressionStatus,
+    setFirstImpressionStatusInitFetchDone,
   } = useContext(FirstImpressionContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchFirstImpression()
-    fetchFirsImpressionStatus()
-  }, [])
+    if (!firstImpressionStatusInitFetchDone) {
+      fetchFirstImpression()
+      fetchFirsImpressionStatus()
+      setFirstImpressionStatusInitFetchDone(true)
+    }
+  }, [firstImpressionStatusInitFetchDone])
 
   useEffect(() => {
     if (firstImpression && counter < 2) {

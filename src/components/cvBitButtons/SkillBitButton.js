@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const SkillBitButton = () => {
   const {
-    state: { loading, skillStatus },
+    state: { loading, skillStatus, skillStatusInitFetchDone },
     fetchSkillStatus,
     fetchSkills,
+    setSkillStatusInitFetchDone,
   } = useContext(SkillContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchSkillStatus()
-    fetchSkills()
-  }, [])
+    if (!skillStatusInitFetchDone) {
+      fetchSkillStatus()
+      fetchSkills()
+      setSkillStatusInitFetchDone(true)
+    }
+  }, [skillStatusInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

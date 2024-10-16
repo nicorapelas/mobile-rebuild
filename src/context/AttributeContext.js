@@ -18,15 +18,15 @@ const AttributeReducer = (state, action) => {
     case 'FETCH_ALL':
       return { ...state, attributes: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, attributes: action.payload, attributeInitFetchDone: false, loading: false }
+      return { ...state, attributes: action.payload, attributeStatusInitFetchDone: false, loading: false }
     case 'SET_ATTRIBUTE_TO_EDIT':
       return { ...state, attributeToEdit: action.payload }
     case 'EDIT':
-      return { ...state, attributes: action.payload, attributeInitFetchDone: false, loading: false }
+      return { ...state, attributes: action.payload, attributeStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, attributes: action.payload, attributeInitFetchDone: false, loading: false }
-    case 'SET_ATTRIBUTE_INIT_FETCH_DONE':
-      return { ...state, attributeInitFetchDone: action.payload }
+      return { ...state, attributes: action.payload, attributeStatusInitFetchDone: false, loading: false }
+    case 'SET_ATTRIBUTE_STATUS_INIT_FETCH_DONE':
+      return { ...state, attributeStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -118,8 +118,8 @@ const clearAttributeErrors = (dispatch) =>  () => {
   return
 }
 
-const setAttributeInitFetchDone = (dispatch) => (value) => {
-  dispatch({ type: 'SET_ATTRIBUTE_INIT_FETCH_DONE', payload: value})
+const setAttributeStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_ATTRIBUTE_STATUS_INIT_FETCH_DONE', payload: value})
 }
 
 export const { Context, Provider } = createDataContext(
@@ -133,7 +133,7 @@ export const { Context, Provider } = createDataContext(
     setAttributeToEdit,
     deleteAttribute,
     clearAttributeErrors,
-    setAttributeInitFetchDone,
+    setAttributeStatusInitFetchDone,
   },
   // Initial state
   {
@@ -144,6 +144,6 @@ export const { Context, Provider } = createDataContext(
     attributeStatus: null,
     loading: null,
     error: null,
-    attributeInitFetchDone: false,
+    attributeStatusInitFetchDone: false,
   }
 )

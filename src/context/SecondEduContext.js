@@ -18,13 +18,15 @@ const SeconEduReducer = (state, action) => {
     case 'FETCH_SECOND_EDU':
       return { ...state, secondEdu: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, secondEdu: action.payload, loading: false }
+      return { ...state, secondEdu: action.payload, secondEduStatusInitFetchDone: false, loading: false }
     case 'SET_SECOND_EDU_TO_EDIT':
       return { ...state, secondEduToEdit: action.payload }
     case 'EDIT':
-      return { ...state, secondEdu: action.payload, loading: false }
+      return { ...state, secondEdu: action.payload, secondEduStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, secondEdu: action.payload, loading: false }
+      return { ...state, secondEdu: action.payload, secondEduStatusInitFetchDone: false, loading: false }
+    case 'SET_SECOND_EDU_STATUS_INIT_FETCH_DONE':
+      return { ...state, secondEduStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -125,6 +127,10 @@ const clearSecondEduErrors = (dispatch) => () => {
   dispatch({ type: 'CLEAR_ERRORS' })
 }
 
+const setSecondEduStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_SECOND_EDU_STATUS_INIT_FETCH_DONE', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   SeconEduReducer,
   {
@@ -137,6 +143,7 @@ export const { Context, Provider } = createDataContext(
     deleteSecondEdu,
     addError,
     clearSecondEduErrors,
+    setSecondEduStatusInitFetchDone,
   },
   // Initial state
   {
@@ -147,5 +154,6 @@ export const { Context, Provider } = createDataContext(
     secondEduStatus: null,
     loading: null,
     error: null,
+    secondEduStatusInitFetchDone: false,
   }
 )

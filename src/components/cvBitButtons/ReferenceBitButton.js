@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const ReferenceBitButton = () => {
   const {
-    state: { loading, referenceStatus },
+    state: { loading, referenceStatus, referenceStatusInitFetchDone },
     fetchReferenceStatus,
     fetchReferences,
+    setReferenceStatusInitFetchDone,
   } = useContext(ReferenceContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchReferenceStatus()
-    fetchReferences()
-  }, [])
+    if (!referenceStatusInitFetchDone) {
+      fetchReferenceStatus()
+      fetchReferences()
+      setReferenceStatusInitFetchDone(true)
+    }
+  }, [referenceStatusInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

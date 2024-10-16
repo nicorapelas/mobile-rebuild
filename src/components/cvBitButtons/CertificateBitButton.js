@@ -15,21 +15,21 @@ const CertificateBitButton = () => {
   const [counter, setCounter] = useState(0)
 
   const {
-    state: { loading, certificateStatus, certificates, certificateInitFetchDone },
+    state: { loading, certificateStatus, certificates, certificateStatusInitFetchDone },
     fetchCertificates,
     fetchCertificateStatus,
-    setCertificateInitFetchDone,
+    setCertificateInitStatusFetchDone,
   } = useContext(CertificateContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    if (!certificateInitFetchDone) {
+    if (!certificateStatusInitFetchDone) {
       fetchCertificates()
       fetchCertificateStatus()
-      setCertificateInitFetchDone(true)
+      setCertificateInitStatusFetchDone(true)
     }
-  }, [certificateInitFetchDone])
+  }, [certificateStatusInitFetchDone])
 
   useEffect(() => {
     if (certificates && counter < 2) {

@@ -18,13 +18,15 @@ const PersonalSummaryReducer = (state, action) => {
     case 'FETCH_ALL':
       return { ...state, personalSummary: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, personalSummary: action.payload, loading: false }
-    case 'SET_PERSOANL_SUMMARY_TO_EDIT':
+      return { ...state, personalSummary: action.payload, personalSummaryStatusFetchDone: false, loading: false }
+    case 'SET_PERSONAL_SUMMARY_TO_EDIT':
       return { ...state, personalSummaryToEdit: action.payload }
     case 'DELETE':
-      return { ...state, personalSummary: action.payload, loading: false }
+      return { ...state, personalSummary: action.payload, personalSummaryStatusFetchDone: false, loading: false }
     case 'EDIT':
-      return { ...state, personalSummary: action.payload, loading: false }
+      return { ...state, personalSummary: action.payload, personalSummaryStatusFetchDone: false, loading: false }
+    case 'SET_PERSONAL_SUMMARY_STATUS_FETCH_DONE':
+      return { ...state, personalSummaryStatusFetchDone: action.payload }
     default:
       return state
   }
@@ -83,7 +85,7 @@ const createPersonalSummary = (dispatch) => async (formValues) => {
 }
 
 const setPersonalSummaryToEdit = (dispatch) => (data) => {
-  dispatch({ type: 'SET_PERSOANL_SUMMARY_TO_EDIT', payload: data })
+  dispatch({ type: 'SET_PERSONAL_SUMMARY_TO_EDIT', payload: data })
   return
 }
 
@@ -119,6 +121,11 @@ const clearPersonalSummaryErrors = (dispatch) => async () => {
   return
 }
 
+const setPersonalSummaryStatusFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_PERSONAL_SUMMARY_STATUS_FETCH_DONE', payload: value })
+  return
+}
+
 export const { Context, Provider } = createDataContext(
   PersonalSummaryReducer,
   {
@@ -130,6 +137,7 @@ export const { Context, Provider } = createDataContext(
     editPersonalSummary,
     deletePersonalSummary,
     clearPersonalSummaryErrors,
+    setPersonalSummaryStatusFetchDone,
   },
   // Initial state
   {
@@ -139,5 +147,6 @@ export const { Context, Provider } = createDataContext(
     personalSummaryToEdit: null,
     loading: null,
     error: null,
+    personalSummaryStatusFetchDone: false,
   }
 )

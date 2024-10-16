@@ -18,15 +18,15 @@ const CertificateReducer = (state, action) => {
     case 'FETCH_CERTIFICATES':
       return { ...state, certificates: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, certificates: action.payload, certificateInitFetchDone: false, loading: false }
+      return { ...state, certificates: action.payload, certificateStatusInitFetchDone: false, loading: false }
     case 'SET_CERTIFICATE_TO_EDIT':
       return { ...state, certificateToEdit: action.payload }
     case 'EDIT':
-      return { ...state, certificates: action.payload, certificateInitFetchDone: false, loading: false }
+      return { ...state, certificates: action.payload, certificateStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, certificates: action.payload, certificateInitFetchDone: false, loading: false }
-    case 'SET_CERTIFICATE_INIT_FETCH_DONE':
-      return { ...state, certificateInitFetchDone: action.payload }
+      return { ...state, certificates: action.payload, certificateStatusInitFetchDone: false, loading: false }
+    case 'SET_CERTIFICATE_STATUS_INIT_FETCH_DONE':
+      return { ...state, certificateStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -143,8 +143,8 @@ const clearUploadSignature = (dispatch) => () => {
   dispatch({ type: 'CLEAR_UPLOAD_SIGNATURE', payload: null })
 }
 
-const setCertificateInitFetchDone = (dispatch) => (value) => {
-  dispatch({ type: 'SET_CERTIFICATE_INIT_FETCH_DONE', payload: value })
+const setCertificateInitStatusFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_CERTIFICATE_STATUS_INIT_FETCH_DONE', payload: value })
 }
 
 export const { Context, Provider } = createDataContext(
@@ -160,7 +160,7 @@ export const { Context, Provider } = createDataContext(
     certificatePhotoUpload,
     createUploadSignature,
     clearUploadSignature,
-    setCertificateInitFetchDone,
+    setCertificateInitStatusFetchDone,
   },
   // Initial state
   {
@@ -171,6 +171,6 @@ export const { Context, Provider } = createDataContext(
     uploadSignature: null,
     loading: null,
     photoError: null,
-    certificateInitFetchDone: false,
+    certificateStatusInitFetchDone: false,
   }
 )

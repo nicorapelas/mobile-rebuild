@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const LanguageBitButton = () => {
   const {
-    state: { loading, languageStatus },
+    state: { loading, languageStatus, languageStatusInitFetchDone },
     fetchLanguageStatus,
     fetchLanguages,
+    setLanguageStatusInitFetchDone,
   } = useContext(LanguageContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchLanguageStatus()
-    fetchLanguages()
-  }, [])
+    if (!languageStatusInitFetchDone) {
+      fetchLanguageStatus()
+      fetchLanguages()
+      setLanguageStatusInitFetchDone(true)
+    }
+  }, [languageStatusInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

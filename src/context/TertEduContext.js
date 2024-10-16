@@ -18,13 +18,15 @@ const TertEduReducer = (state, action) => {
     case 'FETCH_TERT_EDUS':
       return { ...state, tertEdus: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, tertEdus: action.payload, loading: false }
+      return { ...state, tertEdus: action.payload, tertEduStatusInitFetchDone: false, loading: false }
     case 'SET_TERT_EDU_TO_EDIT':
       return { ...state, tertEduToEdit: action.payload }
     case 'EDIT':
-      return { ...state, tertEdus: action.payload, loading: false }
+      return { ...state, tertEdus: action.payload, tertEduStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, tertEdus: action.payload, loading: false }
+      return { ...state, tertEdus: action.payload, tertEduStatusInitFetchDone: false, loading: false }
+    case 'SET_TERT_EDU_STATUS_INIT_FETCH_DONE':
+      return { ...state, tertEduStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -117,6 +119,10 @@ const clearTertEduErrors = (dispatch) => () => {
   dispatch({ type: 'CLEAR_ERRORS' })
 }
 
+const setTertEduStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_TERT_EDU_STATUS_INIT_FETCH_DONE', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   TertEduReducer,
   {
@@ -129,6 +135,7 @@ export const { Context, Provider } = createDataContext(
     deleteTertEdu,
     addError,
     clearTertEduErrors,
+    setTertEduStatusInitFetchDone,
   },
   // Initial state
   {
@@ -139,5 +146,6 @@ export const { Context, Provider } = createDataContext(
     tertEduToEdit: null,
     loading: null,
     error: null,
+    tertEduStatusInitFetchDone: false,
   }
 )

@@ -13,21 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const ExperienceBitButton = () => {
   const {
-    state: { loading, experienceStatus, experienceInitFetchDone },
+    state: { loading, experienceStatus, experienceStatusInitFetchDone },
     fetchExperienceStatus,
     fetchExperiences,
-    setExperienceInitFetchDone,
+    setExperienceStatusInitFetchDone,
   } = useContext(ExperienceContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    if (!experienceInitFetchDone) {
+    if (!experienceStatusInitFetchDone) {
       fetchExperienceStatus()
       fetchExperiences()
-      setExperienceInitFetchDone(true)
+      setExperienceStatusInitFetchDone(true)
     }
-  }, [experienceInitFetchDone])
+  }, [experienceStatusInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

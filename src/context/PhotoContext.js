@@ -16,7 +16,7 @@ const PhotoReducer = (state, action) => {
     case 'FETCH_PHOTOS':
       return { ...state, photos: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, photos: action.payload, loading: false }
+      return { ...state, photos: action.payload, photoStatusInitFetchDone: false, loading: false }
     case 'ADD_UPLOAD_SIGNATURE':
       return { ...state, uploadSignature: action.payload }
     case 'CLEAR_UPLOAD_SIGNATURE':
@@ -30,11 +30,13 @@ const PhotoReducer = (state, action) => {
     case 'FETCH_ASSIGNED_PHOTO':
       return { ...state, assignedPhotoUrl: action.payload }
     case 'DELETE':
-      return { ...state, photos: action.payload, loading: false }
+      return { ...state, photos: action.payload, photoStatusInitFetchDone: false, loading: false }
     case 'SET_PHOTO_TO_EDIT':
       return { ...state, photoToEdit: action.payload }
     case 'EDIT':
-      return { ...state, photos: action.payload, loading: false }
+      return { ...state, photos: action.payload, photoStatusInitFetchDone: false, loading: false }
+    case 'SET_PHOTO_STATUS_INIT_FETCH_DONE':
+      return { ...state, photoStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -189,6 +191,10 @@ const editPhoto = (dispatch) => async (id, formValues) => {
   }
 }
 
+const setPhotoStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_PHOTO_STATUS_INIT_FETCH_DONE', payload: value })
+}
+
 export const { Context, Provider } = createDataContext(
   PhotoReducer,
   {
@@ -207,6 +213,7 @@ export const { Context, Provider } = createDataContext(
     assignPhoto,
     clearAssignedPhoto,
     resetAssignedPhotoId,
+    setPhotoStatusInitFetchDone,
   },
   // Initial state
   {
@@ -220,5 +227,6 @@ export const { Context, Provider } = createDataContext(
     photoError: null,
     assignedPhotoId: null,
     assignedPhotoUrl: null,
+    photoStatusInitFetchDone: false,
   }
 )

@@ -18,13 +18,15 @@ const InterestReducer = (state, action) => {
     case 'FETCH_ALL':
       return { ...state, interests: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, interests: action.payload, loading: false }
+      return { ...state, interests: action.payload, interestStatusInitFetchDone: false, loading: false }
     case 'SET_INTEREST_TO_EDIT':
       return { ...state, interestToEdit: action.payload }
     case 'EDIT':
-      return { ...state, interests: action.payload, loading: false }
+      return { ...state, interests: action.payload, interestStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, interests: action.payload, loading: false }
+      return { ...state, interests: action.payload, interestStatusInitFetchDone: false, loading: false }
+    case 'SET_INTEREST_STATUS_INIT_FETCH_DONE':
+      return { ...state, interestStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -111,9 +113,13 @@ const deleteInterest = (dispatch) => async (id) => {
   }
 }
 
-const clearInterestErrors = (dispatch) => async () => {
+const clearInterestErrors = (dispatch) => () => {
   dispatch({ type: 'CLEAR_ERRORS', payload: null })
   return
+}
+
+const setInterestStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_INTEREST_STATUS_INIT_FETCH_DONE', payload: value })
 }
 
 export const { Context, Provider } = createDataContext(
@@ -127,6 +133,7 @@ export const { Context, Provider } = createDataContext(
     setInterestToEdit,
     deleteInterest,
     clearInterestErrors,
+    setInterestStatusInitFetchDone,
   },
   // Initial state
   {
@@ -137,5 +144,6 @@ export const { Context, Provider } = createDataContext(
     interestStatus: null,
     loading: null,
     error: null,
+    interestStatusInitFetchDone: false
   }
 )

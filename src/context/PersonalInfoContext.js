@@ -26,17 +26,19 @@ const PersonalInfoContext = (state, action) => {
     case 'FETCH_VIEW_HEADING_SAMPLE':
       return { ...state, viewHeadingSample: action.payload }
     case 'CREATE':
-      return { ...state, personalInfo: action.payload, loading: false }
+      return { ...state, personalInfo: action.payload, personalInfoStatusFetchDone: false, loading: false }
     case 'SET_PERSONAL_INFO_TO_EDIT':
       return { ...state, personalInfoToEdit: action.payload }
     case 'EDIT':
-      return { ...state, personalInfo: action.payload, loading: false }
+      return { ...state, personalInfo: action.payload, personalInfoStatusFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, personalInfo: action.payload, loading: false }
+      return { ...state, personalInfo: action.payload, personalInfoStatusFetchDone: false, loading: false }
     case 'SET_DRIVERS_LICENSE':
       return { ...state, driversLicense: action.payload }
     case 'SET_LICENSE_CODE':
       return { ...state, licenseCode: action.payload }
+    case 'SET_PERSONAL_INFO_STATUS_FETCH_DONE':
+      return { ...state, personalInfoStatusFetchDone: action.payload }
     default:
       return state
   }
@@ -172,6 +174,11 @@ const setLicenseCode = (dispatch) => (data) => {
   return
 }
 
+const setPersonalInfoStatusFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_PERSONAL_INFO_STATUS_FETCH_DONE', payload: value })
+}
+
+
 export const { Context, Provider } = createDataContext(
   PersonalInfoContext,
   {
@@ -188,6 +195,7 @@ export const { Context, Provider } = createDataContext(
     clearErrors,
     setDirversLicense,
     setLicenseCode,
+    setPersonalInfoStatusFetchDone,
   },
   // Initial state
   {
@@ -201,5 +209,6 @@ export const { Context, Provider } = createDataContext(
     driversLicense: null,
     licenseCode: null,
     personalInfoToEdit: null,
+    personalInfoStatusFetchDone: false,
   }
 )

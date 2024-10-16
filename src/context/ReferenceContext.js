@@ -18,13 +18,15 @@ const ReferenceReducer = (state, action) => {
     case 'FETCH_REFERENCES':
       return { ...state, references: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, references: action.payload, loading: false }
+      return { ...state, references: action.payload, referenceStatusInitFetchDone: false, loading: false }
     case 'SET_REFERENCE_TO_EDIT':
       return { ...state, referenceToEdit: action.payload }
     case 'EDIT':
-      return { ...state, references: action.payload, loading: false }
+      return { ...state, references: action.payload, referenceStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, references: action.payload, loading: false }
+      return { ...state, references: action.payload, referenceStatusInitFetchDone: false, loading: false }
+    case 'SET_REFERENCE_STATUS_INIT_FETCH_DONE':
+      return { ...state, referenceStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -123,6 +125,10 @@ const clearReferenceErrors = (dispatch) => () => {
   return
 }
 
+const setReferenceStatusInitFetchDone = (dispatch) => (data) => {
+  dispatch({ type: 'SET_REFERENCE_STATUS_INIT_FETCH_DONE', payload: data })
+}
+
 export const { Context, Provider } = createDataContext(
   ReferenceReducer,
   {
@@ -135,6 +141,7 @@ export const { Context, Provider } = createDataContext(
     deleteReference,
     addError,
     clearReferenceErrors,
+    setReferenceStatusInitFetchDone,
   },
   // Initial state
   {
@@ -144,5 +151,6 @@ export const { Context, Provider } = createDataContext(
     referenceToEdit: null,
     loading: null,
     error: null,
+    referenceStatusInitFetchDone: false
   }
 )

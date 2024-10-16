@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const TertEduBitButton = () => {
   const {
-    state: { loading, tertEduStatus },
+    state: { loading, tertEduStatus, tertEduStatusInitFetchDone },
     fetchTertEduStatus,
     fetchTertEdus,
+    setTertEduStatusInitFetchDone,
   } = useContext(TertEduContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchTertEduStatus()
-    fetchTertEdus()
-  }, [])
+    if (!tertEduStatusInitFetchDone) {
+      fetchTertEduStatus()
+      fetchTertEdus()
+      setTertEduStatusInitFetchDone(true)
+    }
+  }, [tertEduStatusInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />

@@ -22,15 +22,15 @@ const EmployHistoryReducer = (state, action) => {
     case 'FETCH_EMPLOY_HISTORYS':
       return { ...state, employHistorys: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, employHistorys: action.payload, employHistoryInitFetchDone: false, loading: false }
+      return { ...state, employHistorys: action.payload, employHistoryStatusInitFetchDone: false, loading: false }
     case 'SET_EMPLOY_HISTORY_TO_EDIT':
       return { ...state, employHistoryToEdit: action.payload }
     case 'EDIT':
-      return { ...state, employHistorys: action.payload, employHistoryInitFetchDone: false, loading: false }
+      return { ...state, employHistorys: action.payload, employHistoryStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, employHistorys: action.payload, employHistoryInitFetchDone: false, loading: false }
-    case 'SET_EMPLOY_HISTORY_INIT_FETCH_DONE':
-      return { ...state, employHistoryInitFetchDone: action.payload }
+      return { ...state, employHistorys: action.payload, employHistoryStatusInitFetchDone: false, loading: false }
+    case 'SET_EMPLOY_HISTORY_STATUS_INIT_FETCH_DONE':
+      return { ...state, employHistoryStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -132,8 +132,8 @@ const clearEmployHistoryErrors = (dispatch) => () => {
   return
 }
 
-const setEmployHistoryInitFetchDone = (dispatch) => (value) => {
-  dispatch({ type: 'SET_EMPLOY_HISTORY_INIT_FETCH_DONE', payload: value })
+const setEmployHistoryStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_EMPLOY_HISTORY_STATUS_INIT_FETCH_DONE', payload: value })
 }
 
 export const { Context, Provider } = createDataContext(
@@ -148,7 +148,7 @@ export const { Context, Provider } = createDataContext(
     deleteEmployHistory,
     addError,
     clearEmployHistoryErrors,
-    setEmployHistoryInitFetchDone,
+    setEmployHistoryStatusInitFetchDone,
   },
   // Initial state
   {
@@ -158,6 +158,6 @@ export const { Context, Provider } = createDataContext(
     employHistoryStatus: null,
     employHistoryToEdit: null,
     loading: null,
-    employHistoryInitFetchDone: false,
+    employHistoryStatusInitFetchDone: false,
   }
 )

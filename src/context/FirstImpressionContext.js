@@ -18,11 +18,11 @@ const FirstImpressionReducer = (state, action) => {
     case 'FETCH':
       return { ...state, firstImpression: action.payload, loading: false }
     case 'CREATE':
-      return { ...state, firstImpression: action.payload, loading: false }
+      return { ...state, firstImpression: action.payload, firstImpressionStatusInitFetchDone: false, loading: false }
     case 'EDIT':
-      return { ...state, [action.payload._id]: action.payload, loading: false }
+      return { ...state, [action.payload._id]: action.payload, firstImpressionStatusInitFetchDone: false, loading: false }
     case 'DELETE':
-      return { ...state, firstImpression: action.payload, loading: false }
+      return { ...state, firstImpression: action.payload, firstImpressionStatusInitFetchDone: false, loading: false }
     case 'ADD_VIDEO_OBJECT':
       return { ...state, videoObject: action.payload }
     case 'CLEAR_VIDEO_OBJECT':
@@ -33,6 +33,8 @@ const FirstImpressionReducer = (state, action) => {
       return { ...state, videoDemoUrl: action.payload, loading: false }
     case 'SET_VIDEO_UPLOADING':
       return { ...state, videoUploading: action.payload }
+    case 'SET_FIRST_IMPRESSION_STATUS_INIT_FETCH_DONE':
+      return { ...state, firstImpressionStatusInitFetchDone: action.payload }
     default:
       return state
   }
@@ -146,6 +148,11 @@ const setVideoUploading = (dispatch) => (value) => {
   dispatch({ type: 'SET_VIDEO_UPLOADING', payload: value })
 }
 
+const setFirstImpressionStatusInitFetchDone = (dispatch) => (value) => {
+  dispatch({ type: 'SET_FIRST_IMPRESSION_STATUS_INIT_FETCH_DONE', payload: value })
+}
+
+
 export const { Context, Provider } = createDataContext(
   FirstImpressionReducer,
   {
@@ -161,6 +168,7 @@ export const { Context, Provider } = createDataContext(
     setVideoDemoShow,
     fetchDemoVideoUrl,
     setVideoUploading,
+    setFirstImpressionStatusInitFetchDone,
   },
   // Initial state
   {
@@ -173,5 +181,6 @@ export const { Context, Provider } = createDataContext(
     videoDemoUrl: null,
     error: null,
     videoUploading: false,
+    firstImpressionStatusInitFetchDone: false,
   }
 )

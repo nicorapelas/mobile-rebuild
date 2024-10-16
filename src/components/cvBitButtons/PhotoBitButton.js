@@ -15,18 +15,22 @@ const PhotoBitButton = () => {
   const [counter, setCounter] = useState(0)
 
   const {
-    state: { loading, photoStatus, photos },
+    state: { loading, photoStatus, photos, photoStatusInitFetchDone },
     fetchPhotos,
     fetchPhotoStatus,
     assignPhoto,
+    setPhotoStatusInitFetchDone,
   } = useContext(PhotoContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchPhotos()
-    fetchPhotoStatus()
-  }, [])
+    if (!photoStatusInitFetchDone) {
+      fetchPhotos()
+      fetchPhotoStatus()
+      setPhotoStatusInitFetchDone(true)
+    }
+  }, [photoStatusInitFetchDone])
 
   useEffect(() => {
     if (photos && counter < 2) {

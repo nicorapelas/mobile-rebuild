@@ -13,17 +13,21 @@ import { Context as NavContext } from '../../context/NavContext'
 
 const SecondEduBitButton = () => {
   const {
-    state: { loading, secondEduStatus },
+    state: { loading, secondEduStatus, secondEduStatusInitFetchDone },
     fetchSecondEduStatus,
     fetchSecondEdu,
+    setSecondEduStatusInitFetchDone,
   } = useContext(SecondEduContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   useEffect(() => {
-    fetchSecondEduStatus()
-    fetchSecondEdu()
-  }, [])
+    if (!secondEduStatusInitFetchDone) {
+      fetchSecondEduStatus()
+      fetchSecondEdu()
+      setSecondEduStatusInitFetchDone(true)
+    }
+  }, [secondEduStatusInitFetchDone])
 
   const renderStatusLoader = () => {
     return <ActivityIndicator size="small" color="#ededed" />
