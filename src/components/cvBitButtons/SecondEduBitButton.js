@@ -15,7 +15,6 @@ const SecondEduBitButton = () => {
   const {
     state: { loading, secondEduStatus, secondEduStatusInitFetchDone },
     fetchSecondEduStatus,
-    fetchSecondEdu,
     setSecondEduStatusInitFetchDone,
   } = useContext(SecondEduContext)
 
@@ -24,7 +23,6 @@ const SecondEduBitButton = () => {
   useEffect(() => {
     if (!secondEduStatusInitFetchDone) {
       fetchSecondEduStatus()
-      fetchSecondEdu()
       setSecondEduStatusInitFetchDone(true)
     }
   }, [secondEduStatusInitFetchDone])

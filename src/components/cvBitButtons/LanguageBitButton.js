@@ -15,7 +15,6 @@ const LanguageBitButton = () => {
   const {
     state: { loading, languageStatus, languageStatusInitFetchDone },
     fetchLanguageStatus,
-    fetchLanguages,
     setLanguageStatusInitFetchDone,
   } = useContext(LanguageContext)
 
@@ -24,7 +23,6 @@ const LanguageBitButton = () => {
   useEffect(() => {
     if (!languageStatusInitFetchDone) {
       fetchLanguageStatus()
-      fetchLanguages()
       setLanguageStatusInitFetchDone(true)
     }
   }, [languageStatusInitFetchDone])

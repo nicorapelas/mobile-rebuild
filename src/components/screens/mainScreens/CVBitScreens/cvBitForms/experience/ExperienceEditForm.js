@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native'
 import { MaterialIcons, Ionicons } from '@expo/vector-icons'
+import { useKeyboard } from '@react-native-community/hooks'
 
 import FormHintModal from '../../../../../common/modals/FormHintModal'
 import LoaderFullScreen from '../../../../../common/LoaderFullScreen'
@@ -47,6 +48,8 @@ const ExperienceEditForm = () => {
       setTitle(title)
     }
   }, [experienceToEdit])
+
+  const keyboard = useKeyboard()
 
   const errorHeading = () => {
     if (error === null) return null

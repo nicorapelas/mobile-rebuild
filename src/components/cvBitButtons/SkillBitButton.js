@@ -15,7 +15,6 @@ const SkillBitButton = () => {
   const {
     state: { loading, skillStatus, skillStatusInitFetchDone },
     fetchSkillStatus,
-    fetchSkills,
     setSkillStatusInitFetchDone,
   } = useContext(SkillContext)
 
@@ -24,7 +23,6 @@ const SkillBitButton = () => {
   useEffect(() => {
     if (!skillStatusInitFetchDone) {
       fetchSkillStatus()
-      fetchSkills()
       setSkillStatusInitFetchDone(true)
     }
   }, [skillStatusInitFetchDone])

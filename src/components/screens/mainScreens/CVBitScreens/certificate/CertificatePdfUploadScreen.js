@@ -12,10 +12,12 @@ import {
 } from 'react-native'
 import * as DocumentPicker from 'expo-document-picker'
 import { MaterialIcons, AntDesign } from '@expo/vector-icons'
+import { useKeyboard } from '@react-native-community/hooks'
 
 import { keys } from '../../../../../../config/keys_dev'
 import LoaderFullScreen from '../../../../common/LoaderFullScreen'
 import LoaderWithText from '../../../../common/LoaderWithText'
+import FormCancelButton from '../../../../common/FormCancelButton'
 import { Context as CertificateContext } from '../../../../../context/CertificateContext'
 import { Context as NavContext } from '../../../../../context/NavContext'
 import InstructionModal from '../../../../common/modals/InstructionModal'
@@ -34,6 +36,8 @@ const CertificatePdfUploadScreen = () => {
   } = useContext(CertificateContext)
 
   const { setCVBitScreenSelected } = useContext(NavContext)
+
+  const keyboard = useKeyboard()
 
   useEffect(() => {
     ;(async () => {
@@ -137,8 +141,7 @@ const CertificatePdfUploadScreen = () => {
         />
       )
     return (
-      <View>
-        <ScrollView keyboardShouldPersistTaps="always">
+      <View style={styles.textInputBed}>
           <AntDesign name="pdffile1" style={styles.fileSelectedIcon} />
           <Text style={styles.fileSelected}>{pdfUrl.name}</Text>
           <TextInput
@@ -148,22 +151,36 @@ const CertificatePdfUploadScreen = () => {
             value={title}
             onChangeText={setTitle}
             autoCorrect={false}
+            autoFocus={true}
           />
-          <TouchableOpacity
-            style={styles.addButtonContainer}
-            onPress={() => createUploadSignature()}
-          >
-            <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
-            <Text style={styles.addButtonText}>save</Text>
-          </TouchableOpacity>
-        </ScrollView>
+          <View style={styles.buttonContainer}>
+            <FormCancelButton route="certificate" />
+            <TouchableOpacity
+              style={styles.addButtonContainer}
+              onPress={() => createUploadSignature()}
+            >
+              <MaterialIcons style={styles.addButtonIcon} name="add-circle" />
+              <Text style={styles.addButtonText}>save</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     )
   }
 
   const renderContent = () => {
     if (loading) return <LoaderFullScreen />
-    return <View style={styles.bed}>{titleField()}</View>
+    return (
+      <KeyboardAvoidingView
+      style={
+        Platform.OS === 'ios' && keyboard.keyboardShown === false
+          ? styles.bedIos
+          : styles.bedAndroid
+      }
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      {titleField()}
+      </KeyboardAvoidingView>
+  )
   }
 
   return (
@@ -179,11 +196,16 @@ const styles = StyleSheet.create({
     color: '#ffff',
     fontSize: 22,
   },
-  bed: {
+  bedIos: {
     backgroundColor: '#232936',
-    flex: 1,
-    justifyContent: 'center',
     width: '100%',
+    flex: 1,
+    marginTop: -100,
+  },
+  bedAndroid: {
+    backgroundColor: '#232936',
+    width: '100%',
+    flex: 1,
   },
   uploadOptionBed: {
     borderColor: '#7ac6fa',
@@ -235,6 +257,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 10,
   },
+  textInputBed: {
+    paddingTop: '10%'
+  },
   input: {
     backgroundColor: '#ffffff',
     height: 50,
@@ -242,7 +267,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     borderRadius: 7,
-    margin: 5,
+    marginBottom: 10,
   },
   note: {
     color: '#7ac6fa',
@@ -251,6 +276,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: 'center',
     paddingVertical: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   addButtonContainer: {
     backgroundColor: '#278ACD',

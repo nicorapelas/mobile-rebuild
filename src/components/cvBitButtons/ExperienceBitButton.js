@@ -15,7 +15,6 @@ const ExperienceBitButton = () => {
   const {
     state: { loading, experienceStatus, experienceStatusInitFetchDone },
     fetchExperienceStatus,
-    fetchExperiences,
     setExperienceStatusInitFetchDone,
   } = useContext(ExperienceContext)
 
@@ -24,7 +23,6 @@ const ExperienceBitButton = () => {
   useEffect(() => {
     if (!experienceStatusInitFetchDone) {
       fetchExperienceStatus()
-      fetchExperiences()
       setExperienceStatusInitFetchDone(true)
     }
   }, [experienceStatusInitFetchDone])

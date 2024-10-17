@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native'
 import DashboardScreen from './dashboard/DashboardScreen'
 import ViewCVScreen from './viewCV/ViewCVScreen'
 import ShareCVScreen from './shareCVScreen/ShareCVScreen'
+import InitDataFetch from '../../common/InitDataFetch'
 import BannerAdRender from '../../../advertisements/bannerAdsStrip/BannerAdStripRender'
 import { Context as NavContext } from '../../../context/NavContext'
 import { Context as BurgerMenuContext } from '../../../context/BurgerMenuContext'
@@ -38,6 +39,7 @@ const MainViewRender = () => {
     <View style={styles.container}>
       <View style={styles.contentContainer}>{renderContent()}</View>
       <View style={styles.bannerContainer}>
+        <InitDataFetch />
         <BannerAdRender />
       </View>
     </View>

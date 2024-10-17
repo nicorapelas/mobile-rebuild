@@ -15,7 +15,6 @@ const InterestBitButton = () => {
   const {
     state: { loading, interestStatus, interestStatusInitFetchDone },
     fetchInterestStatus,
-    fetchInterests,
     setInterestStatusInitFetchDone,
   } = useContext(InterestContext)
 
@@ -24,7 +23,6 @@ const InterestBitButton = () => {
   useEffect(() => {
     if (!interestStatusInitFetchDone) {
       fetchInterestStatus()
-      fetchInterests()
       setInterestStatusInitFetchDone(true)
     }
   }, [interestStatusInitFetchDone])

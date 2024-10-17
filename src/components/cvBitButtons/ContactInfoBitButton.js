@@ -15,7 +15,6 @@ const ContactInfoBitButton = () => {
   const {
     state: { loading, contactInfoStatus, contactInfoInitFetchDone },
     fetchContactInfoStatus,
-    fetchContactInfo,
     setContactInfoInitStatusFetchDone,
   } = useContext(ContactInfoContext)
 
@@ -24,7 +23,6 @@ const ContactInfoBitButton = () => {
   useEffect(() => {
     if (!contactInfoInitFetchDone) {
       fetchContactInfoStatus()
-      fetchContactInfo()
       setContactInfoInitStatusFetchDone(true)
     }
   }, [contactInfoInitFetchDone])

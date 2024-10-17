@@ -15,7 +15,6 @@ const ReferenceBitButton = () => {
   const {
     state: { loading, referenceStatus, referenceStatusInitFetchDone },
     fetchReferenceStatus,
-    fetchReferences,
     setReferenceStatusInitFetchDone,
   } = useContext(ReferenceContext)
 
@@ -24,7 +23,6 @@ const ReferenceBitButton = () => {
   useEffect(() => {
     if (!referenceStatusInitFetchDone) {
       fetchReferenceStatus()
-      fetchReferences()
       setReferenceStatusInitFetchDone(true)
     }
   }, [referenceStatusInitFetchDone])

@@ -16,7 +16,6 @@ const PhotoBitButton = () => {
 
   const {
     state: { loading, photoStatus, photos, photoStatusInitFetchDone },
-    fetchPhotos,
     fetchPhotoStatus,
     assignPhoto,
     setPhotoStatusInitFetchDone,
@@ -26,7 +25,6 @@ const PhotoBitButton = () => {
 
   useEffect(() => {
     if (!photoStatusInitFetchDone) {
-      fetchPhotos()
       fetchPhotoStatus()
       setPhotoStatusInitFetchDone(true)
     }

@@ -15,7 +15,6 @@ const PersonalInfoBitButton = () => {
   const {
     state: { loading, personalInfoStatus, personalInfoStatusFetchDone },
     fetchPersonalInfoStatus,
-    fetchPersonalInfo,
     setPersonalInfoStatusFetchDone,
   } = useContext(PersonalInfoContext)
 
@@ -24,7 +23,6 @@ const PersonalInfoBitButton = () => {
   useEffect(() => {
     if (!personalInfoStatusFetchDone) {
       fetchPersonalInfoStatus()
-      fetchPersonalInfo()
       setPersonalInfoStatusFetchDone(true)
     }
   }, [personalInfoStatusFetchDone])

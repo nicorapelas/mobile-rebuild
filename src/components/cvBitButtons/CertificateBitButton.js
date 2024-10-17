@@ -16,7 +16,6 @@ const CertificateBitButton = () => {
 
   const {
     state: { loading, certificateStatus, certificates, certificateStatusInitFetchDone },
-    fetchCertificates,
     fetchCertificateStatus,
     setCertificateInitStatusFetchDone,
   } = useContext(CertificateContext)
@@ -25,7 +24,6 @@ const CertificateBitButton = () => {
 
   useEffect(() => {
     if (!certificateStatusInitFetchDone) {
-      fetchCertificates()
       fetchCertificateStatus()
       setCertificateInitStatusFetchDone(true)
     }

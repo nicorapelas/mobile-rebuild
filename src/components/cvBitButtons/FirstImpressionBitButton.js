@@ -16,7 +16,6 @@ const FirstImpressionBitButton = () => {
 
   const {
     state: { loading, firstImpressionStatus, firstImpression, firstImpressionStatusInitFetchDone },
-    fetchFirstImpression,
     fetchFirsImpressionStatus,
     setFirstImpressionStatusInitFetchDone,
   } = useContext(FirstImpressionContext)
@@ -25,7 +24,6 @@ const FirstImpressionBitButton = () => {
 
   useEffect(() => {
     if (!firstImpressionStatusInitFetchDone) {
-      fetchFirstImpression()
       fetchFirsImpressionStatus()
       setFirstImpressionStatusInitFetchDone(true)
     }

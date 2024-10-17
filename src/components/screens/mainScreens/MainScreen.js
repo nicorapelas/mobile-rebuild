@@ -102,6 +102,7 @@ const Main = () => {
       CVBitScreenSelected === 'photoCreate' ||
       CVBitScreenSelected === 'photoEdit' ||
       CVBitScreenSelected === 'certificatePhotoUpload' ||
+      CVBitScreenSelected === 'certificatePdfUpload' ||
       CVBitScreenSelected === 'certificateCreate' ||
       CVBitScreenSelected === 'certificateEdit' ||
       navTabSelected === 'viewCV' ||

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import AttributeScreen from './attribute/AttributeScreen'
 import AttributeCreateScreen from './attribute/AttributeCreateScreen'

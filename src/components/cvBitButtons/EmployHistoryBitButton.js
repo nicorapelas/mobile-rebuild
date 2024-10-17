@@ -15,7 +15,6 @@ const EmployHistoryBitButton = () => {
   const {
     state: { loading, employHistoryStatus, employHistoryStatusInitFetchDone },
     fetchEmployHistoryStatus,
-    fetchEmployHistorys,
     setEmployHistoryStatusInitFetchDone,
   } = useContext(EmployHistoryContext)
 
@@ -24,7 +23,6 @@ const EmployHistoryBitButton = () => {
   useEffect(() => {
     if (!employHistoryStatusInitFetchDone) {
       fetchEmployHistoryStatus()
-      fetchEmployHistorys()
       setEmployHistoryStatusInitFetchDone(true)
     }
   }, [employHistoryStatusInitFetchDone])

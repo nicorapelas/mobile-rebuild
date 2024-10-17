@@ -15,7 +15,6 @@ const PersonalSummaryBitButton = () => {
   const {
     state: { loading, personalSummaryStatus, personalSummaryStatusFetchDone },
     fetchPersonalSummaryStatus,
-    fetchPersonalSummary,
     setPersonalSummaryStatusFetchDone,
   } = useContext(PersonalSummaryContext)
 
@@ -24,7 +23,6 @@ const PersonalSummaryBitButton = () => {
   useEffect(() => {
     if (!personalSummaryStatusFetchDone) {
       fetchPersonalSummaryStatus()
-      fetchPersonalSummary()
       setPersonalSummaryStatusFetchDone(true)
     }
   }, [personalSummaryStatusFetchDone])

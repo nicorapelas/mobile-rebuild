@@ -15,7 +15,6 @@ const AttributeBitButton = () => {
   const {
     state: { loading, attributeStatus, attributeStatusInitFetchDone },
     fetchAttributeStatus,
-    fetchAttributes,
     setAttributeStatusInitFetchDone,
   } = useContext(AttributeContext)
 
@@ -24,7 +23,6 @@ const AttributeBitButton = () => {
   useEffect(() => {
     if (!attributeStatusInitFetchDone) {
       fetchAttributeStatus()
-      fetchAttributes()
       setAttributeStatusInitFetchDone(true)
     }
   }, [attributeStatusInitFetchDone])

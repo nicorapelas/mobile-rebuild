@@ -37,6 +37,21 @@ const InitDataFetch = () => {
 
     useEffect(() => {
         if (!initDataFetchDone) {
+            fetchAttributes()
+            fetchCertificates()
+            fetchContactInfo()
+            fetchEmployHistorys()
+            fetchExperiences()
+            fetchFirstImpression()
+            fetchInterests()
+            fetchLanguages()
+            fetchPersonalInfo()
+            fetchPersonalSummary()
+            fetchPhotos()
+            fetchReferences()
+            fetchSecondEdu()
+            fetchSkills()
+            fetchTertEdus()
             setInitDataFetchDone(true)
         }
     }, [initDataFetchDone])

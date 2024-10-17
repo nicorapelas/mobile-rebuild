@@ -15,7 +15,6 @@ const TertEduBitButton = () => {
   const {
     state: { loading, tertEduStatus, tertEduStatusInitFetchDone },
     fetchTertEduStatus,
-    fetchTertEdus,
     setTertEduStatusInitFetchDone,
   } = useContext(TertEduContext)
 
@@ -24,7 +23,6 @@ const TertEduBitButton = () => {
   useEffect(() => {
     if (!tertEduStatusInitFetchDone) {
       fetchTertEduStatus()
-      fetchTertEdus()
       setTertEduStatusInitFetchDone(true)
     }
   }, [tertEduStatusInitFetchDone])
