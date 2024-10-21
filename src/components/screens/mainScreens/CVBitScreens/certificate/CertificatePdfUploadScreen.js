@@ -122,6 +122,7 @@ const CertificatePdfUploadScreen = () => {
   const pickFromDocuments = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       type: 'application/pdf',
+      copyToCacheDirectory: true,
     })
     if (!result || result.canceled) {
       setCVBitScreenSelected('certificateCreate')
@@ -154,7 +155,7 @@ const CertificatePdfUploadScreen = () => {
             autoFocus={true}
           />
           <View style={styles.buttonContainer}>
-            <FormCancelButton route="certificate" />
+          <FormCancelButton route="certificate" />
             <TouchableOpacity
               style={styles.addButtonContainer}
               onPress={() => createUploadSignature()}

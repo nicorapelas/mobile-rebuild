@@ -94,6 +94,10 @@ const VideoPlaybackUpload = ({ videoObject }) => {
           }
         )
         setVideoUploading(false)
+        clearVideoObject()
+        setLoaderSubText(0)
+        clearUploadSignature()
+        setCVBitScreenSelected('')
       })
       .catch((err) => {
         Alert.alert('Unable to upload video, please try again later')
