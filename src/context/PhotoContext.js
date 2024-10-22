@@ -157,8 +157,8 @@ const deletePhoto = (dispatch) => async (data) => {
 
 const assignPhoto = (dispatch) => async (id) => {
   try {
-    const response = await ngrokApi.post('/api/photo/assign-photo', { id })
-    dispatch({ type: 'PRESET_ASSIGNED_PHOTO_ID', payload: response.data._id })
+    const response1 = await ngrokApi.post('/api/photo/assign-photo', { id })
+    dispatch({ type: 'PRESET_ASSIGNED_PHOTO_ID', payload: response1.data._id })
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
@@ -170,9 +170,8 @@ const clearAssignedPhoto = (dispatch) => () => {
   dispatch({ type: 'CLEAR_ASSIGNED_PHOTO', payload: null })
 }
 
-const resetAssignedPhotoId = (dispatch) => (async) => {
+const resetAssignedPhotoId = (dispatch) => () => {
   dispatch({ type: 'RESET_ASSIGNED_PHOTO_ID', payload: null })
-  return
 }
 
 const setPhotoToEdit = (dispatch) => (data) => {

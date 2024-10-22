@@ -8,10 +8,12 @@ const ShareCV = () => {
   const {
     state: { navTabSelected },
     setNavTabSelected,
+    setCVBitScreenSelected,
   } = useContext(NavContext)
 
   const handlePress = () => {
     setNavTabSelected('shareCV')
+    setCVBitScreenSelected('')
   }
 
   const renderContent = () => {

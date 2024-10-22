@@ -8,10 +8,12 @@ const ViewCV = () => {
   const {
     state: { navTabSelected },
     setNavTabSelected,
+    setCVBitScreenSelected,
   } = useContext(NavContext)
 
   const handlePress = () => {
     setNavTabSelected('viewCV')
+    setCVBitScreenSelected('')
   }
 
   const renderContent = () => {

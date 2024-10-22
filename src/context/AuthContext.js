@@ -139,10 +139,8 @@ const login =
         dispatch({ type: 'STOP_LOADING' })
       }
     } catch (err) {
-      dispatch({
-        type: 'ADD_ERROR',
-        payload: response.data.error,
-      })
+      await ngrokApi.post('/error', { error: err })
+      return
     }
   }
 

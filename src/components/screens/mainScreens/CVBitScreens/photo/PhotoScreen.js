@@ -36,8 +36,12 @@ const PhotoScreen = () => {
   } = useContext(PhotoContext)
 
   useEffect(() => {
-    autoAssignPhoto()
-  }, [photos])
+    console.log(`assignedPhotoId:`, assignedPhotoId);
+  }, [assignedPhotoId])
+
+  // useEffect(() => {
+  //   autoAssignPhoto()
+  // }, [photos])
 
   const autoAssignPhoto = () => {
     if (!photos || photos.length < 1) {
@@ -92,11 +96,12 @@ const PhotoScreen = () => {
           keyExtractor={(photo) => photo._id}
           data={photos}
           renderItem={({ item }) => {
+            console.log(`item._id:`, item._id)
             return (
               <View style={styles.container}>
                 <View>
                   {photoSelected === item._id ||
-                  assignedPhotoId == item._id ||
+                  item._id === assignedPhotoId ||
                   (item.assigned && photoSelected === null) ? (
                     <View style={styles.assignedImage}>
                       <Feather
