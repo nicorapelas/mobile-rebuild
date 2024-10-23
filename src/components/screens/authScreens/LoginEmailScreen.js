@@ -150,17 +150,19 @@ const LoginEmailScreen = () => {
         >
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
-        <View style={styles.navLink}>
-          <NavLink
-            routeName="registerEmail"
-            text="Don't have an account? Register here."
-          />
-        </View>
-        <View style={styles.navLink}>
-          <NavLink
-            routeName="passwordForgot"
-            text="Forgot your password? Reset password here."
-          />
+        <View style={styles.navLinkContainer}>
+          <View style={styles.navLink}>
+            <NavLink
+              routeName="registerEmail"
+              text="Don't have an account? Register here."
+            />
+          </View>
+          <View style={styles.navLink}>
+            <NavLink
+              routeName="passwordForgot"
+              text="Forgot your password? Reset password here."
+            />
+          </View>
         </View>
       </View>
     )
@@ -299,10 +301,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
+  navLinkContainer: {
+    marginTop: 20,
+  },
   navLink: {
-    paddingTop: 20,
     alignSelf: 'center',
-    flexWrap: 'wrap',
+    width: '100%'
   },
 })
 

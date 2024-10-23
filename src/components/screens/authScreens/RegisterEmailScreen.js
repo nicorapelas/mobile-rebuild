@@ -202,11 +202,13 @@ const RegisterEmailScreen = () => {
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         )}
-        <View style={styles.navLink}>
-          <NavLink
-            routeName="loginEmail"
-            text="Already have an account? Login here."
-          />
+        <View style={styles.navLinkContainer}>
+          <View style={styles.navLink}>
+            <NavLink
+              routeName="loginEmail"
+              text="Already have an account? Login here."
+            />
+          </View>
         </View>
       </View>
     )
@@ -352,10 +354,12 @@ const styles = StyleSheet.create({
     fontSize: 27,
     alignSelf: 'center',
   },
+  navLinkContainer: {
+    marginTop: 20,
+  },
   navLink: {
-    paddingTop: 30,
-    flexWrap: 'wrap',
     alignSelf: 'center',
+    width: '100%'
   },
 })
 
