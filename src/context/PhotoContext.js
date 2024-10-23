@@ -7,6 +7,8 @@ const PhotoReducer = (state, action) => {
   switch (action.type) {
     case 'LOADING':
       return { ...state, loading: true }
+    case 'PHOTO_ASSIGN_LOADING':
+      return { ...state, photoAssignLoading: true }
     case 'ADD_ERROR':
       return { ...state, photoError: action.payload, loading: false }
     case 'FETCH_SAMPLE':
@@ -21,11 +23,9 @@ const PhotoReducer = (state, action) => {
       return { ...state, uploadSignature: action.payload }
     case 'CLEAR_UPLOAD_SIGNATURE':
       return { ...state, uploadSignature: action.payload }
-    case 'PRESET_ASSIGNED_PHOTO_ID':
-      return { ...state, assignedPhotoId: action.payload, loading: false }
-    case 'CLEAR_ASSIGNED_PHOTO':
-      return { ...state, assignedPhotoId: action.payload }
-    case 'RESET_ASSIGNED_PHOTO_ID':
+    case 'ASSIGN_PHOTO':
+      return { ...state, photos: action.payload, photoAssignLoading: false }
+    case 'SET_ASSIGNED_PHOTO_ID':
       return { ...state, assignedPhotoId: action.payload }
     case 'FETCH_ASSIGNED_PHOTO':
       return { ...state, assignedPhotoUrl: action.payload }
@@ -156,9 +156,10 @@ const deletePhoto = (dispatch) => async (data) => {
 }
 
 const assignPhoto = (dispatch) => async (id) => {
+  dispatch({ type: 'PHOTO_ASSIGN_LOADING' })
   try {
-    const response1 = await ngrokApi.post('/api/photo/assign-photo', { id })
-    dispatch({ type: 'PRESET_ASSIGNED_PHOTO_ID', payload: response1.data._id })
+    const response = await ngrokApi.post('/api/photo/assign-photo', { id })
+    dispatch({ type: 'ASSIGN_PHOTO', payload: response.data })
     return
   } catch (error) {
     await ngrokApi.post('/error', { error: error })
@@ -166,12 +167,8 @@ const assignPhoto = (dispatch) => async (id) => {
   }
 }
 
-const clearAssignedPhoto = (dispatch) => () => {
-  dispatch({ type: 'CLEAR_ASSIGNED_PHOTO', payload: null })
-}
-
-const resetAssignedPhotoId = (dispatch) => () => {
-  dispatch({ type: 'RESET_ASSIGNED_PHOTO_ID', payload: null })
+const setAssignedPhotoId = (dispatch) => (value) => {
+  dispatch({ type: 'SET_ASSIGNED_PHOTO_ID', payload: value })
 }
 
 const setPhotoToEdit = (dispatch) => (data) => {
@@ -210,8 +207,7 @@ export const { Context, Provider } = createDataContext(
     deleteSmallPhoto,
     deletePhoto,
     assignPhoto,
-    clearAssignedPhoto,
-    resetAssignedPhotoId,
+    setAssignedPhotoId,
     setPhotoStatusInitFetchDone,
   },
   // Initial state

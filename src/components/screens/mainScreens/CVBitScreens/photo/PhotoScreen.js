@@ -29,41 +29,23 @@ const PhotoScreen = () => {
   const { setCVBitScreenSelected } = useContext(NavContext)
 
   const {
-    state: { loading, photos, assignedPhotoId },
+    state: { loading, photos, photoAssignLoading },
     assignPhoto,
-    resetAssignedPhotoId,
     setPhotoToEdit,
+    setAssignedPhotoId,
   } = useContext(PhotoContext)
-
+  
   useEffect(() => {
-    console.log(`assignedPhotoId:`, assignedPhotoId);
-  }, [assignedPhotoId])
-
-  // useEffect(() => {
-  //   autoAssignPhoto()
-  // }, [photos])
-
-  const autoAssignPhoto = () => {
-    if (!photos || photos.length < 1) {
-      return null
+    if (photos && photos.length > 0) {
+      const photoAssigned = photos.filter(ph => {
+        return ph.assigned === true
+      })
+      setAssignedPhotoId(photoAssigned[0]._id)
     }
-    if (photos.length === 1) {
-      assignPhoto(photos[0]._id)
-      return
-    }
-    const previousAssignedPhoto = photos.filter((photo) => {
-      return photo.assigned === true
-    })
-    if (previousAssignedPhoto.length < 1) {
-      return null
-    } else {
-      assignPhoto(previousAssignedPhoto[0]._id)
-    }
-  }
+  }, [photos])
 
   const handlePressUsePhoto = (data) => {
     setPhotoSelected(data._id)
-    resetAssignedPhotoId()
     assignPhoto(data._id)
   }
 
@@ -96,31 +78,41 @@ const PhotoScreen = () => {
           keyExtractor={(photo) => photo._id}
           data={photos}
           renderItem={({ item }) => {
-            console.log(`item._id:`, item._id)
             return (
               <View style={styles.container}>
                 <View>
-                  {photoSelected === item._id ||
-                  item._id === assignedPhotoId ||
-                  (item.assigned && photoSelected === null) ? (
-                    <View style={styles.assignedImage}>
-                      <Feather
-                        style={styles.assignedImageIcon}
-                        name="check-circle"
-                        size={24}
-                      />
-                      <Text style={styles.assignedImageText}>assigned</Text>
-                    </View>
-                  ) : (
-                    <TouchableOpacity
+                  {
+                    photoAssignLoading ? (
+                      <View
                       style={styles.assignImageButton}
                       onPress={() => handlePressUsePhoto(item)}
                     >
                       <Text style={styles.assignImageButtonText}>
-                        use photo
+                        updating...
                       </Text>
-                    </TouchableOpacity>
-                  )}
+                    </View>
+                    ) : (
+                      item.assigned || item._id === photoSelected ? (
+                        <View style={styles.assignedImage}>
+                          <Feather
+                            style={styles.assignedImageIcon}
+                            name="check-circle"
+                            size={24}
+                          />
+                          <Text style={styles.assignedImageText}>assigned</Text>
+                        </View>
+                      ) : (
+                        <TouchableOpacity
+                          style={styles.assignImageButton}
+                          onPress={() => handlePressUsePhoto(item)}
+                        >
+                          <Text style={styles.assignImageButtonText}>
+                            use photo
+                          </Text>
+                        </TouchableOpacity>
+                      )
+                    )
+                  }
                   <View style={styles.imageBed}>
                     <Image
                       style={styles.photo}

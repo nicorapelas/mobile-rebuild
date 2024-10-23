@@ -42,7 +42,7 @@ const DeleteModal = ({
   const {
     state: { assignedPhotoId },
     deletePhoto,
-    clearAssignedPhoto,
+    setAssignedPhotoId,
   } = useContext(PhotoContext)
   const { deleteSecondEdu } = useContext(SecondEduContext)
   const { deleteReference } = useContext(ReferenceContext)
@@ -87,7 +87,7 @@ const DeleteModal = ({
   const photoDelete = () => {
     if (assignedPhotoId === id) {
       deletePhoto({ id, publicId }, () => {
-        clearAssignedPhoto()
+        setAssignedPhotoId(null)
       })
       return
     }
