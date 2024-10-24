@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
   photoText: {
     color: '#ffff',
     fontSize: 8,
-    marginTop: 3,
+    marginTop: 5,
+    alignSelf: 'center',
   },
   button: {
     backgroundColor: '#278acd',
